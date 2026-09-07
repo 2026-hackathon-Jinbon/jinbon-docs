@@ -1,0 +1,17 @@
+%% title: 보증서 발급이 늦어져도 등록 기록은 유지됩니다
+%% subtitle: 영상 등록과 보증서 발급을 분리해, 발급 실패 시 다시 시도할 수 있습니다.
+%% footer: 블록체인 등록이 확정된 뒤, 보증서 발급을 진행합니다.
+%%{init: {"theme":"base","htmlLabels":false,"themeVariables":{"primaryColor":"#FFFFFF","primaryTextColor":"#111827","primaryBorderColor":"#D0D5DD","secondaryColor":"#F7F8FC","secondaryTextColor":"#111827","secondaryBorderColor":"#D0D5DD","tertiaryColor":"#FFFFFF","tertiaryTextColor":"#111827","tertiaryBorderColor":"#D0D5DD","background":"#F7F8FC","mainBkg":"#EEF4FF","textColor":"#111827","lineColor":"#98A2B3","edgeLabelBackground":"#FFFFFF","clusterBkg":"#F7F8FC","clusterBorder":"#EAECF0","titleColor":"#111827","nodeTextColor":"#111827","fontFamily":"Arial, Apple SD Gothic Neo, sans-serif","fontSize":"17px"},"themeCSS":".node rect, .node polygon { stroke-width: 1px; } .node rect { rx: 12px; ry: 12px; } .cluster rect { rx: 16px; ry: 16px; } .edgeLabel { background-color: #FFFFFF; color: #475467; } .node .text-outer-tspan:first-child .text-inner-tspan { font-weight: 600; } .node .text-outer-tspan:nth-child(n+2) .text-inner-tspan { font-size: 14px; opacity: 0.85; }","flowchart":{"htmlLabels":false,"curve":"basis","nodeSpacing":28,"rankSpacing":42,"padding":18,"diagramPadding":16},"sequence":{"actorMargin":36,"width":135,"height":52,"boxMargin":12,"messageMargin":32,"mirrorActors":false,"useMaxWidth":true}}}%%
+flowchart LR
+ A("영상 등록"):::jbInput --> B("블록체인 확정<br/>등록 기록 저장"):::jbPrimary
+ B --> C("보증서 발급"):::jbSoft
+ C -->|성공| D("등록 + 보증서 완료"):::jbSuccess
+ C -->|실패| E("등록 기록 유지"):::jbInput
+ E -. 재시도 .-> C
+
+  classDef jbInput fill:#FFFFFF,stroke:#D0D5DD,stroke-width:1px,color:#111827
+  classDef jbSoft fill:#EEF4FF,stroke:#C3D3FC,stroke-width:1px,color:#1943BE
+  classDef jbPrimary fill:#2457E6,stroke:#2457E6,stroke-width:1px,color:#FFFFFF
+  classDef jbInk fill:#111827,stroke:#111827,stroke-width:1px,color:#FFFFFF
+  classDef jbSuccess fill:#ECFDF3,stroke:#12B76A,stroke-width:1px,color:#05603A
+  classDef jbWarning fill:#FFFAEB,stroke:#F79009,stroke-width:1px,color:#93370D

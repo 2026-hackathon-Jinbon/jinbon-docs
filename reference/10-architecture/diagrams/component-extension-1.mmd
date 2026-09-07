@@ -1,0 +1,20 @@
+%% title: 동작 흐름
+%% subtitle: JinBon · 기술 reference
+%% footer: 상세 흐름과 용어는 본문의 설명을 함께 참고하세요.
+%%{init: {"theme":"base","htmlLabels":false,"themeVariables":{"primaryColor":"#FFFFFF","primaryTextColor":"#111827","primaryBorderColor":"#D0D5DD","secondaryColor":"#F7F8FC","secondaryTextColor":"#111827","secondaryBorderColor":"#D0D5DD","tertiaryColor":"#FFFFFF","tertiaryTextColor":"#111827","tertiaryBorderColor":"#D0D5DD","background":"#F7F8FC","mainBkg":"#EEF4FF","textColor":"#111827","lineColor":"#98A2B3","edgeLabelBackground":"#FFFFFF","clusterBkg":"#F7F8FC","clusterBorder":"#EAECF0","titleColor":"#111827","nodeTextColor":"#111827","actorBkg":"#EEF4FF","actorBorder":"#2457E6","actorTextColor":"#111827","actorLineColor":"#D0D5DD","signalColor":"#475467","signalTextColor":"#111827","noteBkgColor":"#F7F8FC","noteBorderColor":"#D0D5DD","noteTextColor":"#475467","activationBkgColor":"#EEF4FF","activationBorderColor":"#2457E6","labelBoxBkgColor":"#EEF4FF","labelBoxBorderColor":"#2457E6","labelTextColor":"#111827","loopTextColor":"#111827","fontFamily":"Arial, Apple SD Gothic Neo, sans-serif","fontSize":"17px"},"themeCSS":".node rect, .node polygon { stroke-width: 1px; } .node rect { rx: 12px; ry: 12px; } .cluster rect { rx: 16px; ry: 16px; } .edgeLabel { background-color: #FFFFFF; color: #475467; }","flowchart":{"htmlLabels":false,"curve":"basis","nodeSpacing":28,"rankSpacing":42,"padding":18,"diagramPadding":16},"sequence":{"actorMargin":36,"width":135,"height":52,"boxMargin":12,"messageMargin":32,"mirrorActors":false,"useMaxWidth":true}}}%%
+sequenceDiagram
+  participant U as 사용자
+  participant C as content.js
+  participant B as background.js
+  participant S as 진본 백엔드
+
+  U->>C: 영상 페이지 진입
+  C->>C: 우하단에 "진본 확인" 버튼 주입
+  U->>C: 버튼 클릭
+  C->>C: 패널을 "진본 확인 중"으로 표시
+  C->>B: sendMessage(JINBON_VERIFY_URL, {url, title, pageUrl})
+  B->>B: chrome.storage.sync에서 apiBaseUrl 조회
+  B->>S: POST {apiBaseUrl}/api/verify/url
+  S-->>B: CommonResponse
+  B-->>C: {ok, data} 또는 {ok:false, error}
+  C->>U: 결과 패널 렌더링

@@ -1,0 +1,19 @@
+%% title: 세 개의 접점, 하나의 검증 흐름
+%% subtitle: 사용자는 앱·웹·확장으로 접근하고, 진본이 증명 기술을 연결합니다.
+%% footer: 실선: 백엔드 연동   ·   점선: iOS Wallet SDK 직접 연동
+%%{init: {"theme":"base","htmlLabels":false,"themeVariables":{"primaryColor":"#FFFFFF","primaryTextColor":"#111827","primaryBorderColor":"#D0D5DD","secondaryColor":"#F7F8FC","secondaryTextColor":"#111827","secondaryBorderColor":"#D0D5DD","tertiaryColor":"#FFFFFF","tertiaryTextColor":"#111827","tertiaryBorderColor":"#D0D5DD","background":"#F7F8FC","mainBkg":"#EEF4FF","textColor":"#111827","lineColor":"#98A2B3","edgeLabelBackground":"#FFFFFF","clusterBkg":"#F7F8FC","clusterBorder":"#EAECF0","titleColor":"#111827","nodeTextColor":"#111827","fontFamily":"Arial, Apple SD Gothic Neo, sans-serif","fontSize":"17px"},"themeCSS":".node rect, .node polygon { stroke-width: 1px; } .node rect { rx: 12px; ry: 12px; } .cluster rect { rx: 16px; ry: 16px; } .edgeLabel { background-color: #FFFFFF; color: #475467; } .node .text-outer-tspan:first-child .text-inner-tspan { font-weight: 600; } .node .text-outer-tspan:nth-child(n+2) .text-inner-tspan { font-size: 14px; opacity: 0.85; }","flowchart":{"htmlLabels":false,"curve":"basis","nodeSpacing":28,"rankSpacing":42,"padding":18,"diagramPadding":16},"sequence":{"actorMargin":36,"width":135,"height":52,"boxMargin":12,"messageMargin":32,"mirrorActors":false,"useMaxWidth":true}}}%%
+flowchart LR
+  IOS("iOS 앱<br/>영상 등록 · 보증서 보관"):::jbSoft --> BE("진본 백엔드<br/>해시 계산 · 등록 · 검증"):::jbPrimary
+  WEB("검증 웹<br/>파일 업로드로 검증"):::jbInput --> BE
+  EXT("Chrome 확장<br/>시청 중인 영상 검증"):::jbInput --> BE
+  BE --> CX("본인확인<br/>OmniOne CX"):::jbSoft
+  BE --> DID("보증서 발급·검증<br/>Open DID"):::jbSoft
+  BE --> CH("등록 기록 저장·대조<br/>OmniOne Chain"):::jbSoft
+  IOS -. Wallet SDK .-> DID
+
+  classDef jbInput fill:#FFFFFF,stroke:#D0D5DD,stroke-width:1px,color:#111827
+  classDef jbSoft fill:#EEF4FF,stroke:#C3D3FC,stroke-width:1px,color:#1943BE
+  classDef jbPrimary fill:#2457E6,stroke:#2457E6,stroke-width:1px,color:#FFFFFF
+  classDef jbInk fill:#111827,stroke:#111827,stroke-width:1px,color:#FFFFFF
+  classDef jbSuccess fill:#ECFDF3,stroke:#12B76A,stroke-width:1px,color:#05603A
+  classDef jbWarning fill:#FFFAEB,stroke:#F79009,stroke-width:1px,color:#93370D

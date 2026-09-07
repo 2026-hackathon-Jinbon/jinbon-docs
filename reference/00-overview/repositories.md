@@ -3,22 +3,9 @@
 진본은 네 개의 저장소로 구성됩니다. 모든 클라이언트는 백엔드 하나만 바라보며,
 클라이언트끼리 직접 통신하지 않습니다.
 
-```mermaid
-graph LR
-  IOS[jinbon-ios<br/>iOS Wallet 앱]
-  WEB[jinbon-web<br/>검증 웹]
-  EXT[jinbon-extension<br/>Chrome 확장]
-  BE[jinbon-backend<br/>Spring Boot API]
+<img src="diagrams/repositories-1.png" alt="저장소 지도" width="760">
 
-  IOS -->|등록·검증·인증| BE
-  WEB -->|파일 검증| BE
-  EXT -->|URL 검증| BE
-
-  BE --> CX[OmniOne CX<br/>모바일 신분증]
-  BE --> DID[Open DID<br/>Issuer / Verifier]
-  BE --> CHAIN[OmniOne Chain<br/>JinBon.sol]
-  IOS -.->|Wallet 프로토콜| DID
-```
+[크게 보기](diagrams/repositories-1.png) · [Mermaid 원본](diagrams/repositories-1.mmd)
 
 iOS 앱만 예외적으로 Open DID 서버군과 **직접** 통신합니다.
 Wallet SDK가 DID 생성과 VC 수령을 담당하기 때문이며, 이 경로는 백엔드를 거치지 않습니다.
@@ -76,7 +63,7 @@ OmniOne의 오픈소스 `did-ca-ios`를 포크해 진본 기능을 얹은 Wallet
 
 ## jinbon-extension
 
-YouTube·Netflix 시청 페이지에서 바로 검증하는 Chrome 확장입니다.
+YouTube·Instagram 시청 페이지에서 바로 검증하는 Chrome 확장입니다.
 
 | 항목 | 값 |
 |---|---|
@@ -84,7 +71,7 @@ YouTube·Netflix 시청 페이지에서 바로 검증하는 Chrome 확장입니�
 | 버전 | 0.1.0 |
 | 구현 | 순수 JavaScript (빌드 도구 없음) |
 | 권한 | `storage`, `activeTab` |
-| 호스트 권한 | `localhost:8070`, YouTube, Netflix |
+| 호스트 권한 | `localhost:8070`, YouTube |
 
 `src/content.js`가 페이지에 버튼을 주입하고, `src/background.js`가 백엔드를 호출하며,
 `src/popup.html`에서 백엔드 주소를 바꿀 수 있습니다.

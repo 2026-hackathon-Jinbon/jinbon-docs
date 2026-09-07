@@ -4,45 +4,9 @@
 
 ## 전체 순서
 
-```mermaid
-sequenceDiagram
-  participant A as 앱
-  participant B as 백엔드
-  participant DB as PostgreSQL
-  participant CH as OmniOne Chain
-  participant IS as Open DID Issuer
+<img src="diagrams/video-register-1.png" alt="전체 순서" width="760">
 
-  A->>B: POST /api/videos (file, title)
-  B->>B: 회원 조회 + ISSUER 권한·DID 확인
-  B->>B: fineHash = SHA-256(파일)
-  B->>DB: fineHash로 기존 영상 조회
-  alt 같은 회원의 동일 파일
-    B-->>A: 기존 결과 (alreadyRegistered=true)
-  else 다른 회원의 동일 파일
-    B-->>A: 409 VIDEO_ALREADY_REGISTERED
-  end
-
-  B->>B: perceptualHash = 프레임별 pHash
-  B->>DB: 동일 콘텐츠 영상 조회 (거리 0)
-  Note over B,DB: 소유자 판정은 위와 동일
-
-  B->>B: merkleRoot = SHA-256(pHash + fineHash)
-  B->>B: signature = HMAC-SHA256(issuerDid + merkleRoot)
-  B->>DB: saveAndFlush (unique 제약으로 등록 권한 선점)
-  B->>CH: register(merkleRoot, issuerDid, signature)
-  CH-->>B: txHash
-  B->>CH: 영수증 폴링 (250ms × 최대 20회)
-  CH-->>B: blockNumber
-  B->>DB: recordBlockchain(blockNumber, txHash)
-
-  B->>CH: getRecord(merkleRoot) 재조회
-  B->>B: 온체인 값과 DB 값 대조
-  B->>IS: Holder DID + 보증 클레임 등록
-  B->>IS: 발급 Offer 생성
-  IS-->>B: offerId, issuerDid
-  B->>DB: markVcPending(...) → PENDING_WALLET
-  B-->>A: videoId, merkleRoot, txHash, blockNumber,<br/>vcPlanId, vcIssuerDid, vcOfferId
-```
+[크게 보기](diagrams/video-register-1.png) · [Mermaid 원본](diagrams/video-register-1.mmd)
 
 ## 단계별 상세
 

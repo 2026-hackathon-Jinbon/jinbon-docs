@@ -62,36 +62,9 @@ snapshotHash = SHA-256(canonicalClaims + "\n" + credentialIssuerDid)
 
 ## 발급 순서
 
-```mermaid
-sequenceDiagram
-  participant A as 앱
-  participant B as 백엔드
-  participant IS as Open DID Issuer
-  participant W as Wallet SDK
+<img src="diagrams/vc-issuance-1.png" alt="발급 순서" width="760">
 
-  Note over B: 영상 등록 트랜잭션 확정 직후
-  B->>B: verifyBlockchainEvidence(video)
-  B->>B: VideoCertificateClaims.create(video)
-  B->>IS: prepareHolder(holderDid, claims)
-  B->>IS: createIssueOffer()
-  IS-->>B: offerId, issuerDid
-  B->>B: markVcPending(...) → PENDING_WALLET
-  B-->>A: vcPlanId, vcIssuerDid, vcOfferId
-
-  A->>A: "등록 보증서를 발급할까요?" 확인
-  A->>W: offerId로 발급 시작
-  W->>A: 사용자 동의 + PIN 인증
-  W->>IS: issue-vc → confirm
-  IS-->>W: VC
-  W->>W: Wallet에 로컬 저장
-  W-->>A: vcId
-
-  A->>B: POST /api/videos/{id}/vc/complete (vcId, offerId)
-  B->>B: offerId 일치 확인
-  B->>B: Verifier로 vcId 검증
-  B->>B: completeVcIssuance() → ISSUED
-  B-->>A: 200
-```
+[크게 보기](diagrams/vc-issuance-1.png) · [Mermaid 원본](diagrams/vc-issuance-1.mmd)
 
 Issuer-Initiated 방식이며, Wallet 측 프로토콜은
 `request-offer → inspect-propose → generate-profile → issue-vc → complete-vc` 순서입니다.

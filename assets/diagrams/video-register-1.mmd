@@ -1,0 +1,41 @@
+%% title: 전체 순서
+%% subtitle: JinBon · 기술 reference
+%% footer: 상세 흐름과 용어는 본문의 설명을 함께 참고하세요.
+%%{init: {"theme":"base","htmlLabels":false,"themeVariables":{"primaryColor":"#FFFFFF","primaryTextColor":"#111827","primaryBorderColor":"#D0D5DD","secondaryColor":"#F7F8FC","secondaryTextColor":"#111827","secondaryBorderColor":"#D0D5DD","tertiaryColor":"#FFFFFF","tertiaryTextColor":"#111827","tertiaryBorderColor":"#D0D5DD","background":"#F7F8FC","mainBkg":"#EEF4FF","textColor":"#111827","lineColor":"#98A2B3","edgeLabelBackground":"#FFFFFF","clusterBkg":"#F7F8FC","clusterBorder":"#EAECF0","titleColor":"#111827","nodeTextColor":"#111827","actorBkg":"#EEF4FF","actorBorder":"#2457E6","actorTextColor":"#111827","actorLineColor":"#D0D5DD","signalColor":"#475467","signalTextColor":"#111827","noteBkgColor":"#F7F8FC","noteBorderColor":"#D0D5DD","noteTextColor":"#475467","activationBkgColor":"#EEF4FF","activationBorderColor":"#2457E6","labelBoxBkgColor":"#EEF4FF","labelBoxBorderColor":"#2457E6","labelTextColor":"#111827","loopTextColor":"#111827","fontFamily":"Arial, Apple SD Gothic Neo, sans-serif","fontSize":"17px"},"themeCSS":".node rect, .node polygon { stroke-width: 1px; } .node rect { rx: 12px; ry: 12px; } .cluster rect { rx: 16px; ry: 16px; } .edgeLabel { background-color: #FFFFFF; color: #475467; }","flowchart":{"htmlLabels":false,"curve":"basis","nodeSpacing":28,"rankSpacing":42,"padding":18,"diagramPadding":16},"sequence":{"actorMargin":36,"width":135,"height":52,"boxMargin":12,"messageMargin":32,"mirrorActors":false,"useMaxWidth":true}}}%%
+sequenceDiagram
+  participant A as 앱
+  participant B as 백엔드
+  participant DB as PostgreSQL
+  participant CH as OmniOne Chain
+  participant IS as Open DID Issuer
+
+  A->>B: POST /api/videos (file, title)
+  B->>B: 회원 조회 + ISSUER 권한·DID 확인
+  B->>B: fineHash = SHA-256(파일)
+  B->>DB: fineHash로 기존 영상 조회
+  alt 같은 회원의 동일 파일
+    B-->>A: 기존 결과 (alreadyRegistered=true)
+  else 다른 회원의 동일 파일
+    B-->>A: 409 VIDEO_ALREADY_REGISTERED
+  end
+
+  B->>B: perceptualHash = 프레임별 pHash
+  B->>DB: 동일 콘텐츠 영상 조회 (거리 0)
+  Note over B,DB: 소유자 판정은 위와 동일
+
+  B->>B: merkleRoot = SHA-256(pHash + fineHash)
+  B->>B: signature = HMAC-SHA256(issuerDid + merkleRoot)
+  B->>DB: saveAndFlush (unique 제약으로 등록 권한 선점)
+  B->>CH: register(merkleRoot, issuerDid, signature)
+  CH-->>B: txHash
+  B->>CH: 영수증 폴링 (250ms × 최대 20회)
+  CH-->>B: blockNumber
+  B->>DB: recordBlockchain(blockNumber, txHash)
+
+  B->>CH: getRecord(merkleRoot) 재조회
+  B->>B: 온체인 값과 DB 값 대조
+  B->>IS: Holder DID + 보증 클레임 등록
+  B->>IS: 발급 Offer 생성
+  IS-->>B: offerId, issuerDid
+  B->>DB: markVcPending(...) → PENDING_WALLET
+  B-->>A: videoId, merkleRoot, txHash, blockNumber,<br/>vcPlanId, vcIssuerDid, vcOfferId

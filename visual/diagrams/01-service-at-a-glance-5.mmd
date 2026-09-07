@@ -1,0 +1,19 @@
+%% title: 등록은 앱에서, 검증은 누구나
+%% subtitle: 등록자는 자신의 영상을 남기고, 이용자는 편한 채널에서 확인합니다.
+%% footer: 웹·Chrome 확장의 검증은 로그인 없이 이용할 수 있습니다.
+%%{init: {"theme":"base","htmlLabels":false,"themeVariables":{"primaryColor":"#FFFFFF","primaryTextColor":"#111827","primaryBorderColor":"#D0D5DD","secondaryColor":"#F7F8FC","secondaryTextColor":"#111827","secondaryBorderColor":"#D0D5DD","tertiaryColor":"#FFFFFF","tertiaryTextColor":"#111827","tertiaryBorderColor":"#D0D5DD","background":"#F7F8FC","mainBkg":"#EEF4FF","textColor":"#111827","lineColor":"#98A2B3","edgeLabelBackground":"#FFFFFF","clusterBkg":"#F7F8FC","clusterBorder":"#EAECF0","titleColor":"#111827","nodeTextColor":"#111827","fontFamily":"Arial, Apple SD Gothic Neo, sans-serif","fontSize":"17px"},"themeCSS":".node rect, .node polygon { stroke-width: 1px; } .node rect { rx: 12px; ry: 12px; } .cluster rect { rx: 16px; ry: 16px; } .edgeLabel { background-color: #FFFFFF; color: #475467; } .node .text-outer-tspan:first-child .text-inner-tspan { font-weight: 600; } .node .text-outer-tspan:nth-child(n+2) .text-inner-tspan { font-size: 14px; opacity: 0.85; }","flowchart":{"htmlLabels":false,"curve":"basis","nodeSpacing":28,"rankSpacing":42,"padding":18,"diagramPadding":16},"sequence":{"actorMargin":36,"width":135,"height":52,"boxMargin":12,"messageMargin":32,"mirrorActors":false,"useMaxWidth":true}}}%%
+flowchart LR
+ I("등록자"):::jbPrimary -->|등록| APP("iOS 앱<br/>등록 · 검증 · 보증서"):::jbSoft
+ U("누구나"):::jbInput -->|검증| WEB("웹<br/>영상 파일 업로드"):::jbSoft
+ U -->|검증| EXT("Chrome 확장<br/>YouTube 영상 확인"):::jbSoft
+ U -->|검증| APP
+ APP --> BE("진본 백엔드<br/>등록 기록과 대조"):::jbInk
+ WEB --> BE
+ EXT --> BE
+
+  classDef jbInput fill:#FFFFFF,stroke:#D0D5DD,stroke-width:1px,color:#111827
+  classDef jbSoft fill:#EEF4FF,stroke:#C3D3FC,stroke-width:1px,color:#1943BE
+  classDef jbPrimary fill:#2457E6,stroke:#2457E6,stroke-width:1px,color:#FFFFFF
+  classDef jbInk fill:#111827,stroke:#111827,stroke-width:1px,color:#FFFFFF
+  classDef jbSuccess fill:#ECFDF3,stroke:#12B76A,stroke-width:1px,color:#05603A
+  classDef jbWarning fill:#FFFAEB,stroke:#F79009,stroke-width:1px,color:#93370D

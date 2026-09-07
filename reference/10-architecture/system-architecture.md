@@ -2,53 +2,16 @@
 
 ## 전체 구성
 
-```mermaid
-graph TB
-  subgraph 클라이언트
-    IOS[iOS Wallet 앱]
-    WEB[검증 웹 :8071]
-    EXT[Chrome 확장]
-  end
+<img src="diagrams/system-architecture-1.png" alt="클라이언트에서 증명 인프라까지" width="760">
 
-  subgraph 진본 백엔드 :8070
-    API[REST API]
-    HASH[해시 · 지각해시 엔진]
-    SEC[JWT 인증 · 권한]
-  end
-
-  subgraph 진본 인프라
-    PG[(PostgreSQL :5432)]
-    RD[(Redis :6380)]
-  end
-
-  subgraph 외부 연동
-    CX[OmniOne CX<br/>모바일 신분증]
-    ISS[Open DID Issuer :8091]
-    VER[Open DID Verifier :8092]
-    CHAIN[OmniOne Chain<br/>JinBon.sol]
-  end
-
-  IOS --> API
-  WEB --> API
-  EXT --> API
-  API --> HASH
-  API --> SEC
-  API --> PG
-  API --> RD
-  API --> CX
-  API --> ISS
-  API --> VER
-  API --> CHAIN
-  IOS -.Wallet 프로토콜.-> ISS
-```
+[크게 보기](diagrams/system-architecture-1.png) · [Mermaid 원본](diagrams/system-architecture-1.mmd)
 
 기존에 만들어 둔 구성도 이미지는 백엔드 저장소에 있습니다.
 
 - `jinbon-backend/docs/system_diagram.png` — 시스템 구성도
 - `jinbon-backend/docs/jinbon_selection_task.png` — 선택과제 조합
 
-시각 자료는 [화면 흐름](../../visual/02-screen-flow.md)과
-[핵심 시퀀스](../../visual/03-key-sequences.md)에 정리되어 있습니다.
+시각 자료는 [서비스 한눈에](../../visual/01-service-at-a-glance.md)에 정리되어 있습니다.
 
 ## 계층별 책임
 

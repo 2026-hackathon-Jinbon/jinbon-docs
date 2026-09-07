@@ -9,28 +9,9 @@
 
 ## 판정 순서
 
-```mermaid
-flowchart TD
-  START[검증 요청] --> CACHE{Redis 캐시 있음?}
-  CACHE -->|HIT| RET[즉시 반환]
-  CACHE -->|MISS| FINE[fineHash 계산]
-  FINE --> EXACT{fineHash 일치 영상?}
-  EXACT -->|있음| BUILD[결과 생성: EXACT_MATCH]
-  EXACT -->|없음| PH[perceptualHash 계산]
-  PH --> SIM{해밍 거리 < 10인 영상?}
-  SIM -->|없음| NR[NOT_REGISTERED]
-  SIM -->|거리 0| SC[결과 생성: SAME_CONTENT]
-  SIM -->|거리 0 초과| SM[결과 생성: SIMILAR_MATCH]
-  BUILD --> CHECK
-  SC --> CHECK
-  SM --> CHECK
-  CHECK{활성 영상?} -->|아니오| REV[REGISTERED_BUT_REVOKED]
-  CHECK -->|예| BC[온체인 검증 + VC 검증]
-  BC --> FINAL[최종 verdict 산출]
-  FINAL --> CACHE2[캐싱 후 반환]
-  NR --> CACHE2
-  REV --> CACHE2
-```
+<img src="diagrams/video-verify-1.png" alt="판정 순서" width="760">
+
+[크게 보기](diagrams/video-verify-1.png) · [Mermaid 원본](diagrams/video-verify-1.mmd)
 
 ## 1단계: 캐시
 
@@ -158,21 +139,9 @@ authentic = blockchainVerified && !verificationUnavailable && !certificateInvali
 
 ## URL 검증의 추가 절차
 
-```mermaid
-flowchart TD
-  U[URL 수신] --> V{HTTPS?}
-  V -->|아니오| REJ[VIDEO_DOWNLOAD_FAILED]
-  V -->|예| H{허용 호스트?}
-  H -->|아니오| REJ
-  H -->|예| P{userInfo·명시 포트 없음?}
-  P -->|아니오| REJ
-  P -->|예| D{모든 DNS 결과가 공인 IP?}
-  D -->|아니오| REJ
-  D -->|예| DL[yt-dlp 다운로드]
-  DL --> HASH[해시 계산]
-  HASH --> DEL[파일 즉시 삭제]
-  DEL --> STD[일반 검증 절차로 합류]
-```
+<img src="diagrams/video-verify-2.png" alt="URL 검증의 추가 절차" width="760">
+
+[크게 보기](diagrams/video-verify-2.png) · [Mermaid 원본](diagrams/video-verify-2.mmd)
 
 허용 호스트: `youtube.com`, `youtu.be`, `instagram.com`, `tiktok.com`,
 `twitter.com`, `x.com`, `vimeo.com` (서브도메인 포함)
