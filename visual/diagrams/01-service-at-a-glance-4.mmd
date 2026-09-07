@@ -1,0 +1,15 @@
+%% title: 세 가지 기술이 서로 다른 질문에 답합니다
+%% subtitle: 필수 과제 1개와 선택 과제 2개를 하나의 서비스로 연결했습니다.
+%% footer: 각 기술은 본인확인, 기록 대조, 보증서 확인이라는 별도의 역할을 맡습니다.
+%%{init: {"theme":"base","htmlLabels":false,"themeVariables":{"primaryColor":"#FFFFFF","primaryTextColor":"#111827","primaryBorderColor":"#D0D5DD","secondaryColor":"#F7F8FC","secondaryTextColor":"#111827","secondaryBorderColor":"#D0D5DD","tertiaryColor":"#FFFFFF","tertiaryTextColor":"#111827","tertiaryBorderColor":"#D0D5DD","background":"#F7F8FC","mainBkg":"#EEF4FF","textColor":"#111827","lineColor":"#98A2B3","edgeLabelBackground":"#FFFFFF","clusterBkg":"#F7F8FC","clusterBorder":"#EAECF0","titleColor":"#111827","nodeTextColor":"#111827","fontFamily":"Arial, Apple SD Gothic Neo, sans-serif","fontSize":"17px"},"themeCSS":".node rect, .node polygon { stroke-width: 1px; } .node rect { rx: 12px; ry: 12px; } .cluster rect { rx: 16px; ry: 16px; } .edgeLabel { background-color: #FFFFFF; color: #475467; } .node .text-outer-tspan:first-child .text-inner-tspan { font-weight: 600; } .node .text-outer-tspan:nth-child(n+2) .text-inner-tspan { font-size: 14px; opacity: 0.85; }","flowchart":{"htmlLabels":false,"curve":"basis","nodeSpacing":28,"rankSpacing":42,"padding":18,"diagramPadding":16},"sequence":{"actorMargin":36,"width":135,"height":52,"boxMargin":12,"messageMargin":32,"mirrorActors":false,"useMaxWidth":true}}}%%
+flowchart LR
+ CX("필수 · OmniOne CX<br/>등록자가 본인인가?"):::jbSoft -->|본인확인| J("진본<br/>영상 등록 · 검증"):::jbPrimary
+ OC("선택 2 · OmniOne Chain<br/>등록 기록과 일치하는가?"):::jbSoft -->|무결성| J
+ OD("선택 1 · Open DID<br/>등록 정보를 보증하는가?"):::jbSoft -->|신뢰성| J
+
+  classDef jbInput fill:#FFFFFF,stroke:#D0D5DD,stroke-width:1px,color:#111827
+  classDef jbSoft fill:#EEF4FF,stroke:#C3D3FC,stroke-width:1px,color:#1943BE
+  classDef jbPrimary fill:#2457E6,stroke:#2457E6,stroke-width:1px,color:#FFFFFF
+  classDef jbInk fill:#111827,stroke:#111827,stroke-width:1px,color:#FFFFFF
+  classDef jbSuccess fill:#ECFDF3,stroke:#12B76A,stroke-width:1px,color:#05603A
+  classDef jbWarning fill:#FFFAEB,stroke:#F79009,stroke-width:1px,color:#93370D

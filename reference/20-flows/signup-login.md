@@ -15,36 +15,9 @@
 
 ## 회원가입
 
-```mermaid
-sequenceDiagram
-  participant A as 앱 (웹뷰)
-  participant B as 백엔드
-  participant CX as OmniOne CX
-  participant W as Wallet SDK
+<img src="diagrams/signup-login-1.png" alt="회원가입" width="760">
 
-  A->>B: POST /api/signup/token
-  B-->>A: token, txId
-  A->>B: POST /api/signup/app/request
-  B-->>A: 딥링크(iosLink), cxId
-  A->>A: 모바일 신분증 앱 호출 및 제출
-
-  A->>B: POST /api/signup/app/verify
-  B->>CX: 검증 결과 조회
-  B->>B: CI 해싱 → 기존 회원 조회
-  alt 이미 ACTIVE
-    B-->>A: 409 MEMBER_ALREADY_REGISTERED
-  else 신규 또는 PENDING
-    B->>B: PENDING 회원 생성 (role=USER)
-    B-->>A: signupToken, memberId, name, status
-  end
-
-  A->>W: DID 생성 및 DID Document 등록
-  W-->>A: Holder DID
-
-  A->>B: POST /api/signup/did/complete (signupToken, did)
-  B->>B: DID 중복 확인 → updateDid() → ACTIVE + ISSUER
-  B-->>A: accessToken, refreshToken, memberId, name, role, status, did
-```
+[크게 보기](diagrams/signup-login-1.png) · [Mermaid 원본](diagrams/signup-login-1.mmd)
 
 ### 상태 전이
 
@@ -75,29 +48,9 @@ sequenceDiagram
 
 ## 로그인
 
-```mermaid
-sequenceDiagram
-  participant A as 앱 (웹뷰)
-  participant B as 백엔드
-  participant CX as OmniOne CX
+<img src="diagrams/signup-login-2.png" alt="로그인" width="760">
 
-  A->>B: POST /api/auth/token
-  B-->>A: token, txId
-  A->>B: POST /api/auth/app/request
-  B-->>A: 딥링크, cxId
-  A->>A: 신분증 제출
-  A->>B: POST /api/auth/app/verify
-  B->>CX: 검증 결과 조회
-  B->>B: CI 해싱 → ACTIVE 회원 조회
-  alt 회원 없음
-    B-->>A: 404 MEMBER_NOT_FOUND
-  else PENDING
-    B-->>A: 409 SIGNUP_NOT_COMPLETED
-  else ACTIVE
-    B->>B: JWT 발급 + refreshToken 저장 + didRebindToken 발급
-    B-->>A: accessToken, refreshToken, did, didRebindToken
-  end
-```
+[크게 보기](diagrams/signup-login-2.png) · [Mermaid 원본](diagrams/signup-login-2.mmd)
 
 로그인 응답에는 **항상 `didRebindToken`이 포함**됩니다.
 앱은 기기 Wallet 상태를 확인한 뒤 필요할 때만 이 토큰을 사용합니다.
@@ -112,22 +65,9 @@ sequenceDiagram
 앱을 지우면 기기의 Wallet과 DID가 사라집니다.
 서버에는 이전 DID가 남아 있으므로 새 DID로 교체해야 합니다.
 
-```mermaid
-sequenceDiagram
-  participant A as 앱
-  participant B as 백엔드
-  participant W as Wallet SDK
+<img src="diagrams/signup-login-3.png" alt="DID 재연결 (앱 재설치)" width="760">
 
-  A->>B: 로그인 (POST /api/auth/app/verify)
-  B-->>A: JWT + didRebindToken
-  A->>A: WalletAccountValidator → noWallet 판정
-  A->>A: "디지털 신원을 다시 연결할까요?" 안내
-  A->>W: 새 DID 생성 및 DID Document 등록
-  W-->>A: 새 Holder DID
-  A->>B: POST /api/auth/did/rebind (didRebindToken, did)
-  B->>B: rebindDid() → userDid 교체, didRegisteredAt 갱신
-  B-->>A: 새 accessToken, refreshToken
-```
+[크게 보기](diagrams/signup-login-3.png) · [Mermaid 원본](diagrams/signup-login-3.mmd)
 
 `didRebindToken`은 단기 토큰이며 `DidRebindTokenService`가 서버 측에서 관리합니다.
 유효하지 않으면 `NOT_A_DID_REBIND_TOKEN`(A008, 401)입니다.

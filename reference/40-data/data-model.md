@@ -5,48 +5,9 @@ PostgreSQL 16.4, JPA `ddl-auto: update`로 스키마를 관리합니다.
 
 ## ER 개요
 
-```mermaid
-erDiagram
-  MEMBERS ||--o{ VIDEOS : "등록"
-  MEMBERS {
-    bigint id PK
-    varchar ci UK "HMAC 해시(h1: 접두사)"
-    varchar user_did UK "Wallet Holder DID"
-    varchar name
-    varchar birth
-    varchar role "USER / ISSUER"
-    varchar status "PENDING / ACTIVE / SUSPENDED / WITHDRAWN"
-    timestamp did_registered_at
-    timestamp joined_at
-    timestamp created_at
-    timestamp updated_at
-  }
-  VIDEOS {
-    bigint id PK
-    varchar title
-    varchar issuer_did "등록 당시 DID"
-    bigint member_id FK "레거시는 null"
-    text perceptual_hash
-    text fine_hash UK
-    text merkle_root
-    text merkle_path
-    varchar block_number
-    varchar tx_hash
-    varchar signature
-    int version
-    varchar vc_id
-    varchar vc_offer_id
-    varchar vc_plan_id
-    varchar vc_issuer_did
-    varchar vc_claim_snapshot_hash
-    int vc_schema_version
-    varchar vc_assurance_type
-    varchar vc_issuance_status
-    boolean active
-    timestamp registered_at
-    timestamp deactivated_at
-  }
-```
+<img src="diagrams/data-model-1.png" alt="ER 개요" width="760">
+
+[크게 보기](diagrams/data-model-1.png) · [Mermaid 원본](diagrams/data-model-1.mmd)
 
 `videos.member_id`에 실제 FK 제약이 걸려 있지는 않습니다.
 논리적 참조이며 레거시 데이터는 `null`일 수 있습니다.
@@ -71,13 +32,9 @@ erDiagram
 
 ### 상태 전이
 
-```mermaid
-stateDiagram-v2
-  [*] --> PENDING : 본인확인 완료
-  PENDING --> ACTIVE : DID 연결 (updateDid)
-  ACTIVE --> SUSPENDED : 관리자 정지
-  ACTIVE --> WITHDRAWN : 탈퇴
-```
+<img src="diagrams/data-model-2.png" alt="상태 전이" width="760">
+
+[크게 보기](diagrams/data-model-2.png) · [Mermaid 원본](diagrams/data-model-2.mmd)
 
 `SUSPENDED`와 `WITHDRAWN`은 enum에 정의되어 있으나
 이 상태로 전이시키는 API나 관리 화면은 아직 없습니다.
@@ -140,12 +97,9 @@ stateDiagram-v2
 
 ### 상태 전이
 
-```mermaid
-stateDiagram-v2
-  [*] --> NOT_REQUESTED : 영상 등록
-  NOT_REQUESTED --> PENDING_WALLET : Offer 생성 성공
-  PENDING_WALLET --> ISSUED : Wallet 수령 + 검증 통과
-```
+<img src="diagrams/data-model-3.png" alt="상태 전이" width="760">
+
+[크게 보기](diagrams/data-model-3.png) · [Mermaid 원본](diagrams/data-model-3.mmd)
 
 역방향 전이는 없습니다. `completeVcIssuance()`는 `PENDING_WALLET`에서만 허용하며
 `vcOfferId`가 요청의 `offerId`와 일치해야 합니다.

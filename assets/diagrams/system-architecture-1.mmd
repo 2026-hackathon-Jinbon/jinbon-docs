@@ -1,0 +1,35 @@
+%% title: 클라이언트에서 증명 인프라까지
+%% subtitle: REST API를 중심으로 해시 계산, 데이터 저장, 외부 증명 서비스를 연결합니다.
+%% footer: 상세 흐름과 용어는 본문의 설명을 함께 참고하세요.
+%%{init: {"theme":"base","htmlLabels":false,"themeVariables":{"primaryColor":"#FFFFFF","primaryTextColor":"#111827","primaryBorderColor":"#D0D5DD","secondaryColor":"#F7F8FC","secondaryTextColor":"#111827","secondaryBorderColor":"#D0D5DD","tertiaryColor":"#FFFFFF","tertiaryTextColor":"#111827","tertiaryBorderColor":"#D0D5DD","background":"#F7F8FC","mainBkg":"#EEF4FF","textColor":"#111827","lineColor":"#98A2B3","edgeLabelBackground":"#FFFFFF","clusterBkg":"#F7F8FC","clusterBorder":"#EAECF0","titleColor":"#111827","nodeTextColor":"#111827","fontFamily":"Arial, Apple SD Gothic Neo, sans-serif","fontSize":"17px"},"themeCSS":".node rect, .node polygon { stroke-width: 1px; } .node rect { rx: 12px; ry: 12px; } .cluster rect { rx: 16px; ry: 16px; } .edgeLabel { background-color: #FFFFFF; color: #475467; }","flowchart":{"htmlLabels":false,"curve":"basis","nodeSpacing":28,"rankSpacing":42,"padding":18,"diagramPadding":16},"sequence":{"actorMargin":36,"width":135,"height":52,"boxMargin":12,"messageMargin":32,"mirrorActors":false,"useMaxWidth":true}}}%%
+graph LR
+    IOS[iOS Wallet 앱]
+    WEB[검증 웹 :8071]
+    EXT[Chrome 확장]
+
+    API[REST API]
+    HASH[해시 · 지각해시 엔진]
+    SEC[JWT 인증 · 권한]
+
+    PG[(PostgreSQL :5432)]
+    RD[(Redis :6380)]
+
+    CX[OmniOne CX<br/>모바일 신분증]
+    ISS[Open DID Issuer :8091]
+    VER[Open DID Verifier :8092]
+    CHAIN[OmniOne Chain<br/>JinBon.sol]
+
+  IOS --> API
+  WEB --> API
+  EXT --> API
+  API --> HASH
+  API --> SEC
+  API --> PG
+  API --> RD
+  API --> CX
+  API --> ISS
+  API --> VER
+  API --> CHAIN
+  IOS -.Wallet 프로토콜.-> ISS
+  classDef jbHub fill:#2457E6,stroke:#2457E6,color:#FFFFFF
+  class API jbHub

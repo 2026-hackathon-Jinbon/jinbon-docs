@@ -1,0 +1,9 @@
+%% title: 상태 전이
+%% subtitle: JinBon · 기술 reference
+%% footer: 상세 흐름과 용어는 본문의 설명을 함께 참고하세요.
+%%{init: {"theme":"base","htmlLabels":false,"themeVariables":{"primaryColor":"#FFFFFF","primaryTextColor":"#111827","primaryBorderColor":"#D0D5DD","secondaryColor":"#F7F8FC","secondaryTextColor":"#111827","secondaryBorderColor":"#D0D5DD","tertiaryColor":"#FFFFFF","tertiaryTextColor":"#111827","tertiaryBorderColor":"#D0D5DD","background":"#F7F8FC","mainBkg":"#EEF4FF","textColor":"#111827","lineColor":"#98A2B3","edgeLabelBackground":"#FFFFFF","clusterBkg":"#F7F8FC","clusterBorder":"#EAECF0","titleColor":"#111827","nodeTextColor":"#111827","fontFamily":"Arial, Apple SD Gothic Neo, sans-serif","fontSize":"17px"},"themeCSS":".node rect, .node polygon { stroke-width: 1px; } .node rect { rx: 12px; ry: 12px; } .cluster rect { rx: 16px; ry: 16px; } .edgeLabel { background-color: #FFFFFF; color: #475467; }","flowchart":{"htmlLabels":false,"curve":"basis","nodeSpacing":28,"rankSpacing":42,"padding":18,"diagramPadding":16},"sequence":{"actorMargin":36,"width":135,"height":52,"boxMargin":12,"messageMargin":32,"mirrorActors":false,"useMaxWidth":true}}}%%
+stateDiagram-v2
+  [*] --> PENDING : 본인확인 완료
+  PENDING --> ACTIVE : DID 연결 (updateDid)
+  ACTIVE --> SUSPENDED : 관리자 정지
+  ACTIVE --> WITHDRAWN : 탈퇴

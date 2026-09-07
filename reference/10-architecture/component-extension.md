@@ -1,6 +1,6 @@
 # 확장 프로그램 구조
 
-저장소: `jinbon-extension` · 목적: YouTube·Netflix 시청 페이지에서 즉시 진본 확인
+저장소: `jinbon-extension` · 목적: YouTube 시청 페이지에서 즉시 진본 확인
 
 ## 파일 구성
 
@@ -25,9 +25,9 @@ src/
 | `name` | Jinbon Video Verifier |
 | `version` | 0.1.0 |
 | `permissions` | `storage`, `activeTab` |
-| `host_permissions` | `http://localhost:8070/*`, YouTube, Netflix |
+| `host_permissions` | `http://localhost:8070/*`, YouTube |
 | `background.service_worker` | `src/background.js` |
-| `content_scripts` | YouTube·Netflix 전체 경로, `run_at: document_idle` |
+| `content_scripts` | YouTube 전체 경로, `run_at: document_idle` |
 | `action.default_popup` | `src/popup.html` |
 
 `host_permissions`에 `localhost:8070`이 하드코딩되어 있습니다.
@@ -36,30 +36,15 @@ src/
 
 ## 동작 흐름
 
-```mermaid
-sequenceDiagram
-  participant U as 사용자
-  participant C as content.js
-  participant B as background.js
-  participant S as 진본 백엔드
+<img src="diagrams/component-extension-1.png" alt="동작 흐름" width="760">
 
-  U->>C: 영상 페이지 진입
-  C->>C: 우하단에 "진본 확인" 버튼 주입
-  U->>C: 버튼 클릭
-  C->>C: 패널을 "진본 확인 중"으로 표시
-  C->>B: sendMessage(JINBON_VERIFY_URL, {url, title, pageUrl})
-  B->>B: chrome.storage.sync에서 apiBaseUrl 조회
-  B->>S: POST {apiBaseUrl}/api/verify/url
-  S-->>B: CommonResponse
-  B-->>C: {ok, data} 또는 {ok:false, error}
-  C->>U: 결과 패널 렌더링
-```
+[크게 보기](diagrams/component-extension-1.png) · [Mermaid 원본](diagrams/component-extension-1.mmd)
 
 메시지 리스너는 `return true`로 응답을 비동기 처리합니다.
 
 ## SPA 대응
 
-YouTube와 Netflix는 페이지 이동 시 문서를 새로 불러오지 않습니다.
+YouTube는 페이지 이동 시 문서를 새로 불러오지 않습니다.
 1초 간격 폴링으로 URL 변화를 감지해 다시 렌더링합니다.
 
 ```js
@@ -72,11 +57,12 @@ setInterval(() => {
 
 `getCanonicalVideoUrl()`이 페이지 URL을 백엔드가 다루기 좋은 형태로 정리합니다.
 
+현재 확장 프로그램은 YouTube와 Instagram의 영상 페이지에 버튼을 주입합니다. Instagram은 게시물(`/p`), 릴스(`/reel`), 동영상(`/tv`) 경로를 지원합니다.
+
 | 입력 | 출력 |
 |---|---|
 | `youtube.com/watch?v=ID&list=…&t=…` | `https://www.youtube.com/watch?v=ID` |
 | `youtube.com/shorts/ID` | `https://www.youtube.com/shorts/ID` |
-| `netflix.com/watch/ID` | `https://www.netflix.com/watch/ID` |
 | 그 외 | `location.href` 그대로 |
 
 재생목록·타임스탬프 같은 부가 파라미터를 떼어내 같은 영상이 같은 캐시 키를 쓰도록 합니다.
@@ -121,10 +107,3 @@ const tone  = result.authentic ? 'success' : 'warning';
 
 `message`는 본문에, `notice`는 하단 작은 글씨로 표시합니다.
 모든 삽입값은 `escapeHtml()`을 거칩니다.
-
-## 넷플릭스 지원의 한계
-
-버튼은 Netflix 시청 페이지에도 표시되지만, 백엔드의 URL 검증은
-`youtube.com`, `youtu.be`, `instagram.com`, `tiktok.com`, `twitter.com`, `x.com`, `vimeo.com`만
-허용 호스트로 두고 있습니다. Netflix URL을 보내면 `VIDEO_DOWNLOAD_FAILED`(VF002, 400)가 돌아옵니다.
-자세한 내용은 [알려진 이슈](../90-status/open-issues.md)를 참고합니다.

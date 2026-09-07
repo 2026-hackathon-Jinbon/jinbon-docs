@@ -27,31 +27,11 @@ source/Framework/did-wallet-sdk-ios-2.0.1/DIDWalletSDK.xcframework
 
 ## 화면 계층
 
-```mermaid
-graph TD
-  S[SplashViewController] -->|미로그인| W[JinBonWelcomeViewController]
-  S -->|로그인 + DID 완료| T[JinBonTabBarController]
-  W -->|회원가입/로그인| A[AuthWebViewController]
-  A -->|DID 생성 필요| ST[StepViewController]
-  ST --> T
-  A -->|기존 Wallet 연결| T
-  W -->|비회원 검증| V[VideoVerifyViewController]
+<img src="diagrams/component-ios-1.png" alt="화면 계층" width="760">
 
-  T --> H[JinBonHomeViewController 홈]
-  T --> L[VideoListViewController 내 영상]
-  T --> C[JinBonCertificateViewController 보증서]
-  T --> SE[JinBonSettingsViewController 설정]
+[크게 보기](diagrams/component-ios-1.png) · [Mermaid 원본](diagrams/component-ios-1.mmd)
 
-  H --> U[VideoUploadViewController]
-  L --> U
-  H --> V
-  U --> R[등록 완료 화면]
-  R --> P[보증서 발급 팝업]
-  C --> CD[보증서 상세]
-  SE --> OS[오픈소스 라이선스]
-```
-
-화면별 상세 명세는 [iOS 화면 기획서](../70-screens/ios-screens.md)에 있습니다.
+화면별 상세 동작은 iOS 프로젝트의 소스 코드를 참고합니다.
 
 ## 진입 분기 (SplashViewController)
 
@@ -147,4 +127,4 @@ mode == .login   →  /auth.html              →  /api/auth/*
 Prod 값은 아직 실제 도메인으로 교체되지 않았습니다.
 또한 HTTP 통신을 위해 `Info.plist`의 `NSAllowsArbitraryLoads`가 `true`로 열려 있으며,
 두 xcconfig 파일 모두 프로덕션 배포 전 수정이 필요하다고 주석에 명시되어 있습니다.
-자세한 내용은 [알려진 이슈](../90-status/open-issues.md)를 참고합니다.
+프로덕션 배포 전 xcconfig 값을 실제 도메인으로 교체해야 합니다.

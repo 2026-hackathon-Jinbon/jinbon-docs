@@ -14,31 +14,9 @@
 
 ### 호출 순서
 
-```mermaid
-sequenceDiagram
-  participant W as 인증 페이지(auth.html)
-  participant B as 진본 백엔드
-  participant CX as OmniOne CX
-  participant APP as 모바일 신분증 앱
+<img src="diagrams/external-integrations-1.png" alt="호출 순서" width="760">
 
-  W->>B: POST /api/auth/token
-  B->>CX: 세션 토큰 요청
-  CX-->>B: token, txId
-  B-->>W: token, txId
-
-  W->>B: POST /api/auth/app/request (provider, token, txId)
-  B->>CX: WebToApp 요청
-  CX-->>B: androidLink, iosLink, cxId
-  B-->>W: 딥링크 + cxId
-  W->>APP: 딥링크로 앱 호출
-  APP->>CX: 신분증 제출
-
-  W->>B: POST /api/auth/app/verify (provider, token, txId, cxId)
-  B->>CX: 검증 결과 조회
-  CX-->>B: 검증 토큰
-  B->>B: parseToken → CI, 이름, 생년월일
-  B-->>W: JWT accessToken, refreshToken
-```
+[크게 보기](diagrams/external-integrations-1.png) · [Mermaid 원본](diagrams/external-integrations-1.mmd)
 
 검증이 아직 진행 중이면 `ID_VERIFICATION_PENDING`(A007, 409)을 반환해
 클라이언트가 다시 시도하도록 합니다.
