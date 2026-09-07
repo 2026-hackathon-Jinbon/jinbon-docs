@@ -1,0 +1,10 @@
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# OS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
