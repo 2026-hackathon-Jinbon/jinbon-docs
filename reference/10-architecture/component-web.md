@@ -110,7 +110,7 @@ type VerificationVerdict =
 유니언 끝에 `| string`이 있어 타입 오류는 나지 않고, 화면 분기도 `authentic`·`active`·
 `NOT_REGISTERED`만 보므로 **표시 자체는 깨지지 않습니다**. 다만 `CERTIFICATE_INVALID`처럼
 구분해 보여줘야 할 상태가 `warning` 하나로 뭉뚱그려집니다.
-자세한 내용은 [알려진 이슈](../90-status/open-issues.md)를 참고합니다.
+향후 verdict 타입을 백엔드와 동기화할 필요가 있습니다.
 
 ## 개인정보 처리
 

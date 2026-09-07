@@ -77,4 +77,3 @@ OmniOne Chain은 "**이 영상이 변조되지 않았는가**", Open DID는 "**�
 
 - 전체 구조: [시스템 아키텍처](../10-architecture/system-architecture.md)
 - 판정 규칙: [영상 검증 플로우](../20-flows/video-verify.md)
-- 용어: [용어 사전](glossary.md)

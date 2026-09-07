@@ -50,7 +50,6 @@ SecretKeySpec keySpec = new SecretKeySpec(
 - 즉 JWT 키 로테이션이 사실상 불가능합니다.
 
 토큰 서명용 키와 영상 서명용 키는 수명 주기와 노출 범위가 다르므로 분리하는 편이 안전합니다.
-자세한 내용은 [알려진 이슈](../90-status/open-issues.md)에 기록했습니다.
 
 ## 인증과 인가
 
