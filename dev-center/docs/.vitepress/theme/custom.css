@@ -1,0 +1,143 @@
+/* ─── VitePress Theme Overrides ─── */
+
+:root {
+  --vp-c-brand-1: #2457E6;
+  --vp-c-brand-2: #3B6CF0;
+  --vp-c-brand-3: #2457E6;
+  --vp-c-brand-soft: #EEF4FF;
+
+  --vp-font-family-base: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+    "Pretendard", "Segoe UI", Roboto, sans-serif;
+  --vp-font-family-mono: "SF Mono", "Fira Code", "JetBrains Mono", Menlo, monospace;
+}
+
+.dark {
+  --vp-c-brand-1: #5B8DEF;
+  --vp-c-brand-2: #7AA3F5;
+  --vp-c-brand-3: #5B8DEF;
+  --vp-c-brand-soft: #1E293B;
+}
+
+/* ─── Nav ─── */
+.VPNav .VPNavBar {
+  backdrop-filter: blur(12px);
+}
+
+.VPNavBar .title {
+  font-weight: 700 !important;
+  letter-spacing: -0.01em;
+}
+
+.VPNavBar .logo {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+}
+
+/* ─── Sidebar ─── */
+.VPSidebar .group + .group {
+  border-top: 1px solid var(--vp-c-divider);
+  padding-top: 12px;
+}
+
+.VPSidebarItem .text {
+  font-size: 14px;
+}
+
+/* ─── Content ─── */
+.vp-doc h1 {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.vp-doc h2 {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid var(--vp-c-divider);
+}
+
+.vp-doc h3 {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.vp-doc p {
+  line-height: 1.75;
+}
+
+/* ─── Code blocks ─── */
+.vp-doc div[class*="language-"] {
+  border-radius: 10px;
+  border: 1px solid var(--vp-c-divider);
+}
+
+.vp-doc :not(pre) > code {
+  border-radius: 5px;
+  padding: 2px 6px;
+  font-size: 13px;
+  font-weight: 500;
+  background: var(--vp-c-brand-soft);
+  color: var(--vp-c-brand-1);
+}
+
+/* ─── Tables ─── */
+.vp-doc table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.vp-doc th {
+  background: var(--vp-c-bg-soft);
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--vp-c-text-2);
+  padding: 10px 14px;
+}
+
+.vp-doc td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--vp-c-divider);
+}
+
+.vp-doc tr:last-child td {
+  border-bottom: none;
+}
+
+.vp-doc table code {
+  font-size: 12px;
+}
+
+/* ─── Custom blocks ─── */
+.vp-doc .custom-block {
+  border-radius: 10px;
+  padding: 16px 20px;
+}
+
+.vp-doc .custom-block-title {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--vp-c-divider);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--vp-c-text-3);
+}
