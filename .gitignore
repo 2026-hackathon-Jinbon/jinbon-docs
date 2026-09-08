@@ -8,3 +8,10 @@
 # Python
 __pycache__/
 *.pyc
+
+# Node
+node_modules/
+
+# VitePress
+.vitepress/cache/
+.vitepress/dist/
