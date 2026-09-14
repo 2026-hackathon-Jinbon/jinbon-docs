@@ -77,6 +77,37 @@
       </div>
     </section>
 
+    <!-- Verification technology -->
+    <section class="section">
+      <div class="section-inner">
+        <span class="section-label">Verification Technology</span>
+        <h2 class="section-title">여러 증거를 함께 확인합니다</h2>
+        <p class="section-desc">진본은 하나의 기술만으로 판단하지 않고, 파일·영상·음성·등록 기록을 함께 비교합니다.</p>
+        <div class="technology-grid">
+          <div class="technology-card">
+            <h3>파일 해시</h3>
+            <p>원본 파일과 완전히 같은지 확인합니다.</p>
+          </div>
+          <div class="technology-card">
+            <h3>영상 지문</h3>
+            <p>재인코딩, 해상도 변경, 쇼츠 구간을 비교합니다.</p>
+          </div>
+          <div class="technology-card">
+            <h3>음성 지문</h3>
+            <p>음성 교체나 음성 변조 여부를 확인합니다.</p>
+          </div>
+          <div class="technology-card">
+            <h3>등록 기록</h3>
+            <p>머클루트·전자서명·블록체인으로 등록 사실을 검증합니다.</p>
+          </div>
+          <div class="technology-card">
+            <h3>등록자 증명</h3>
+            <p>VC로 누가 영상을 등록했는지 확인합니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Verdict -->
     <section class="section">
       <div class="section-inner">
@@ -527,6 +558,34 @@
   line-height: 1.55;
 }
 
+/* ─── Verification Technology ─── */
+.technology-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.technology-card {
+  padding: 20px;
+  border: 1px solid var(--jb-border);
+  border-radius: 12px;
+  background: var(--jb-bg);
+}
+
+.technology-card h3 {
+  margin: 0 0 8px;
+  color: var(--jb-ink);
+  font-size: 15px;
+}
+
+.technology-card p {
+  margin: 0;
+  color: var(--jb-text-secondary);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
 /* ─── Verdict ─── */
 .verdict-grid {
   display: grid;
@@ -734,7 +793,8 @@
   .section-title { font-size: 24px; }
   .proof-grid,
   .channel-grid,
-  .principles-grid { grid-template-columns: 1fr; }
+  .principles-grid,
+  .technology-grid { grid-template-columns: 1fr; }
   .links-grid { grid-template-columns: 1fr; }
   .verdict-grid { grid-template-columns: 1fr; }
 }
