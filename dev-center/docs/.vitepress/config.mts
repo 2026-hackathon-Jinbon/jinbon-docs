@@ -25,6 +25,7 @@ export default defineConfig({
     nav: [
       { text: "홈", link: "/" },
       { text: "사용 사례", link: "/use-cases" },
+      { text: "검증 상태", link: "/verification-status" },
       { text: "개발자 센터", link: "/developers/guide/introduction" },
       { text: "시작하기", link: "/downloads" },
     ],
@@ -57,6 +58,7 @@ export default defineConfig({
             { text: "인증 API", link: "/developers/api/auth" },
             { text: "회원가입 API", link: "/developers/api/signup" },
             { text: "영상 관리 API", link: "/developers/api/videos" },
+            { text: "등록자 프로필 API", link: "/developers/api/members" },
             { text: "검증 API", link: "/developers/api/verify" },
             { text: "에러 코드", link: "/developers/api/errors" },
           ],

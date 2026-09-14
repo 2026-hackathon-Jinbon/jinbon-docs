@@ -44,16 +44,16 @@ flowchart LR
 
 ## 검증 결과
 
-사용자에게는 세 가지 상태만 표시됩니다.
+사용자에게는 **진본 / 콘텐츠 유사 / 미인증** 세 가지로 표시합니다.
 
 | 표시 상태 | 의미 |
 |---|---|
-| **진본 인증** | 블록체인에 등록이 확인된 영상 |
-| **미인증** | 등록 이력이 없거나 보증서가 유효하지 않은 영상 |
-| **확인 중** | 외부 시스템 장애로 일시적으로 확인 불가 (재시도 유도) |
+| **진본** | 등록 원본과 파일이 일치하거나 지각해시로 같은 내용임이 확인되고, 블록체인·보증서 검증을 통과한 영상. 등록자 표시명과 등록 시각을 함께 보여줍니다 |
+| **콘텐츠 유사** | 등록 원본 후보는 찾았지만 전체 내용의 무변조를 확정할 수 없는 영상. 등록자와 VC는 함께 보여줍니다 |
+| **미인증** | 등록 이력이 없거나, 등록 증거가 유효하지 않거나, 음성·얼굴·자막·장면 변경이 확인된 영상 |
 
 ::: info 내부 판정값
-백엔드는 `EXACT_MATCH`, `SAME_CONTENT`, `SIMILAR_MATCH`, `NOT_REGISTERED`, `REGISTERED_BUT_REVOKED`, `CERTIFICATE_INVALID`, `VERIFICATION_UNAVAILABLE` 7종의 세분화된 verdict를 로그에 기록합니다. 클라이언트 매핑은 [검증 API](/developers/api/verify)를 참고하세요.
+백엔드는 `EXACT_MATCH`, `SAME_CONTENT`, `SIMILAR_MATCH`, `PARTIAL_MATCH`, `NOT_REGISTERED`, `REGISTERED_BUT_REVOKED`, `CERTIFICATE_MISSING`, `CERTIFICATE_INVALID`, `VERIFICATION_UNAVAILABLE` 9종의 세분화된 verdict를 로그에 기록합니다. 클라이언트 매핑은 [검증 API](/developers/api/verify)를 참고하세요.
 :::
 
 ::: warning 미등록 ≠ 조작
