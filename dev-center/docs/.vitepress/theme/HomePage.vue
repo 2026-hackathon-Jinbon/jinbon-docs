@@ -12,8 +12,8 @@
           누가 언제 등록했는지를 DID 보증서로 증명하는 영상 진위 검증 서비스입니다.
         </p>
         <div class="hero-actions">
-          <a href="/architecture/overview" class="btn btn-primary">아키텍처 보기</a>
-          <a href="/api/conventions" class="btn btn-secondary">API 레퍼런스</a>
+          <a href="/use-cases" class="btn btn-primary">사용 사례 보기</a>
+          <a href="/downloads" class="btn btn-secondary">시작하기</a>
         </div>
       </div>
     </section>
@@ -104,7 +104,7 @@
     <section class="section section-alt">
       <div class="section-inner">
         <span class="section-label">System</span>
-        <h2 class="section-title">세 개의 접점, 하나의 백엔드</h2>
+        <h2 class="section-title">네 개의 접점, 하나의 백엔드</h2>
         <div class="channel-grid">
           <div class="channel-card">
             <div class="channel-icon">
@@ -133,6 +133,15 @@
             <p>YouTube, Instagram 시청 중 <strong>URL 기반 즉시 검증.</strong></p>
             <span class="channel-tech">Manifest V3 &middot; JavaScript</span>
           </div>
+          <div class="channel-card">
+            <div class="channel-icon">
+              <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <h3>카카오톡 챗봇</h3>
+            <span class="channel-badge">카카오톡 채널</span>
+            <p>카카오톡 대화창에서 영상 URL을 보내면 <strong>즉시 검증 결과를 응답.</strong></p>
+            <span class="channel-tech">카카오톡 채널 &middot; 챗봇</span>
+          </div>
           <div class="channel-card channel-card-primary">
             <div class="channel-icon">
               <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
@@ -152,7 +161,7 @@
         <span class="section-label">Documentation</span>
         <h2 class="section-title">문서 바로가기</h2>
         <div class="links-grid">
-          <a href="/architecture/overview" class="link-card">
+          <a href="/developers/architecture/overview" class="link-card">
             <div class="link-card-icon">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
             </div>
@@ -161,7 +170,7 @@
               <p>전체 구성도, 계층별 책임, 포트 맵, 데이터 흐름</p>
             </div>
           </a>
-          <a href="/api/conventions" class="link-card">
+          <a href="/developers/api/conventions" class="link-card">
             <div class="link-card-icon">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
             </div>
@@ -170,7 +179,7 @@
               <p>19개 엔드포인트, 요청/응답 예시, 에러 코드</p>
             </div>
           </a>
-          <a href="/flows/video-register" class="link-card">
+          <a href="/developers/flows/video-register" class="link-card">
             <div class="link-card-icon">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
             </div>
@@ -179,7 +188,7 @@
               <p>영상 등록, 검증, 가입/로그인, VC 발급 시퀀스</p>
             </div>
           </a>
-          <a href="/data/model" class="link-card">
+          <a href="/developers/data/model" class="link-card">
             <div class="link-card-icon">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
             </div>
@@ -188,7 +197,7 @@
               <p>DB 스키마, 스마트 컨트랙트, Redis 키 구조</p>
             </div>
           </a>
-          <a href="/security/overview" class="link-card">
+          <a href="/developers/security/overview" class="link-card">
             <div class="link-card-icon">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
             </div>
@@ -197,7 +206,7 @@
               <p>CI 보호, SSRF 방어, 인증 정책, 키 관리</p>
             </div>
           </a>
-          <a href="/guide/concepts" class="link-card">
+          <a href="/developers/guide/concepts" class="link-card">
             <div class="link-card-icon">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
             </div>
