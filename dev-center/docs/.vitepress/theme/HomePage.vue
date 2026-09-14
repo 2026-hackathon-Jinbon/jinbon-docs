@@ -82,19 +82,19 @@
       <div class="section-inner">
         <span class="section-label">Verification</span>
         <h2 class="section-title">검증 결과</h2>
-        <p class="section-desc">사용자에게 세 가지 상태로 표시됩니다.</p>
+        <p class="section-desc">등록 기록과 콘텐츠 상태를 함께 확인합니다.</p>
         <div class="verdict-grid">
           <div class="verdict-item verdict-success">
-            <span class="verdict-code">진본 인증</span>
-            <span class="verdict-desc">블록체인에 등록이 확인된 영상</span>
+            <span class="verdict-code">진본</span>
+            <span class="verdict-desc">원본과 동일하거나 검증된 재인코딩본</span>
+          </div>
+          <div class="verdict-item verdict-warn">
+            <span class="verdict-code">콘텐츠 유사</span>
+            <span class="verdict-desc">등록 원본과 유사하지만 전체 일치는 미확인</span>
           </div>
           <div class="verdict-item verdict-neutral">
             <span class="verdict-code">미인증</span>
-            <span class="verdict-desc">등록 이력이 없거나 보증서가 유효하지 않은 영상</span>
-          </div>
-          <div class="verdict-item verdict-pending">
-            <span class="verdict-code">확인 중</span>
-            <span class="verdict-desc">외부 시스템 장애로 일시적으로 확인 불가 — 재시도 유도</span>
+            <span class="verdict-desc">등록 원본이 없거나 변경이 확인됨</span>
           </div>
         </div>
       </div>
@@ -130,7 +130,7 @@
             </div>
             <h3>Chrome 확장</h3>
             <span class="channel-badge">jinbon-extension</span>
-            <p>YouTube, Instagram 시청 중 <strong>URL 기반 즉시 검증.</strong></p>
+            <p>YouTube, Instagram 시청 중 <strong>자동 검증.</strong> 등록된 영상엔 진본 배지.</p>
             <span class="channel-tech">Manifest V3 &middot; JavaScript</span>
           </div>
           <div class="channel-card">

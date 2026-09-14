@@ -12,6 +12,7 @@ erDiagram
         varchar ci UK "CI HMAC-SHA256 해시"
         varchar user_did UK "Wallet Holder DID"
         varchar name "실명"
+        varchar display_name "검증 결과 표시명"
         varchar role "USER / ISSUER"
         varchar status "PENDING / ACTIVE"
         timestamp joined_at
@@ -41,6 +42,7 @@ erDiagram
 | `ci` | varchar | not null, **unique** | CI의 HMAC-SHA256 해시. `h1:` 접두사 |
 | `user_did` | varchar | unique | Holder DID. 가입 전 null |
 | `name` | varchar | not null | 신분증에서 추출한 실명 |
+| `display_name` | varchar | | 검증 결과에 노출할 표시명(기관명 등). 없으면 `name` 노출 |
 | `birth` | varchar | | 생년월일 |
 | `role` | varchar | not null | `USER` · `ISSUER` |
 | `status` | varchar | not null | `PENDING` · `ACTIVE` · `SUSPENDED` · `WITHDRAWN` |
