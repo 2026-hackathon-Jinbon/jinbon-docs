@@ -27,12 +27,12 @@ Open DID Orchestrator 2.0.0이 다음 서버를 관리합니다.
 | 서버 | 포트 | 백엔드 호출 | 앱 호출 |
 |---|---|---|---|
 | Orchestrator UI | 9001 | — | — |
-| TAS | 8090 | 아니오 | 예 |
-| Issuer | 8091 | **예** | 예 |
-| Verifier | 8092 | **예** | 예 |
-| API Gateway | 8093 | 아니오 | 예 |
-| CA | 8094 | 아니오 | 예 |
-| Wallet | 8095 | 아니오 | 예 |
+| TAS | 8090 | — | O |
+| Issuer | 8091 | **O** | O |
+| Verifier | 8092 | **O** | O |
+| API Gateway | 8093 | — | O |
+| CA | 8094 | — | O |
+| Wallet | 8095 | — | O |
 
 ::: info 별도 체인
 DID Document 앵커링용 블록체인은 Hyperledger Besu이며, 영상 기록용 OmniOne Chain과 **다른 체인**입니다.
