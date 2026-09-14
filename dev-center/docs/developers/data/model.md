@@ -42,8 +42,8 @@ erDiagram
 | `user_did` | varchar | unique | Holder DID. 가입 전 null |
 | `name` | varchar | not null | 신분증에서 추출한 실명 |
 | `birth` | varchar | | 생년월일 |
-| `role` | varchar | not null | `USER` / `ISSUER` |
-| `status` | varchar | not null | `PENDING` / `ACTIVE` / `SUSPENDED` / `WITHDRAWN` |
+| `role` | varchar | not null | `USER` · `ISSUER` |
+| `status` | varchar | not null | `PENDING` · `ACTIVE` · `SUSPENDED` · `WITHDRAWN` |
 | `did_registered_at` | timestamp | | DID 최초 등록 또는 재연결 시각 |
 | `joined_at` | timestamp | | 가입 완료 시각 |
 
@@ -78,10 +78,10 @@ stateDiagram-v2
 | `member_id` | bigint | | 등록자 회원 ID (레거시는 null) |
 | `perceptual_hash` | text | not null | 프레임별 pHash (쉼표 구분) |
 | `fine_hash` | text | not null, **unique** | 파일 전체 SHA-256 |
-| `merkle_root` | text | not null | `SHA-256(pHash + fineHash)` |
+| `merkle_root` | text | not null | 대표 해시 |
 | `tx_hash` | varchar | | 등록 트랜잭션 해시 |
 | `block_number` | varchar | | 등록 트랜잭션 블록 번호 |
-| `signature` | varchar | not null | `HMAC-SHA256(issuerDid + merkleRoot)` |
+| `signature` | varchar | not null | HMAC-SHA256 서명 |
 | `active` | boolean | not null | 비활성화 시 false |
 
 ### VC 관련 컬럼

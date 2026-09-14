@@ -68,6 +68,8 @@ graph LR
 
 ### Open DID Orchestrator
 
+백엔드는 이 중 Issuer(8091)와 Verifier(8092)만 호출합니다.
+
 | 포트 | 서버 |
 |---|---|
 | 8091 | Issuer |
@@ -77,8 +79,6 @@ graph LR
 | 8094 | CA |
 | 8095 | Wallet |
 | 9001 | Orchestrator 관리 UI |
-
-백엔드는 이 중 **Issuer(8091)와 Verifier(8092)만** 호출합니다.
 
 ## 데이터 흐름 요약
 

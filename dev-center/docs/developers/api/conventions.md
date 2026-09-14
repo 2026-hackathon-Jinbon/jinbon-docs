@@ -1,7 +1,9 @@
 # 공통 규약
 
-기본 주소: `http://localhost:8070`
-Swagger UI: `http://localhost:8070/swagger-ui/index.html` (개발 프로필에서만)
+| 항목 | 값 |
+|---|---|
+| 기본 주소 | `http://localhost:8070` |
+| Swagger UI | `http://localhost:8070/swagger-ui/index.html` (개발 프로필에서만) |
 
 ## 응답 포맷
 
@@ -50,6 +52,8 @@ Authorization: Bearer {accessToken}
 
 ## 엔드포인트 목록
 
+### 인증
+
 | Method | Path | 설명 | 인증 |
 |---|---|---|---|
 | POST | `/api/auth/token` | OmniOne CX 세션 토큰 발급 | — |
@@ -58,15 +62,38 @@ Authorization: Bearer {accessToken}
 | POST | `/api/auth/did/rebind` | 앱 재설치 후 DID 재연결 | 재연결 토큰 |
 | POST | `/api/auth/refresh` | 토큰 갱신 | 리프레시 토큰 |
 | POST | `/api/auth/logout` | 로그아웃 | 리프레시 토큰 |
+
+### 회원가입
+
+| Method | Path | 설명 | 인증 |
+|---|---|---|---|
 | POST | `/api/signup/token` | 가입용 세션 토큰 발급 | — |
 | POST | `/api/signup/app/request` | 가입용 딥링크 생성 | — |
 | POST | `/api/signup/app/verify` | 본인확인 + PENDING 회원 생성 | — |
 | POST | `/api/signup/did/complete` | DID 연결 + 가입 완료 | 가입 토큰 |
-| POST | `/api/videos` | 영상 등록 및 VC 발급 준비 | ISSUER |
+
+### 영상
+
+| Method | Path | 설명 | 인증 |
+|---|---|---|---|
+| POST | `/api/videos` | 영상 등록 + VC 발급 준비 | ISSUER |
 | GET | `/api/videos` | 내 영상 목록 | O |
 | GET | `/api/videos/{videoId}` | 영상 상세 | O (본인) |
 | POST | `/api/videos/{videoId}/vc/prepare` | VC 발급 준비·재개 | O (본인) |
 | POST | `/api/videos/{videoId}/vc/complete` | VC 발급 완료 연결 | O (본인) |
 | PATCH | `/api/videos/{videoId}/deactivate` | 영상 비활성화 | O (본인) |
+
+### 검증
+
+| Method | Path | 설명 | 인증 |
+|---|---|---|---|
 | POST | `/api/verify` | 파일 업로드 검증 | — |
 | POST | `/api/verify/url` | URL 기반 검증 | — |
+
+::: info 인증 컬럼 범례
+- **—** : 인증 불필요
+- **O** : JWT 액세스 토큰 필요
+- **O (본인)** : JWT + 해당 리소스의 소유자만 접근 가능
+- **ISSUER** : JWT + ISSUER 역할 필요
+- **가입/재연결/리프레시 토큰** : 각 플로우 전용 토큰 필요
+:::
