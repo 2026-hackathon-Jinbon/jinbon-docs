@@ -1,5 +1,7 @@
 ---
 layout: page
+title: 검증 상태
+description: 진본·콘텐츠 유사·미인증·확인 중 — 네 가지 판정의 의미, 승인 기준, 그리고 보증하지 않는 범위.
 ---
 
 <div class="vs-page">
@@ -7,7 +9,7 @@ layout: page
     <div class="vs-hero-inner">
       <span class="vs-label">Verification Status</span>
       <h1 class="vs-hero-title">영상 검증 상태</h1>
-      <p class="vs-hero-desc">진본은 제출 영상을 "진짜/가짜"로 단정하지 않습니다.<br>등록 원본과의 관계를 확인하고, 콘텐츠 일치 정도를 판단합니다.</p>
+      <p class="vs-hero-desc"><span>진본은 제출 영상을 "진짜/가짜"로 단정하지 않습니다.</span> <span>등록 원본과의 관계를 확인하고, 콘텐츠 일치 정도를 판단합니다.</span></p>
     </div>
   </section>
   <section class="vs-section">
@@ -37,7 +39,7 @@ layout: page
           <div class="vs-status-icon">
             <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
           </div>
-          <span class="vs-chip vs-chip-red">미인증</span>
+          <span class="vs-chip vs-chip-gray">미인증</span>
           <h3>진본 승인 불가</h3>
           <p>등록 원본이 없거나, 등록이 취소됐거나, 보증서가 유효하지 않음</p>
           <code class="vs-code">NOT_AUTHENTICATED</code>
@@ -59,7 +61,16 @@ layout: page
     <div class="vs-inner">
       <span class="vs-label">Assurance Scope</span>
       <h2 class="vs-section-title">같은 배지라도 일치 근거는 다릅니다</h2>
-      <div class="vs-note"><strong>파일 정확 일치:</strong> 등록 파일과 SHA-256이 같습니다. 오디오가 없는 파일도 등록 증거가 유효하면 승인됩니다.<br><strong>유사도 기준 통과:</strong> 샘플로 비교한 영상·음성 지문이 기준을 충족합니다. 전체 프레임·음성의 무변조를 확정하지 않습니다.<br><strong>일부 구간 대응:</strong> 등록 원본의 대응 시간대를 함께 확인해야 합니다. 생략된 앞뒤 맥락까지 보증하지 않습니다.</div>
+      <div class="vs-note">
+        <dl class="vs-note-list">
+          <dt>파일 정확 일치</dt>
+          <dd>등록 파일과 SHA-256이 같습니다. 오디오가 없는 파일도 등록 증거가 유효하면 승인됩니다.</dd>
+          <dt>유사도 기준 통과</dt>
+          <dd>샘플로 비교한 영상·음성 지문이 기준을 충족합니다. 전체 프레임·음성의 무변조를 확정하지 않습니다.</dd>
+          <dt>일부 구간 대응</dt>
+          <dd>등록 원본의 대응 시간대를 함께 확인해야 합니다. 생략된 앞뒤 맥락까지 보증하지 않습니다.</dd>
+        </dl>
+      </div>
       <div class="vs-note">등록 원본은 비교 기준으로 등록된 파일을 뜻합니다. 촬영 원본 여부, 영상 속 사건의 사실성, AI 생성 여부, 제작자·저작권자 여부는 보증하지 않습니다. 등록 시각은 촬영 시각과 다릅니다.</div>
     </div>
   </section>
@@ -120,7 +131,7 @@ layout: page
           <h4>원본 검색</h4>
           <p>파일 해시가 같으면 3단계로 이동합니다. 다르면 지각해시로 후보를 찾습니다</p>
           <div class="vs-flow-branch">
-            <span class="vs-branch vs-branch-red">후보 없음 → 미인증</span>
+            <span class="vs-branch vs-branch-gray">후보 없음 → 미인증</span>
           </div>
         </div>
         <div class="vs-flow-connector">
@@ -145,7 +156,7 @@ layout: page
           <h4>등록 증거 검증</h4>
           <p>온체인 서명 재대조와 VC 보증서를 확인합니다</p>
           <div class="vs-flow-branch">
-            <span class="vs-branch vs-branch-red">VC 미발급·무효 → 미인증</span>
+            <span class="vs-branch vs-branch-gray">VC 미발급·무효 → 미인증</span>
             <span class="vs-branch vs-branch-blue">체인 검증 실패·외부 장애 → 확인 중</span>
           </div>
         </div>
@@ -214,8 +225,8 @@ layout: page
         </div>
       </div>
       <div class="vs-case-group">
-        <div class="vs-case-header vs-case-header-red">
-          <span class="vs-chip vs-chip-red">미인증</span>
+        <div class="vs-case-header vs-case-header-gray">
+          <span class="vs-chip vs-chip-gray">미인증</span>
           <span>등록 증거가 없거나 유효하지 않음</span>
         </div>
         <div class="vs-case-item">
@@ -247,7 +258,9 @@ layout: page
 
 <style>
 .vs-page {
+  /* --vs-blue: 표면 위 텍스트용 / --vs-blue-solid: 흰 글자를 올리는 채움 배경용 */
   --vs-blue: #2457E6;
+  --vs-blue-solid: #2457E6;
   --vs-blue-light: #EEF4FF;
   --vs-blue-border: #C3D3FC;
   --vs-ink: #111827;
@@ -257,15 +270,16 @@ layout: page
   --vs-border: #E5E7EB;
   --vs-bg: #FFFFFF;
   --vs-bg-alt: #F9FAFB;
-  --vs-green: #059669;
+  --vs-green: #047857;
   --vs-green-bg: #ECFDF5;
   --vs-green-border: #A7F3D0;
-  --vs-yellow: #D97706;
+  --vs-yellow: #B45309;
   --vs-yellow-bg: #FFFBEB;
   --vs-yellow-border: #FDE68A;
-  --vs-red: #DC2626;
-  --vs-red-bg: #FEF2F2;
-  --vs-red-border: #FECACA;
+  /* 미인증은 "가짜"가 아니라 "등록 기록 없음"이므로 경고(빨강)가 아닌 중립(회색) */
+  --vs-gray: #4B5563;
+  --vs-gray-bg: #F3F4F6;
+  --vs-gray-border: #D1D5DB;
   font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", sans-serif;
 }
 .dark .vs-page {
@@ -278,12 +292,18 @@ layout: page
   --vs-bg-alt: #1F2937;
   --vs-blue-light: #1E293B;
   --vs-blue-border: #334155;
+  /* 강조색도 함께 뒤집지 않으면 어두운 배경 위 어두운 글자가 되어 대비가 무너짐 */
+  --vs-blue: #7AA3F5;
+  --vs-blue-solid: #3B6CF0;
+  --vs-green: #34D399;
   --vs-green-bg: #064E3B;
   --vs-green-border: #065F46;
+  --vs-yellow: #FBBF24;
   --vs-yellow-bg: #78350F;
   --vs-yellow-border: #92400E;
-  --vs-red-bg: #450A0A;
-  --vs-red-border: #7F1D1D;
+  --vs-gray: #9CA3AF;
+  --vs-gray-bg: #1F2937;
+  --vs-gray-border: #374151;
 }
 .vs-hero {
   background: linear-gradient(180deg, var(--vs-blue-light) 0%, var(--vs-bg) 100%);
@@ -343,6 +363,16 @@ layout: page
   line-height: 1.7;
 }
 .vs-note strong { color: var(--vs-ink); }
+/* <br>로 나열하던 3개 항목을 정의 목록으로 — 스크린리더가 항목 구조를 읽음 */
+.vs-note-list { margin: 0; }
+.vs-note-list dt {
+  display: inline;
+  font-weight: 700;
+  color: var(--vs-ink);
+}
+.vs-note-list dt::after { content: ":"; }
+.vs-note-list dd { display: inline; margin: 0 0 0 4px; }
+.vs-note-list dd::after { content: ""; display: block; }
 .vs-section-alt .vs-note { background: var(--vs-bg); }
 .vs-status-grid {
   display: grid;
@@ -363,7 +393,7 @@ layout: page
 .vs-status-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
 .vs-authentic:hover { border-color: var(--vs-green-border); }
 .vs-similar:hover { border-color: var(--vs-yellow-border); }
-.vs-unverified:hover { border-color: var(--vs-red-border); }
+.vs-unverified:hover { border-color: var(--vs-gray-border); }
 .vs-pending:hover { border-color: var(--vs-blue-border); }
 .vs-status-icon {
   width: 48px;
@@ -376,7 +406,7 @@ layout: page
 }
 .vs-authentic .vs-status-icon { background: var(--vs-green-bg); color: var(--vs-green); }
 .vs-similar .vs-status-icon { background: var(--vs-yellow-bg); color: var(--vs-yellow); }
-.vs-unverified .vs-status-icon { background: var(--vs-red-bg); color: var(--vs-red); }
+.vs-unverified .vs-status-icon { background: var(--vs-gray-bg); color: var(--vs-gray); }
 .vs-pending .vs-status-icon { background: var(--vs-blue-light); color: var(--vs-blue); }
 .vs-chip {
   display: inline-flex;
@@ -387,12 +417,12 @@ layout: page
   margin: 0 auto 10px;
 }
 .vs-chip-green { color: #18794e; background: #dcfce7; }
-.vs-chip-yellow { color: #9a6700; background: #fef3c7; }
-.vs-chip-red { color: #b42318; background: #fee4e2; }
+.vs-chip-yellow { color: #854D0E; background: #FEF3C7; }
+.vs-chip-gray { color: #4B5563; background: #F3F4F6; }
 .vs-chip-blue { color: #1943BE; background: #dbeafe; }
 .dark .vs-chip-green { color: #4ade80; background: #064E3B; }
 .dark .vs-chip-yellow { color: #fbbf24; background: #78350F; }
-.dark .vs-chip-red { color: #f87171; background: #450A0A; }
+.dark .vs-chip-gray { color: #D1D5DB; background: #374151; }
 .dark .vs-chip-blue { color: #93c5fd; background: #1E3A8A; }
 .vs-status-card h3 {
   font-size: 16px;
@@ -412,7 +442,7 @@ layout: page
   font-family: "SF Mono", "Fira Code", monospace;
   font-size: 11px;
   font-weight: 600;
-  color: var(--vs-text-3);
+  color: var(--vs-text-2);
   background: var(--vs-bg-alt);
   border: 1px solid var(--vs-border);
   border-radius: 6px;
@@ -558,7 +588,7 @@ layout: page
   width: 44px;
   height: 44px;
   border-radius: 12px;
-  background: var(--vs-blue);
+  background: var(--vs-blue-solid);
   color: #fff;
   font-size: 17px;
   font-weight: 700;
@@ -593,12 +623,12 @@ layout: page
   font-weight: 600;
 }
 .vs-branch-green { color: #18794e; background: #dcfce7; }
-.vs-branch-yellow { color: #9a6700; background: #fef3c7; }
-.vs-branch-red { color: #b42318; background: #fee4e2; }
+.vs-branch-yellow { color: #854D0E; background: #FEF3C7; }
+.vs-branch-gray { color: #4B5563; background: #F3F4F6; }
 .vs-branch-blue { color: #1943BE; background: #dbeafe; }
 .dark .vs-branch-green { color: #4ade80; background: #064E3B; }
 .dark .vs-branch-yellow { color: #fbbf24; background: #78350F; }
-.dark .vs-branch-red { color: #f87171; background: #450A0A; }
+.dark .vs-branch-gray { color: #D1D5DB; background: #374151; }
 .dark .vs-branch-blue { color: #93c5fd; background: #1E3A8A; }
 .vs-flow-connector {
   display: flex;
@@ -631,7 +661,7 @@ layout: page
 .vs-case-header .vs-chip { margin: 0; }
 .vs-case-header-green { background: var(--vs-green-bg); }
 .vs-case-header-yellow { background: var(--vs-yellow-bg); }
-.vs-case-header-red { background: var(--vs-red-bg); }
+.vs-case-header-gray { background: var(--vs-gray-bg); }
 .vs-case-header-blue { background: var(--vs-blue-light); }
 .vs-case-item {
   display: flex;

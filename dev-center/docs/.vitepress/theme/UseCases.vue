@@ -4,10 +4,10 @@
     <section class="uc-hero">
       <div class="uc-hero-inner">
         <span class="uc-label">Use Cases</span>
-        <h1 class="uc-hero-title">영상의 진위가 중요한<br/>모든 순간에</h1>
+        <h1 class="uc-hero-title"><span>영상의 진위가 중요한</span> <span>모든 순간에</span></h1>
         <p class="uc-hero-desc">
-          딥페이크, 무단 복제, 조작 영상이 늘어나는 시대.<br/>
-          진본은 등록 영상과의 관계, 등록자와 등록 시점을 확인합니다.
+          <span>딥페이크, 무단 복제, 조작 영상이 늘어나는 시대.</span>
+          <span>진본은 등록 영상과의 관계, 등록자와 등록 시점을 확인합니다.</span>
         </p>
       </div>
     </section>
@@ -347,24 +347,28 @@
 <style scoped>
 /* ─── Base ─── */
 .use-cases-page {
+  /* --jb-blue: 표면 위 텍스트·아이콘용 / --jb-blue-solid: 흰 글자를 올리는 채움 배경용 */
   --jb-blue: #2457E6;
+  --jb-blue-solid: #2457E6;
+  --jb-blue-solid-hover: #1a45c4;
   --jb-blue-light: #EEF4FF;
   --jb-blue-border: #C3D3FC;
   --jb-ink: #111827;
   --jb-text: #374151;
-  --jb-text-secondary: #6B7280;
-  --jb-text-tertiary: #9CA3AF;
+  /* 웜그레이 카드(#F7F6F3) 위에서 #6B7280은 4.47:1로 근소 미달 → 한 단계 진하게 */
+  --jb-text-secondary: #646B78;
+  --jb-text-tertiary: #646B78;
   --jb-border: #E5E7EB;
   --jb-bg: #FFFFFF;
   --jb-bg-alt: #F9FAFB;
   --jb-bg-warm: #F7F6F3;
-  --jb-green: #059669;
+  --jb-green: #047857;
   --jb-green-bg: #ECFDF5;
   --jb-red: #DC2626;
   --jb-red-bg: #FEF2F2;
   --jb-purple: #7C3AED;
   --jb-purple-bg: #F5F3FF;
-  --jb-yellow: #D97706;
+  --jb-yellow: #B45309;
   --jb-yellow-bg: #FFFBEB;
   --jb-comp-before-bg: #F7F6F3;
   --jb-comp-before-border: #E8E5DF;
@@ -379,16 +383,24 @@
   --jb-ink: #F9FAFB;
   --jb-text: #D1D5DB;
   --jb-text-secondary: #9CA3AF;
-  --jb-text-tertiary: #6B7280;
+  --jb-text-tertiary: #9CA3AF;
   --jb-border: #374151;
   --jb-bg: #111827;
   --jb-bg-alt: #1F2937;
   --jb-bg-warm: #1C1917;
+  /* 강조색을 함께 뒤집지 않으면 어두운 배경 위 어두운 글자가 됨 */
+  --jb-blue: #7AA3F5;
+  --jb-blue-solid: #3B6CF0;
+  --jb-blue-solid-hover: #2E5DE0;
   --jb-blue-light: #1E293B;
   --jb-blue-border: #334155;
+  --jb-green: #34D399;
   --jb-green-bg: #064E3B;
+  --jb-red: #F87171;
   --jb-red-bg: #450A0A;
+  --jb-purple: #C4B5FD;
   --jb-purple-bg: #2E1065;
+  --jb-yellow: #FBBF24;
   --jb-yellow-bg: #78350F;
   --jb-comp-before-bg: #1C1917;
   --jb-comp-before-border: #292524;
@@ -425,6 +437,12 @@
   margin: 0 0 20px;
   letter-spacing: -0.02em;
   line-height: 1.25;
+}
+
+/* <br> 대신 절 단위 inline-block — 좁은 화면에서도 자연스럽게 흐름 */
+.uc-hero-title span,
+.uc-hero-desc span {
+  display: inline-block;
 }
 
 .uc-hero-desc {
@@ -737,7 +755,7 @@
   width: 44px;
   height: 44px;
   border-radius: 12px;
-  background: var(--jb-blue);
+  background: var(--jb-blue-solid);
   color: #fff;
   font-size: 17px;
   font-weight: 700;
@@ -819,12 +837,12 @@
 }
 
 .btn-primary {
-  background: var(--jb-blue);
+  background: var(--jb-blue-solid);
   color: #fff;
 }
 
 .btn-primary:hover {
-  background: #1a45c4;
+  background: var(--jb-blue-solid-hover);
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(36, 87, 230, 0.3);
 }

@@ -103,6 +103,6 @@ flowchart LR
 | 서비스 | 용도 |
 |---|---|
 | **OmniOne CX** | 등록자 본인확인 (모바일 신분증) |
-| **Open DID** | VC 발급 및 검증 (Issuer, Verifier, TAS) |
+| **Open DID** | VC 발급 및 검증 (백엔드는 TAS·Issuer 호출) |
 | **OmniOne Chain** | 영상 해시(merkleRoot) 온체인 기록 (BESU 기반) |
 | **yt-dlp** | URL 기반 검증 시 영상 다운로드 |
