@@ -84,6 +84,13 @@
             <div class="dl-card-requires">
               <strong>필요 조건:</strong> 카카오톡
             </div>
+            <a class="dl-card-link" href="https://pf.kakao.com/_xgtNBX"
+               target="_blank" rel="noopener noreferrer">
+              카카오톡 채널 열기<span class="dl-ext" aria-hidden="true">↗</span>
+              <span class="sr-only">(새 창)</span>
+            </a>
+            <!-- 백엔드 배포 후 이 줄만 삭제하세요 -->
+            <p class="dl-card-pending">채널 추가는 지금 가능하며, 검증 응답은 백엔드 배포 후 동작합니다.</p>
           </div>
         </div>
       </div>
@@ -96,35 +103,35 @@
         <table class="dl-table">
           <thead>
             <tr>
-              <th>채널</th>
-              <th>등록</th>
-              <th>검증</th>
-              <th>로그인</th>
+              <th scope="col">채널</th>
+              <th scope="col">등록</th>
+              <th scope="col">검증</th>
+              <th scope="col">로그인</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><strong>iOS 앱</strong></td>
-              <td class="dl-yes">O</td>
-              <td class="dl-yes">O</td>
+              <th scope="row">iOS 앱</th>
+              <td class="dl-yes"><span aria-hidden="true">✓</span><span class="sr-only">가능</span></td>
+              <td class="dl-yes"><span aria-hidden="true">✓</span><span class="sr-only">가능</span></td>
               <td>필요</td>
             </tr>
             <tr>
-              <td><strong>검증 웹</strong></td>
-              <td class="dl-no">X</td>
-              <td class="dl-yes">O</td>
+              <th scope="row">검증 웹</th>
+              <td class="dl-no"><span aria-hidden="true">—</span><span class="sr-only">불가</span></td>
+              <td class="dl-yes"><span aria-hidden="true">✓</span><span class="sr-only">가능</span></td>
               <td>불필요</td>
             </tr>
             <tr>
-              <td><strong>Chrome 확장</strong></td>
-              <td class="dl-no">X</td>
-              <td class="dl-yes">O</td>
+              <th scope="row">Chrome 확장</th>
+              <td class="dl-no"><span aria-hidden="true">—</span><span class="sr-only">불가</span></td>
+              <td class="dl-yes"><span aria-hidden="true">✓</span><span class="sr-only">가능</span></td>
               <td>불필요</td>
             </tr>
             <tr>
-              <td><strong>카카오톡 챗봇</strong></td>
-              <td class="dl-no">X</td>
-              <td class="dl-yes">O</td>
+              <th scope="row">카카오톡 챗봇</th>
+              <td class="dl-no"><span aria-hidden="true">—</span><span class="sr-only">불가</span></td>
+              <td class="dl-yes"><span aria-hidden="true">✓</span><span class="sr-only">가능</span></td>
               <td>불필요</td>
             </tr>
           </tbody>
@@ -148,8 +155,13 @@
 
 <style scoped>
 .downloads-page {
+  /* --jb-blue: 표면 위 텍스트·아이콘용 / --jb-blue-solid: 흰 글자를 올리는 채움 배경용 */
   --jb-blue: #2457E6;
+  --jb-blue-solid: #2457E6;
+  --jb-blue-solid-hover: #1a45c4;
   --jb-blue-light: #EEF4FF;
+  /* 연파랑 카드 위에서는 --jb-text-secondary(#6B7280)가 4.38:1로 AA 미달 */
+  --jb-text-on-tint: #5A6373;
   --jb-blue-border: #C3D3FC;
   --jb-ink: #111827;
   --jb-text: #374151;
@@ -157,7 +169,7 @@
   --jb-border: #E5E7EB;
   --jb-bg: #FFFFFF;
   --jb-bg-alt: #F9FAFB;
-  --jb-green: #059669;
+  --jb-green: #047857;
   font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", sans-serif;
 }
 
@@ -168,8 +180,14 @@
   --jb-border: #374151;
   --jb-bg: #111827;
   --jb-bg-alt: #1F2937;
+  /* 강조색을 함께 뒤집지 않으면 어두운 배경 위 어두운 글자가 됨 */
+  --jb-blue: #7AA3F5;
+  --jb-blue-solid: #3B6CF0;
+  --jb-blue-solid-hover: #2E5DE0;
   --jb-blue-light: #1E293B;
+  --jb-text-on-tint: #9CA3AF;
   --jb-blue-border: #334155;
+  --jb-green: #34D399;
 }
 
 .dl-hero {
@@ -263,8 +281,11 @@
   margin-bottom: 16px;
 }
 
+.dl-card-primary .dl-card-repo,
+.dl-card-primary .dl-card-stack { color: var(--jb-text-on-tint); }
+
 .dl-card-primary .dl-card-icon {
-  background: var(--jb-blue);
+  background: var(--jb-blue-solid);
   color: #fff;
 }
 
@@ -303,6 +324,38 @@
   padding: 10px 14px;
 }
 
+/* ─── 채널 바로가기 ─── */
+.dl-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 14px;
+  padding: 10px 18px;
+  border-radius: 10px;
+  background: var(--jb-blue-solid);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.15s ease, transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.dl-card-link:hover {
+  background: var(--jb-blue-solid-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(36, 87, 230, 0.3);
+}
+
+.dl-ext { font-size: 12px; }
+
+.dl-card-pending {
+  margin: 10px 0 0;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--jb-text-secondary);
+}
+
 .dl-card-primary .dl-card-requires {
   background: var(--jb-bg);
 }
@@ -319,7 +372,8 @@
   border-bottom: 1px solid var(--jb-border);
 }
 
-.dl-table th {
+/* 열 머리글만 대문자 라벨 스타일 — 행 머리글까지 적용되면 "IOS 앱"이 됨 */
+.dl-table th[scope="col"] {
   font-weight: 600;
   color: var(--jb-text-secondary);
   font-size: 13px;
@@ -328,7 +382,12 @@
 }
 
 .dl-table td { color: var(--jb-text); }
-.dl-table td:first-child { text-align: left; }
+/* 행 머리글은 본문 셀과 같은 모양 (기존 <td><strong>…</strong></td>과 동일하게) */
+.dl-table th[scope="row"] {
+  text-align: left;
+  font-weight: 700;
+  color: var(--jb-ink);
+}
 .dl-yes { color: var(--jb-green); font-weight: 700; }
 .dl-no { color: var(--jb-text-secondary); }
 
@@ -351,12 +410,12 @@
 }
 
 .btn-primary {
-  background: var(--jb-blue);
+  background: var(--jb-blue-solid);
   color: #fff;
 }
 
 .btn-primary:hover {
-  background: #1a45c4;
+  background: var(--jb-blue-solid-hover);
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(36, 87, 230, 0.3);
 }
