@@ -59,9 +59,9 @@ sequenceDiagram
   W->>W: Wallet에 로컬 저장
   W-->>A: vcId
 
-  A->>B: POST /api/videos/{id}/vc/complete (vcId, offerId)
+  A->>B: POST /api/videos/{videoId}/vc/complete (vcId, offerId)
   B->>B: offerId 일치 확인
-  B->>B: Verifier로 vcId 검증
+  B->>B: Issuer로 vcId 검증
   B->>B: completeVcIssuance() → ISSUED
   B-->>A: 200
 ```
@@ -88,7 +88,7 @@ NOT_REQUESTED → PENDING_WALLET → ISSUED
 1. `opendid.enabled` 확인
 2. 영상 소유권 확인
 3. `video.vcOfferId == 요청 offerId`
-4. Verifier로 `vcId` 검증
+4. Issuer로 `vcId` 검증
 5. `completeVcIssuance(vcId, offerId)` → 상태 `ISSUED`
 
 ## 발급 재개

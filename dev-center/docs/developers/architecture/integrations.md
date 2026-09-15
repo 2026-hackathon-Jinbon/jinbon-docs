@@ -27,9 +27,9 @@ Open DID Orchestrator 2.0.0이 다음 서버를 관리합니다.
 | 서버 | 포트 | 백엔드 호출 | 앱 호출 |
 |---|---|---|---|
 | Orchestrator UI | 9001 | — | — |
-| TAS | 8090 | — | O |
+| TAS | 8090 | **O** | O |
 | Issuer | 8091 | **O** | O |
-| Verifier | 8092 | **O** | O |
+| Verifier | 8092 | — | O |
 | API Gateway | 8093 | — | O |
 | CA | 8094 | — | O |
 | Wallet | 8095 | — | O |
@@ -44,8 +44,8 @@ DID Document 앵커링용 블록체인은 Hyperledger Besu이며, 영상 기록�
 |---|---|
 | `VcIssuanceService` | 발급 준비 오케스트레이션 |
 | `OpenDidIssuerClient` | Holder·클레임 등록, Offer 생성 |
-| `VcVerificationService` | 상태·서명 검증 |
-| `OpenDidVerifierClient` | VC 상태 조회, 서명 검증 |
+| `VcVerificationService` | 상태·서명 검증 (`OpenDidIssuerClient` 경유) |
+| `OpenDidTasClient` | TAS 연동 |
 
 ### 검증 판정
 
@@ -53,7 +53,7 @@ DID Document 앵커링용 블록체인은 Hyperledger Besu이며, 영상 기록�
 |---|---|
 | `VERIFIED` | 상태 `ACTIVE` + 서명 `VALID` |
 | `INVALID` | 상태가 ACTIVE가 아니거나 서명 실패 |
-| `UNAVAILABLE` | Verifier 호출 중 예외 발생 |
+| `UNAVAILABLE` | VC 상태·서명 조회 중 예외 발생 |
 | `DISABLED` | `opendid.enabled=false` 이거나 VC 미발급 |
 
 ## 3. OmniOne Chain — 온체인 등록
@@ -97,6 +97,6 @@ DID Document 앵커링용 블록체인은 Hyperledger Besu이며, 영상 기록�
 |---|---|
 | OmniOne CX | 가입·로그인 불가. 검증은 정상 |
 | Open DID Issuer | VC 발급 준비만 실패. 영상 등록은 성공 |
-| Open DID Verifier | VC 발급 영상 검증이 `VERIFICATION_UNAVAILABLE` |
+| Open DID Issuer | VC 발급 영상 검증이 `VERIFICATION_UNAVAILABLE` |
 | OmniOne Chain | 등록 실패, 검증은 `VERIFICATION_UNAVAILABLE` |
 | yt-dlp | URL 검증만 실패 |

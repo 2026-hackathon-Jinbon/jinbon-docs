@@ -33,7 +33,7 @@ src/main/java/com/jinbon/
     ├── blockchain/       OmniOneChainClient, ContractEncoder, ContractDecoder
     ├── download/         VideoDownloadService
     ├── omnione/          OmniOneCxClient, OmniOneCxApi
-    └── opendid/          OpenDidIssuerClient, OpenDidVerifierClient,
+    └── opendid/          OpenDidIssuerClient, OpenDidTasClient,
                           VcIssuanceService, VcVerificationService
 ```
 

@@ -68,7 +68,7 @@ graph LR
 
 ### Open DID Orchestrator
 
-백엔드는 이 중 Issuer(8091)와 Verifier(8092)만 호출합니다.
+백엔드는 이 중 TAS(8090)와 Issuer(8091)만 호출합니다. 나머지는 iOS 앱이 직접 호출합니다.
 
 | 포트 | 서버 |
 |---|---|
@@ -97,5 +97,5 @@ graph LR
 2. Redis 캐시 조회 (TTL 10분)
 3. fineHash 정확 매칭 → 실패 시 perceptualHash 유사도 검색
 4. 매칭된 영상에 대해 온체인 기록 조회 + 서명 재계산 대조
-5. VC가 발급된 영상이면 Verifier로 상태·서명 확인
+5. VC가 발급된 영상이면 Issuer로 상태·서명 확인
 6. verdict 산출 후 캐싱
