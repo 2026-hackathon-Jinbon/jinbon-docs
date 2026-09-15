@@ -5,12 +5,13 @@
       <div class="hero-inner">
         <span class="hero-badge">Blockchain Video Verification</span>
         <h1 class="hero-title">
-          영상이 진짜인지,<br />블록체인과 DID로 증명합니다.
+          등록 영상과 일치하는지,<br />누가 언제 등록했는지 확인하세요.
         </h1>
         <p class="hero-desc">
           진본은 영상의 디지털 지문을 블록체인에 기록하고,
-          누가 언제 등록했는지를 DID 보증서로 증명하는 영상 진위 검증 서비스입니다.
+          제출 영상과의 관계 및 누가 언제 등록했는지를 확인하는 서비스입니다.
         </p>
+        <p class="hero-desc">영상 속 사건의 사실성, AI 생성 여부, 제작자·저작권자 여부는 보증하지 않습니다.</p>
         <div class="hero-actions">
           <a href="/use-cases" class="btn btn-primary">사용 사례 보기</a>
           <a href="/downloads" class="btn btn-secondary">시작하기</a>
@@ -28,16 +29,16 @@
             <div class="proof-icon">
               <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
             </div>
-            <h3>무결성 증명</h3>
-            <p class="proof-question">이 영상이 변조되지 않았는가?</p>
-            <p class="proof-answer">영상의 SHA-256 해시와 지각해시를 결합한 merkleRoot를 OmniOne Chain에 기록합니다. 검증 시 온체인 기록과 서명을 재계산해 대조합니다.</p>
+            <h3>영상 비교</h3>
+            <p class="proof-question">등록 파일 또는 등록 지문과 얼마나 일치하는가?</p>
+            <p class="proof-answer">파일 해시로 정확한 일치를 확인하고, 파일이 다르면 영상·음성 지문으로 유사도를 비교합니다. 블록체인의 등록 기록도 별도로 확인합니다.</p>
             <span class="proof-tech">OmniOne Chain</span>
           </div>
           <div class="proof-card">
             <div class="proof-icon">
               <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
             </div>
-            <h3>신뢰성 증명</h3>
+            <h3>등록 사실 확인</h3>
             <p class="proof-question">누가 언제 등록했는가?</p>
             <p class="proof-answer">모바일 신분증으로 본인확인을 마친 등록자가 DID 기반 보증서(VC)를 발급받아, 등록 사실을 제3자에게 증명할 수 있습니다.</p>
             <span class="proof-tech">Open DID + OmniOne CX</span>
@@ -63,7 +64,7 @@
             <div class="hash-num">2</div>
             <div>
               <h4>perceptualHash</h4>
-              <p>프레임별 DCT 기반 지각해시.<br/>재인코딩, 리사이즈를 거쳐도 같은 영상을 찾아냅니다.</p>
+              <p>프레임별 DCT 기반 지각해시.<br/>재인코딩·리사이즈된 영상의 유사 후보를 찾습니다.</p>
             </div>
           </div>
           <div class="hash-step hash-step-result">
@@ -81,29 +82,39 @@
     <section class="section">
       <div class="section-inner">
         <span class="section-label">Verification Technology</span>
-        <h2 class="section-title">여러 증거를 함께 확인합니다</h2>
-        <p class="section-desc">진본은 하나의 기술만으로 판단하지 않고, 파일·영상·음성·등록 기록을 함께 비교합니다.</p>
-        <div class="technology-grid">
-          <div class="technology-card">
-            <h3>파일 해시</h3>
-            <p>원본 파일과 완전히 같은지 확인합니다.</p>
+        <h2 class="section-title">영상과 음성을 따로 대조합니다</h2>
+        <p class="section-desc">파일이 다르면 지각해시로 유사 후보를 찾고, <strong>1초 간격의 대표 프레임과 음성 지문</strong>을 비교합니다. 이는 샘플 기반 유사도 평가이며 전체 영상의 무변조를 확정하는 검사는 아닙니다.</p>
+        <div class="pipeline">
+          <div class="pipeline-step">
+            <span class="pipeline-stage">1차</span>
+            <h4>후보 선별</h4>
+            <p>파일 해시가 같으면 파일 일치를 확인하고 등록 증거 검증으로 넘어갑니다. 다르면 16프레임 지각해시로 후보를 찾습니다.</p>
           </div>
-          <div class="technology-card">
-            <h3>영상 지문</h3>
-            <p>재인코딩, 해상도 변경, 쇼츠 구간을 비교합니다.</p>
+          <div class="pipeline-step pipeline-step-key">
+            <span class="pipeline-stage pipeline-stage-key">2차</span>
+            <h4>구간 대조</h4>
+            <p>영상·음성 지문을 각각 일정한 시간 간격으로 맞춰보며 <strong>대응 비율</strong>을 계산합니다.</p>
+            <div class="pipeline-metrics">
+              <span class="metric"><em>영상</em> 커버리지 ≥ 95%</span>
+              <span class="metric"><em>음성</em> 커버리지 ≥ 90%</span>
+              <span class="metric"><em>방식</em> 일정한 시간 간격으로 대조</span>
+            </div>
           </div>
-          <div class="technology-card">
-            <h3>음성 지문</h3>
-            <p>음성 교체나 음성 변조 여부를 확인합니다.</p>
+          <div class="pipeline-step">
+            <span class="pipeline-stage">3차</span>
+            <h4>등록 증거</h4>
+            <p>서명을 재계산해 DB와 온체인 양쪽에 대조하고, VC 보증서가 등록 당시 정보와 결속됐는지 확인합니다.</p>
           </div>
-          <div class="technology-card">
-            <h3>등록 기록</h3>
-            <p>머클루트·전자서명·블록체인으로 등록 사실을 검증합니다.</p>
-          </div>
-          <div class="technology-card">
-            <h3>등록자 증명</h3>
-            <p>VC로 누가 영상을 등록했는지 확인합니다.</p>
-          </div>
+        </div>
+        <div class="detect-panel">
+          <h4 class="detect-title">비교에서 차이가 나타날 수 있는 사례</h4>
+          <ul class="detect-list">
+            <li><strong>음성만 교체</strong><span>음성 지문의 대응 비율이 낮아질 수 있습니다</span></li>
+            <li><strong>얼굴·입모양 변경</strong><span>대표 프레임에 변화가 반영되면 차이가 나타날 수 있습니다</span></li>
+            <li><strong>장면 삽입</strong><span>대응하지 않는 샘플 구간을 표시합니다. 삽입 여부를 확정하지는 않습니다</span></li>
+            <li><strong>구간 순서 바꾸기</strong><span>같은 시간 간격으로 맞지 않는 구간은 대응 비율을 낮출 수 있습니다</span></li>
+          </ul>
+          <p class="detect-note"><strong>재인코딩본이나 연속 쇼츠</strong>도 후보 검색·비교 기준·등록 증거 검증을 통과하면 승인될 수 있습니다. 짧은 편집, 작은 화면 변화, 일부 음성 교체는 놓칠 수 있으며, 일부 구간의 대응이 전체 맥락을 보증하지는 않습니다.</p>
         </div>
       </div>
     </section>
@@ -113,21 +124,26 @@
       <div class="section-inner">
         <span class="section-label">Verification</span>
         <h2 class="section-title">검증 결과</h2>
-        <p class="section-desc">등록 기록과 콘텐츠 상태를 함께 확인합니다.</p>
+        <p class="section-desc">등록 기록과 콘텐츠 상태를 함께 확인해 네 가지로 표시합니다.</p>
         <div class="verdict-grid">
           <div class="verdict-item verdict-success">
             <span class="verdict-code">진본</span>
-            <span class="verdict-desc">원본과 동일하거나 검증된 재인코딩본</span>
+            <span class="verdict-desc">파일 일치 또는 유사도 기준을 충족하고, 등록 증거도 유효함</span>
           </div>
           <div class="verdict-item verdict-warn">
             <span class="verdict-code">콘텐츠 유사</span>
-            <span class="verdict-desc">등록 원본과 유사하지만 전체 일치는 미확인</span>
+            <span class="verdict-desc">등록 후보는 찾았지만 유사도 승인 기준 미달 또는 비교 정보 부족</span>
           </div>
           <div class="verdict-item verdict-neutral">
             <span class="verdict-code">미인증</span>
-            <span class="verdict-desc">등록 원본이 없거나 변경이 확인됨</span>
+            <span class="verdict-desc">등록 원본이 없거나 보증서가 유효하지 않음</span>
+          </div>
+          <div class="verdict-item verdict-pending">
+            <span class="verdict-code">확인 중</span>
+            <span class="verdict-desc">외부 장애 또는 등록 기록 검증 실패 &mdash; 상세 사유 확인 필요</span>
           </div>
         </div>
+        <p class="verdict-note">진본 배지는 <strong>콘텐츠 비교와 등록 증거 검증을 모두 통과</strong>했다는 뜻입니다. 파일 정확 일치와 유사도 기준 통과는 보증 수준이 다릅니다. <a href="/verification-status">판정별 의미와 한계 보기</a></p>
       </div>
     </section>
 
@@ -161,7 +177,7 @@
             </div>
             <h3>Chrome 확장</h3>
             <span class="channel-badge">jinbon-extension</span>
-            <p>YouTube, Instagram 시청 중 <strong>자동 검증.</strong> 등록된 영상엔 진본 배지.</p>
+            <p>YouTube, Instagram 시청 중 <strong>자동 검증.</strong> 검증 기준을 통과한 영상엔 진본 배지.</p>
             <span class="channel-tech">Manifest V3 &middot; JavaScript</span>
           </div>
           <div class="channel-card">
@@ -269,8 +285,8 @@
             <p>VC 발급이 실패해도 블록체인 등록은 유지됩니다. 나중에 재발급이 가능합니다.</p>
           </div>
           <div class="principle">
-            <h4>3중 중복 방어</h4>
-            <p>fineHash 조회 + perceptualHash 거리 비교 + DB unique 제약으로 중복 등록을 차단합니다.</p>
+            <h4>동일 파일 중복 방어</h4>
+            <p>파일 SHA-256 조회와 DB unique 제약으로 동일 파일의 중복 등록을 막습니다. 유사도만으로 등록 권리나 소유권을 판단하지 않습니다.</p>
           </div>
         </div>
       </div>
@@ -558,33 +574,140 @@
   line-height: 1.55;
 }
 
-/* ─── Verification Technology ─── */
-.technology-grid {
+/* ─── Verification Pipeline ─── */
+.pipeline {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-  gap: 12px;
-  margin-top: 24px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 28px;
 }
 
-.technology-card {
-  padding: 20px;
+.pipeline-step {
+  padding: 22px 20px;
   border: 1px solid var(--jb-border);
-  border-radius: 12px;
+  border-radius: 14px;
   background: var(--jb-bg);
 }
 
-.technology-card h3 {
-  margin: 0 0 8px;
-  color: var(--jb-ink);
-  font-size: 15px;
+.pipeline-step-key {
+  border-color: var(--jb-blue-border);
+  background: var(--jb-blue-light);
 }
 
-.technology-card p {
-  margin: 0;
+.pipeline-stage {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--jb-gray-bg);
   color: var(--jb-text-secondary);
+  margin-bottom: 12px;
+}
+
+.pipeline-stage-key {
+  background: var(--jb-blue);
+  color: #fff;
+}
+
+.pipeline-step h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--jb-ink);
+  margin: 0 0 8px;
+}
+
+.pipeline-step p {
+  font-size: 13.5px;
+  color: var(--jb-text-secondary);
+  line-height: 1.65;
+  margin: 0;
+}
+
+.pipeline-step p strong { color: var(--jb-ink); }
+
+.pipeline-metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 14px;
+}
+
+.metric {
+  font-family: "SF Mono", "Fira Code", monospace;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--jb-blue);
+  background: var(--jb-bg);
+  border: 1px solid var(--jb-blue-border);
+  border-radius: 6px;
+  padding: 5px 9px;
+}
+
+.metric em {
+  font-style: normal;
+  color: var(--jb-text-secondary);
+  margin-right: 6px;
+}
+
+/* ─── Detection panel ─── */
+.detect-panel {
+  margin-top: 16px;
+  padding: 24px;
+  border: 1px solid var(--jb-border);
+  border-radius: 14px;
+  background: var(--jb-bg);
+}
+
+.detect-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--jb-ink);
+  margin: 0 0 16px;
+}
+
+.detect-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 18px;
+}
+
+.detect-list li {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: var(--jb-bg-alt);
+  border: 1px solid var(--jb-border);
+}
+
+.detect-list strong {
   font-size: 14px;
+  font-weight: 600;
+  color: var(--jb-ink);
+}
+
+.detect-list span {
+  font-size: 13px;
+  color: var(--jb-text-secondary);
   line-height: 1.55;
 }
+
+.detect-note {
+  font-size: 13.5px;
+  color: var(--jb-text-secondary);
+  line-height: 1.7;
+  margin: 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--jb-border);
+}
+
+.detect-note strong { color: var(--jb-ink); }
 
 /* ─── Verdict ─── */
 .verdict-grid {
@@ -638,6 +761,19 @@
   font-size: 14px;
   color: var(--jb-text);
 }
+
+.verdict-note {
+  margin: 20px 0 0;
+  padding: 16px 20px;
+  background: var(--jb-bg-alt);
+  border: 1px solid var(--jb-border);
+  border-radius: 10px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--jb-text-secondary);
+}
+
+.verdict-note strong { color: var(--jb-ink); }
 
 /* ─── Channel Grid ─── */
 .channel-grid {
@@ -785,6 +921,11 @@
 }
 
 /* ─── Responsive ─── */
+@media (max-width: 960px) {
+  .pipeline { grid-template-columns: 1fr; }
+  .links-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
 @media (max-width: 768px) {
   .hero { padding: 56px 20px 48px; }
   .hero-title { font-size: 28px; }
@@ -794,7 +935,8 @@
   .proof-grid,
   .channel-grid,
   .principles-grid,
-  .technology-grid { grid-template-columns: 1fr; }
+  .pipeline,
+  .detect-list { grid-template-columns: 1fr; }
   .links-grid { grid-template-columns: 1fr; }
   .verdict-grid { grid-template-columns: 1fr; }
 }

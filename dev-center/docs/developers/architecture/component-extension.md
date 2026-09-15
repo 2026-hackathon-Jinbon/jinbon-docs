@@ -53,7 +53,18 @@ YouTube는 페이지 이동 시 문서를 새로 불러오지 않습니다. 1초
 
 ## 결과 표시
 
-판정을 두 갈래로 나눕니다: `진본으로 확인됨` (success) / `진본 확인 안 됨` (warning).
+`displayStatus`를 보고 제목과 톤을 정합니다. 응답에 `displayStatus`가 없는 구버전 백엔드를 대비해 `authentic`으로 폴백합니다.
+
+| displayStatus | 패널 제목 | 톤 |
+|---|---|---|
+| `AUTHENTICATED` | 등록 원본과 일치 | `success` |
+| `CONTENT_SIMILAR` | 등록 영상과 유사 | `warning` |
+| `UNAVAILABLE` | 확인 중 | `warning` |
+| 그 외 (`NOT_AUTHENTICATED`) | 미인증 | `warning` |
+
+::: warning PARTIAL_SIMILAR 분기는 죽은 코드
+`content.js`에 `PARTIAL_SIMILAR` 분기가 남아 있지만 백엔드 `DisplayStatus`에는 없는 값입니다. 부분 일치는 `CONTENT_SIMILAR`로 내려오므로 이 분기는 실행되지 않습니다.
+:::
 
 패널에 들어가는 항목:
 
