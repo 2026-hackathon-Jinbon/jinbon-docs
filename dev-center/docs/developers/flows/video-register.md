@@ -22,9 +22,8 @@ sequenceDiagram
     B-->>A: 409 VIDEO_ALREADY_REGISTERED
   end
 
-  B->>B: perceptualHash = 프레임별 pHash
-  B->>DB: 동일 콘텐츠 영상 조회 (거리 0)
-  Note over B,DB: 소유자 판정은 위와 동일
+  B->>B: pHash · 영상 세그먼트 · 음성 지문 생성
+  Note over B,DB: 유사 지문만으로 중복 등록을 차단하지 않음
 
   B->>B: merkleRoot = SHA-256(pHash + fineHash)
   B->>B: signature = HMAC-SHA256(issuerDid + merkleRoot)
@@ -57,16 +56,16 @@ member.userDid == null    → ISSUER_DID_NOT_REGISTERED (V002, 400)
 
 파일 전체를 8KB 버퍼로 스트리밍하며 SHA-256을 계산합니다. `videos.fine_hash`에 unique 제약이 있어 DB 레벨에서도 중복이 막힙니다.
 
-**중복 발견 시 소유자 판정:**
+**동일 파일의 기존 등록자 확인:**
 
 | 상황 | 결과 |
 |---|---|
 | 같은 회원 | 기존 등록 결과 반환, `alreadyRegistered = true` |
 | 다른 회원 | `VIDEO_ALREADY_REGISTERED` (V004, 409) |
 
-### 3. perceptualHash 생성과 동일 콘텐츠 확인
+### 3. 비교 지문 생성
 
-양방향 거리가 모두 0.0인 영상을 찾아 동일 콘텐츠로 판정합니다. 한쪽만 0인 경우는 부분 포함 관계일 수 있어 제외합니다.
+pHash·영상 세그먼트·음성 지문을 생성합니다. 중복 차단은 파일 SHA-256 기준이며, 지각해시가 같거나 유사하다는 이유로 다른 파일의 등록을 막지 않습니다. 동일 파일에 대한 등록 권한 확인도 제작자·저작권자 판정을 뜻하지 않습니다.
 
 ### 4. merkleRoot와 서명
 

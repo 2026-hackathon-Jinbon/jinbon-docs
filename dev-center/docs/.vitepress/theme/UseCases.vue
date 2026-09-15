@@ -7,8 +7,16 @@
         <h1 class="uc-hero-title">영상의 진위가 중요한<br/>모든 순간에</h1>
         <p class="uc-hero-desc">
           딥페이크, 무단 복제, 조작 영상이 늘어나는 시대.<br/>
-          진본은 블록체인과 DID로 영상의 원본성을 증명합니다.
+          진본은 등록 영상과의 관계, 등록자와 등록 시점을 확인합니다.
         </p>
+      </div>
+    </section>
+
+    <section class="uc-section">
+      <div class="uc-inner">
+        <h2 class="uc-section-title">검증 결과가 의미하는 것</h2>
+        <p>사전에 등록된 영상과 비교한 결과와 등록 증거를 제공합니다. 등록 이전의 편집, 영상 속 사건의 사실성, AI 생성 여부, 제작자·저작권자 여부는 보증하지 않습니다. 등록 시각은 촬영 시각과 다릅니다.</p>
+        <p>파일 정확 일치와 유사도 기준 통과는 구분해서 해석해야 합니다. <a href="/verification-status">검증 상태와 한계 보기</a></p>
       </div>
     </section>
 
@@ -99,13 +107,13 @@
             </div>
             <div>
               <h3>영상 제작자 · 크리에이터</h3>
-              <span class="uc-card-tag">원본 소유 증명</span>
+              <span class="uc-card-tag">영상 등록 사실 증명</span>
             </div>
           </div>
           <div class="uc-card-scenario">
             <div class="uc-scenario-quote">
               <span class="uc-quote-mark">"</span>
-              <p>내가 만든 영상이 다른 채널에 무단으로 올라갔는데, 원본이 내 것이라는 걸 증명할 수가 없어요.</p>
+              <p>내가 만든 영상이 다른 채널에 무단으로 올라갔는데, 내가 언제 등록한 영상인지 보여주고 싶어요.</p>
             </div>
           </div>
           <div class="uc-card-body">
@@ -128,7 +136,7 @@
                 </div>
                 <ul>
                   <li>플랫폼 업로드 전 진본 앱으로 등록 &rarr; <strong>등록 시점이 블록체인에 확정</strong></li>
-                  <li>지각해시로 재인코딩·리사이즈 후에도 <strong>같은 콘텐츠임을 탐지</strong></li>
+                  <li>영상·음성 지문으로 재인코딩·리사이즈된 <strong>등록 영상 후보와 유사도 비교</strong></li>
                   <li>DID 보증서로 <strong>등록자 본인임을 제3자에게 증명</strong></li>
                 </ul>
               </div>
@@ -197,13 +205,13 @@
             </div>
             <div>
               <h3>일반 사용자 · 시청자</h3>
-              <span class="uc-card-tag">가짜 영상 판별</span>
+              <span class="uc-card-tag">등록 영상과의 일치 확인</span>
             </div>
           </div>
           <div class="uc-card-scenario">
             <div class="uc-scenario-quote">
               <span class="uc-quote-mark">"</span>
-              <p>SNS에서 퍼진 영상인데, 진짜인지 가짜인지 어떻게 알 수 있을까요?</p>
+              <p>SNS에서 퍼진 영상이 등록된 영상과 일치하는지 확인할 수 있을까요?</p>
             </div>
           </div>
           <div class="uc-card-body">

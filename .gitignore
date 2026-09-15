@@ -13,6 +13,6 @@ __pycache__/
 node_modules/
 
 # VitePress
-.vitepress/cache/
-.vitepress/dist/
+**/.vitepress/cache/
+**/.vitepress/dist/
 .vercel

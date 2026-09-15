@@ -12,16 +12,17 @@ layout: page
   </section>
   <section class="vs-section">
     <div class="vs-inner">
-      <span class="vs-label">Three States</span>
-      <h2 class="vs-section-title">사용자에게 표시하는 세 가지 상태</h2>
+      <span class="vs-label">Four States</span>
+      <h2 class="vs-section-title">사용자에게 표시하는 네 가지 상태</h2>
       <div class="vs-status-grid">
         <div class="vs-status-card vs-authentic">
           <div class="vs-status-icon">
             <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
           </div>
           <span class="vs-chip vs-chip-green">진본</span>
-          <h3>원본과 같은 콘텐츠</h3>
-          <p>원본 전체 또는 특정 구간이 영상·음성·시간 순서 검증을 통과</p>
+          <h3>비교·등록 증거 기준 통과</h3>
+          <p>파일 정확 일치 또는 영상·음성 유사도 기준 통과에 더해 등록 증거가 유효함</p>
+          <code class="vs-code">AUTHENTICATED</code>
         </div>
         <div class="vs-status-card vs-similar">
           <div class="vs-status-icon">
@@ -29,7 +30,8 @@ layout: page
           </div>
           <span class="vs-chip vs-chip-yellow">콘텐츠 유사</span>
           <h3>원본 후보를 찾음</h3>
-          <p>등록 원본과 연결되지만, 전체 무변조를 확정하지 못함</p>
+          <p>등록 후보는 찾았지만 유사도 승인 기준 미달 또는 비교 정보 부족</p>
+          <code class="vs-code">CONTENT_SIMILAR</code>
         </div>
         <div class="vs-status-card vs-unverified">
           <div class="vs-status-icon">
@@ -37,13 +39,78 @@ layout: page
           </div>
           <span class="vs-chip vs-chip-red">미인증</span>
           <h3>진본 승인 불가</h3>
-          <p>등록 원본이 없거나 음성·얼굴·자막·장면 변경이 확인됨</p>
+          <p>등록 원본이 없거나, 등록이 취소됐거나, 보증서가 유효하지 않음</p>
+          <code class="vs-code">NOT_AUTHENTICATED</code>
+        </div>
+        <div class="vs-status-card vs-pending">
+          <div class="vs-status-icon">
+            <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          </div>
+          <span class="vs-chip vs-chip-blue">확인 중</span>
+          <h3>일시적으로 판정 불가</h3>
+          <p>외부 장애 또는 온체인 무결성 검증 실패. 상세 사유에 따라 재시도하거나 운영자 확인</p>
+          <code class="vs-code">UNAVAILABLE</code>
         </div>
       </div>
-      <div class="vs-note">등록 기록과 콘텐츠 판정은 별개입니다. 콘텐츠가 변경되어도 유효한 VC가 있으면 등록자 정보는 표시할 수 있습니다.</div>
+      <div class="vs-note">등록 기록과 콘텐츠 판정은 별개입니다. 후보의 등록자 정보나 유효한 VC가 표시되어도 제출 영상 전체의 무변조를 뜻하지 않습니다.</div>
     </div>
   </section>
   <section class="vs-section vs-section-alt">
+    <div class="vs-inner">
+      <span class="vs-label">Assurance Scope</span>
+      <h2 class="vs-section-title">같은 배지라도 일치 근거는 다릅니다</h2>
+      <div class="vs-note"><strong>파일 정확 일치:</strong> 등록 파일과 SHA-256이 같습니다. 오디오가 없는 파일도 등록 증거가 유효하면 승인됩니다.<br><strong>유사도 기준 통과:</strong> 샘플로 비교한 영상·음성 지문이 기준을 충족합니다. 전체 프레임·음성의 무변조를 확정하지 않습니다.<br><strong>일부 구간 대응:</strong> 등록 원본의 대응 시간대를 함께 확인해야 합니다. 생략된 앞뒤 맥락까지 보증하지 않습니다.</div>
+      <div class="vs-note">등록 원본은 비교 기준으로 등록된 파일을 뜻합니다. 촬영 원본 여부, 영상 속 사건의 사실성, AI 생성 여부, 제작자·저작권자 여부는 보증하지 않습니다. 등록 시각은 촬영 시각과 다릅니다.</div>
+    </div>
+  </section>
+  <section class="vs-section">
+    <div class="vs-inner">
+      <span class="vs-label">What We Compare</span>
+      <h2 class="vs-section-title">무엇을, 어떻게 대조하는가</h2>
+      <p class="vs-section-desc">파일 해시가 다르면 <strong>1초 간격 대표 프레임과 음성 지문</strong>을 등록 후보와 각각 비교합니다. 모든 프레임을 검사하는 방식은 아닙니다.</p>
+      <div class="vs-track-demo">
+        <div class="vs-track-row">
+          <span class="vs-track-label">등록 원본</span>
+          <div class="vs-track">
+            <span class="vs-seg vs-seg-ref"></span><span class="vs-seg vs-seg-ref"></span><span class="vs-seg vs-seg-ref"></span><span class="vs-seg vs-seg-ref"></span><span class="vs-seg vs-seg-ref"></span><span class="vs-seg vs-seg-ref"></span><span class="vs-seg vs-seg-ref"></span><span class="vs-seg vs-seg-ref"></span><span class="vs-seg vs-seg-ref"></span><span class="vs-seg vs-seg-ref"></span><span class="vs-seg vs-seg-ref"></span><span class="vs-seg vs-seg-ref"></span>
+          </div>
+        </div>
+        <div class="vs-track-row">
+          <span class="vs-track-label">제출 영상</span>
+          <div class="vs-track">
+            <span class="vs-seg vs-seg-gap"></span><span class="vs-seg vs-seg-gap"></span><span class="vs-seg vs-seg-gap"></span><span class="vs-seg vs-seg-ok"></span><span class="vs-seg vs-seg-ok"></span><span class="vs-seg vs-seg-ok"></span><span class="vs-seg vs-seg-ok"></span><span class="vs-seg vs-seg-ok"></span><span class="vs-seg vs-seg-ok"></span><span class="vs-seg vs-seg-gap"></span><span class="vs-seg vs-seg-gap"></span><span class="vs-seg vs-seg-gap"></span>
+          </div>
+        </div>
+        <div class="vs-track-row vs-track-row-axis">
+          <span class="vs-track-label"></span>
+          <div class="vs-track vs-track-axis">
+            <span class="vs-axis-span">원본 3~9초 구간에 대응 · 순서 보존</span>
+          </div>
+        </div>
+        <div class="vs-track-caption">제출본이 원본의 어느 위치에 대응하는지 슬라이딩으로 찾습니다. 쇼츠도 후보 검색·유사도 기준·등록 증거 검증을 통과하면 <strong>승인될 수 있습니다.</strong></div>
+      </div>
+      <div class="vs-threshold-grid">
+        <div class="vs-threshold">
+          <div class="vs-threshold-head">
+            <h4>영상 세그먼트</h4>
+            <span class="vs-threshold-value">≥ 95%</span>
+          </div>
+          <div class="vs-bar"><div class="vs-bar-fill vs-bar-green" style="width:95%"></div></div>
+          <p>1초 간격 대표 프레임 해시의 대응 비율. 한 시간 오프셋에서 일정한 간격으로 비교합니다.</p>
+        </div>
+        <div class="vs-threshold">
+          <div class="vs-threshold-head">
+            <h4>음성 세그먼트</h4>
+            <span class="vs-threshold-value">≥ 90%</span>
+          </div>
+          <div class="vs-bar"><div class="vs-bar-fill vs-bar-green" style="width:90%"></div></div>
+          <p>1초 간격 스펙트로그램 해시의 대응 비율. 음성이 없으면 <strong>유사도 경로로는 승인하지 않습니다.</strong> 파일 정확 일치는 별도입니다.</p>
+        </div>
+      </div>
+      <div class="vs-note">이 수치는 유사도 경로의 승인 기준이며 정확도나 조작 탐지율이 아닙니다. 일부 불일치를 허용하고, 샘플 사이의 편집이나 작은 변화는 놓칠 수 있습니다. 각각의 영상·음성이 원본에서 같은 시간대의 조합인지까지는 확인하지 않습니다.</div>
+    </div>
+  </section>
+  <section class="vs-section">
     <div class="vs-inner">
       <span class="vs-label">Decision Flow</span>
       <h2 class="vs-section-title">상태가 결정되는 흐름</h2>
@@ -51,7 +118,7 @@ layout: page
         <div class="vs-flow-step">
           <div class="vs-flow-num">1</div>
           <h4>원본 검색</h4>
-          <p>fineHash·pHash로 등록 원본 후보를 찾습니다</p>
+          <p>파일 해시가 같으면 3단계로 이동합니다. 다르면 지각해시로 후보를 찾습니다</p>
           <div class="vs-flow-branch">
             <span class="vs-branch vs-branch-red">후보 없음 → 미인증</span>
           </div>
@@ -62,10 +129,11 @@ layout: page
         </div>
         <div class="vs-flow-step">
           <div class="vs-flow-num">2</div>
-          <h4>등록 증거 검증</h4>
-          <p>블록체인 기록·VC·서명 무결성을 확인합니다</p>
+          <h4>영상·음성 대조</h4>
+          <p>파일이 다른 경우 대표 프레임·음성 지문의 대응 비율을 확인합니다</p>
           <div class="vs-flow-branch">
-            <span class="vs-branch vs-branch-red">증거 불충분 → 미인증</span>
+            <span class="vs-branch vs-branch-green">모두 통과 → 진본 후보</span>
+            <span class="vs-branch vs-branch-yellow">일부 통과 → 콘텐츠 유사</span>
           </div>
         </div>
         <div class="vs-flow-connector">
@@ -74,79 +142,103 @@ layout: page
         </div>
         <div class="vs-flow-step">
           <div class="vs-flow-num">3</div>
-          <h4>콘텐츠 비교</h4>
-          <p>원본 후보와 음성 지문을 비교합니다</p>
+          <h4>등록 증거 검증</h4>
+          <p>온체인 서명 재대조와 VC 보증서를 확인합니다</p>
           <div class="vs-flow-branch">
-            <span class="vs-branch vs-branch-green">모두 일치 → 진본</span>
-            <span class="vs-branch vs-branch-yellow">일부 일치 → 콘텐츠 유사</span>
-            <span class="vs-branch vs-branch-red">변경 확인 → 미인증</span>
+            <span class="vs-branch vs-branch-red">VC 미발급·무효 → 미인증</span>
+            <span class="vs-branch vs-branch-blue">체인 검증 실패·외부 장애 → 확인 중</span>
+          </div>
+        </div>
+        <div class="vs-flow-connector">
+          <div class="vs-flow-line"></div>
+          <svg class="vs-flow-chevron" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </div>
+        <div class="vs-flow-step">
+          <div class="vs-flow-num">4</div>
+          <h4>최종 판정</h4>
+          <p>콘텐츠 일치와 등록 증거를 모두 통과한 경우에만 진본</p>
+          <div class="vs-flow-branch">
+            <span class="vs-branch vs-branch-green">전부 통과 → 진본</span>
           </div>
         </div>
       </div>
+      <div class="vs-note">콘텐츠가 일치해도 <strong>등록 증거가 무너지면 진본이 아닙니다.</strong> 3단계 결과가 2단계 판정을 덮어씁니다.</div>
     </div>
   </section>
-  <section class="vs-section">
+  <section class="vs-section vs-section-alt">
     <div class="vs-inner">
       <span class="vs-label">Examples</span>
       <h2 class="vs-section-title">대표 사례</h2>
       <div class="vs-case-group">
         <div class="vs-case-header vs-case-header-green">
           <span class="vs-chip vs-chip-green">진본</span>
-          <span>원본과 같은 콘텐츠</span>
+          <span>콘텐츠 비교·등록 증거 기준 통과</span>
         </div>
         <div class="vs-case-item">
           <div class="vs-case-scenario">등록 파일 그대로 제출</div>
-          <div class="vs-case-detail">파일 SHA-256 일치 → 등록자·등록 시각 표시</div>
+          <div class="vs-case-detail">파일 SHA-256 일치 + 등록 증거 검증 통과 → 등록자·등록 시각 표시</div>
         </div>
         <div class="vs-case-item">
           <div class="vs-case-scenario">YouTube 재인코딩·해상도 변경</div>
-          <div class="vs-case-detail">영상·음성·시간 순서 일치 → 등록자·등록 시각 표시</div>
-        </div>
-      </div>
-      <div class="vs-case-group">
-        <div class="vs-case-header vs-case-header-green">
-          <span class="vs-chip vs-chip-green">진본</span>
-          <span>원본 구간 인증</span>
+          <div class="vs-case-detail">후보 검색·영상·음성 비교 기준과 등록 증거 검증을 통과한 경우</div>
         </div>
         <div class="vs-case-item">
           <div class="vs-case-scenario">긴 원본에서 30초를 잘라낸 쇼츠</div>
-          <div class="vs-case-detail">영상·음성·시간 순서가 모두 일치하면 진본. 원본 구간과 타임코드 표시</div>
+          <div class="vs-case-detail">후보 검색·영상·음성 비교 기준과 등록 증거 검증을 통과하면 승인. 원본 대응 구간을 표시하며 맥락은 별도 확인</div>
         </div>
       </div>
       <div class="vs-case-group">
         <div class="vs-case-header vs-case-header-yellow">
           <span class="vs-chip vs-chip-yellow">콘텐츠 유사</span>
-          <span>원본과 일부 연결</span>
+          <span>등록 후보와의 비교 기준 미달 또는 정보 부족</span>
+        </div>
+        <div class="vs-case-item">
+          <div class="vs-case-scenario">영상은 같고 음성만 교체</div>
+          <div class="vs-case-detail">영상 커버리지는 통과하지만 음성 커버리지 미달 → 진본으로 승격하지 않음</div>
+        </div>
+        <div class="vs-case-item">
+          <div class="vs-case-scenario">얼굴·입모양을 변경 (딥페이크)</div>
+          <div class="vs-case-detail">샘플에 변화가 반영돼 승인 기준에 미달한 경우. 얼굴·입모양 변경의 탐지를 보장하지 않음</div>
+        </div>
+        <div class="vs-case-item">
+          <div class="vs-case-scenario">여러 원본을 이어 붙이거나 장면 삽입</div>
+          <div class="vs-case-detail">대응 비율이 승인 기준에 미달한 경우. 불일치 구간은 삽입·편집의 확정 증거가 아님</div>
         </div>
         <div class="vs-case-item">
           <div class="vs-case-scenario">자막·로고만 추가된 영상</div>
-          <div class="vs-case-detail">오버레이 영역과 원본 트랙 분리 검증. 정책상 진본 승격 가능</div>
+          <div class="vs-case-detail">승인 기준에 미달하면 콘텐츠 유사. 작은 자막·로고는 지문에 충분히 반영되지 않을 수 있음</div>
         </div>
         <div class="vs-case-item">
           <div class="vs-case-scenario">오디오 트랙이 없는 영상</div>
-          <div class="vs-case-detail">음성 비교 불가. 진본으로 자동 승인하지 않음</div>
+          <div class="vs-case-detail">파일이 다른 경우 음성 비교 불가로 유사도 승인 보류. 파일 정확 일치와 유효한 등록 증거가 있으면 승인 가능</div>
         </div>
       </div>
       <div class="vs-case-group">
         <div class="vs-case-header vs-case-header-red">
           <span class="vs-chip vs-chip-red">미인증</span>
-          <span>변경이 확인된 콘텐츠</span>
-        </div>
-        <div class="vs-case-item">
-          <div class="vs-case-scenario">영상은 같고 음성만 교체</div>
-          <div class="vs-case-detail">음성 구간 원본과 불일치. 등록 증명과 판정을 구분 표시</div>
-        </div>
-        <div class="vs-case-item">
-          <div class="vs-case-scenario">얼굴·입모양을 변경 (딥페이크)</div>
-          <div class="vs-case-detail">국소 영상 불일치. 제출 영상은 진본으로 승인하지 않음</div>
-        </div>
-        <div class="vs-case-item">
-          <div class="vs-case-scenario">여러 원본을 이어 붙이거나 장면 삽입</div>
-          <div class="vs-case-detail">구간 순서·대응하지 않는 장면을 확인. 제출 영상은 진본으로 승인하지 않음</div>
+          <span>등록 증거가 없거나 유효하지 않음</span>
         </div>
         <div class="vs-case-item">
           <div class="vs-case-scenario">등록 원본을 찾지 못함</div>
           <div class="vs-case-detail">미등록 = 가짜라는 뜻은 아님. 검증된 VC는 노출하지 않음</div>
+        </div>
+        <div class="vs-case-item">
+          <div class="vs-case-scenario">등록자가 영상을 비활성화</div>
+          <div class="vs-case-detail">온체인 기록은 남지만 진본으로 표시하지 않음</div>
+        </div>
+        <div class="vs-case-item">
+          <div class="vs-case-scenario">보증서 미발급 · 폐기 · 클레임 불일치</div>
+          <div class="vs-case-detail">블록체인 등록은 확인되지만 등록자 신원 보증이 성립하지 않음</div>
+        </div>
+      </div>
+      <div class="vs-case-group">
+        <div class="vs-case-header vs-case-header-blue">
+          <span class="vs-chip vs-chip-blue">확인 중</span>
+          <span>현재 판정 불가</span>
+        </div>
+        <div class="vs-case-item">
+          <div class="vs-case-scenario">블록체인·Verifier 장애</div>
+          <div class="vs-case-detail">외부 장애는 재시도 안내. 온체인 무결성 불일치도 같은 상태로 반환되므로 message·notice의 운영자 확인 안내를 함께 표시</div>
         </div>
       </div>
     </div>
@@ -230,9 +322,16 @@ layout: page
   font-size: 28px;
   font-weight: 700;
   color: var(--vs-ink);
-  margin: 0 0 36px;
+  margin: 0 0 16px;
   letter-spacing: -0.01em;
 }
+.vs-section-desc {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--vs-text-2);
+  margin: 0 0 32px;
+}
+.vs-section-desc strong { color: var(--vs-ink); }
 .vs-note {
   margin-top: 28px;
   padding: 16px 20px;
@@ -243,17 +342,21 @@ layout: page
   color: var(--vs-text-2);
   line-height: 1.7;
 }
+.vs-note strong { color: var(--vs-ink); }
 .vs-section-alt .vs-note { background: var(--vs-bg); }
 .vs-status-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-top: 20px;
 }
 .vs-status-card {
+  display: flex;
+  flex-direction: column;
   background: var(--vs-bg);
   border: 1px solid var(--vs-border);
   border-radius: 16px;
-  padding: 28px 24px;
+  padding: 24px 20px;
   text-align: center;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
@@ -261,44 +364,186 @@ layout: page
 .vs-authentic:hover { border-color: var(--vs-green-border); }
 .vs-similar:hover { border-color: var(--vs-yellow-border); }
 .vs-unverified:hover { border-color: var(--vs-red-border); }
+.vs-pending:hover { border-color: var(--vs-blue-border); }
 .vs-status-icon {
-  width: 52px;
-  height: 52px;
+  width: 48px;
+  height: 48px;
   border-radius: 14px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 16px;
+  margin: 0 auto 14px;
 }
 .vs-authentic .vs-status-icon { background: var(--vs-green-bg); color: var(--vs-green); }
 .vs-similar .vs-status-icon { background: var(--vs-yellow-bg); color: var(--vs-yellow); }
 .vs-unverified .vs-status-icon { background: var(--vs-red-bg); color: var(--vs-red); }
+.vs-pending .vs-status-icon { background: var(--vs-blue-light); color: var(--vs-blue); }
 .vs-chip {
   display: inline-flex;
   padding: 4px 10px;
   border-radius: 999px;
   font-size: 12px;
   font-weight: 700;
-  margin-bottom: 10px;
+  margin: 0 auto 10px;
 }
 .vs-chip-green { color: #18794e; background: #dcfce7; }
 .vs-chip-yellow { color: #9a6700; background: #fef3c7; }
 .vs-chip-red { color: #b42318; background: #fee4e2; }
+.vs-chip-blue { color: #1943BE; background: #dbeafe; }
 .dark .vs-chip-green { color: #4ade80; background: #064E3B; }
 .dark .vs-chip-yellow { color: #fbbf24; background: #78350F; }
 .dark .vs-chip-red { color: #f87171; background: #450A0A; }
+.dark .vs-chip-blue { color: #93c5fd; background: #1E3A8A; }
 .vs-status-card h3 {
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 700;
   color: var(--vs-ink);
   margin: 0 0 8px;
 }
 .vs-status-card p {
-  font-size: 14px;
+  font-size: 13.5px;
   color: var(--vs-text-2);
   line-height: 1.6;
+  margin: 0 0 14px;
+  flex: 1;
+}
+.vs-code {
+  display: block;
+  font-family: "SF Mono", "Fira Code", monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--vs-text-3);
+  background: var(--vs-bg-alt);
+  border: 1px solid var(--vs-border);
+  border-radius: 6px;
+  padding: 5px 8px;
+  white-space: nowrap;
+  overflow-x: auto;
+}
+.vs-section-alt .vs-code { background: var(--vs-bg); }
+
+/* ─── Track demo ─── */
+.vs-track-demo {
+  background: var(--vs-bg);
+  border: 1px solid var(--vs-border);
+  border-radius: 14px;
+  padding: 28px 24px 20px;
+  margin-bottom: 20px;
+}
+.vs-track-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+.vs-track-label {
+  flex: 0 0 72px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--vs-text-2);
+  text-align: right;
+}
+.vs-track {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 3px;
+  flex: 1;
+  min-width: 0;
+}
+.vs-seg {
+  height: 28px;
+  border-radius: 4px;
+  min-width: 0;
+}
+.vs-seg-ref { background: #dbeafe; border: 1px solid var(--vs-blue-border); }
+.dark .vs-seg-ref { background: #1E3A8A; border-color: #2c4a8f; }
+.vs-seg-ok { background: #bbf7d0; border: 1px solid var(--vs-green); }
+.dark .vs-seg-ok { background: #065F46; border-color: #10b981; }
+.vs-seg-gap { background: transparent; border: 1px dashed var(--vs-border); }
+.vs-track-row-axis { margin-bottom: 6px; }
+.vs-track-axis {
+  display: block;
+  position: relative;
+  height: 22px;
+}
+.vs-axis-span {
+  position: absolute;
+  left: calc(25% + 1.5px);
+  width: calc(50% - 3px);
+  top: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--vs-green);
+  border-left: 2px solid var(--vs-green);
+  border-right: 2px solid var(--vs-green);
+  border-bottom: 2px solid var(--vs-green);
+  border-radius: 0 0 6px 6px;
+  white-space: nowrap;
+}
+.vs-track-caption {
+  font-size: 13px;
+  color: var(--vs-text-2);
+  line-height: 1.7;
+  padding-left: 88px;
+  margin-top: 4px;
+}
+.vs-track-caption strong { color: var(--vs-ink); }
+
+/* ─── Thresholds ─── */
+.vs-threshold-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.vs-threshold {
+  background: var(--vs-bg);
+  border: 1px solid var(--vs-border);
+  border-radius: 14px;
+  padding: 22px 24px;
+}
+.vs-threshold-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.vs-threshold h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--vs-ink);
   margin: 0;
 }
+.vs-threshold-value {
+  font-family: "SF Mono", "Fira Code", monospace;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--vs-green);
+}
+.vs-bar {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--vs-bg-alt);
+  border: 1px solid var(--vs-border);
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+.vs-section-alt .vs-bar { background: var(--vs-bg-alt); }
+.vs-bar-fill { height: 100%; border-radius: 999px; }
+.vs-bar-green { background: var(--vs-green); }
+.vs-threshold p {
+  font-size: 13.5px;
+  color: var(--vs-text-2);
+  line-height: 1.65;
+  margin: 0;
+}
+.vs-threshold p strong { color: var(--vs-ink); }
+
+/* ─── Flow ─── */
 .vs-flow {
   display: flex;
   align-items: flex-start;
@@ -307,7 +552,7 @@ layout: page
 .vs-flow-step {
   flex: 1;
   text-align: center;
-  padding: 0 12px;
+  padding: 0 10px;
 }
 .vs-flow-num {
   width: 44px;
@@ -323,7 +568,7 @@ layout: page
   margin-bottom: 14px;
 }
 .vs-flow-step h4 {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
   color: var(--vs-ink);
   margin: 0 0 6px;
@@ -350,17 +595,21 @@ layout: page
 .vs-branch-green { color: #18794e; background: #dcfce7; }
 .vs-branch-yellow { color: #9a6700; background: #fef3c7; }
 .vs-branch-red { color: #b42318; background: #fee4e2; }
+.vs-branch-blue { color: #1943BE; background: #dbeafe; }
 .dark .vs-branch-green { color: #4ade80; background: #064E3B; }
 .dark .vs-branch-yellow { color: #fbbf24; background: #78350F; }
 .dark .vs-branch-red { color: #f87171; background: #450A0A; }
+.dark .vs-branch-blue { color: #93c5fd; background: #1E3A8A; }
 .vs-flow-connector {
   display: flex;
   align-items: center;
   margin-top: 14px;
   flex-shrink: 0;
 }
-.vs-flow-line { width: 20px; height: 2px; background: var(--vs-border); }
+.vs-flow-line { width: 16px; height: 2px; background: var(--vs-border); }
 .vs-flow-chevron { color: var(--vs-text-3); flex-shrink: 0; }
+
+/* ─── Cases ─── */
 .vs-case-group {
   background: var(--vs-bg);
   border: 1px solid var(--vs-border);
@@ -379,9 +628,11 @@ layout: page
   color: var(--vs-ink);
   border-bottom: 1px solid var(--vs-border);
 }
+.vs-case-header .vs-chip { margin: 0; }
 .vs-case-header-green { background: var(--vs-green-bg); }
 .vs-case-header-yellow { background: var(--vs-yellow-bg); }
 .vs-case-header-red { background: var(--vs-red-bg); }
+.vs-case-header-blue { background: var(--vs-blue-light); }
 .vs-case-item {
   display: flex;
   align-items: baseline;
@@ -392,7 +643,7 @@ layout: page
 .vs-case-item:last-child { border-bottom: none; }
 .vs-case-scenario {
   flex: 0 0 auto;
-  min-width: 200px;
+  min-width: 220px;
   font-size: 14px;
   font-weight: 600;
   color: var(--vs-ink);
@@ -402,16 +653,23 @@ layout: page
   color: var(--vs-text-2);
   line-height: 1.6;
 }
+@media (max-width: 960px) {
+  .vs-status-grid { grid-template-columns: repeat(2, 1fr); }
+}
 @media (max-width: 768px) {
   .vs-hero { padding: 56px 20px 48px; }
   .vs-hero-title { font-size: 28px; }
   .vs-hero-desc { font-size: 16px; }
   .vs-section { padding: 48px 20px; }
-  .vs-section-title { font-size: 24px; margin-bottom: 28px; }
+  .vs-section-title { font-size: 24px; }
   .vs-status-grid { grid-template-columns: 1fr; }
+  .vs-threshold-grid { grid-template-columns: 1fr; }
   .vs-flow { flex-direction: column; align-items: center; gap: 8px; }
   .vs-flow-connector { transform: rotate(90deg); }
   .vs-case-item { flex-direction: column; gap: 4px; }
   .vs-case-scenario { min-width: 0; }
+  .vs-track-row { flex-direction: column; align-items: stretch; gap: 6px; }
+  .vs-track-label { text-align: left; flex: none; }
+  .vs-track-caption { padding-left: 0; }
 }
 </style>

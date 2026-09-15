@@ -66,15 +66,20 @@ await fetch(`${API_BASE_URL}/api/verify`, { method: "POST", body: formData });
 
 ## 결과 톤 계산
 
+내부 `verdict`를 직접 해석하지 않고 `displayStatus`만 보고 결정합니다.
+
 ```ts
 if (!result) return "neutral";
-if (result.authentic && result.active) return "authentic";
-if (result.verdict === "NOT_REGISTERED") return "unknown";
-return "warning";
+const status = result.displayStatus;
+if (status === "AUTHENTICATED") return "authentic";
+if (status === "UNAVAILABLE") return "warning";
+return "unknown";
 ```
 
 톤에 따라 색과 문구, 도장 아이콘이 달라집니다.
 
-::: warning verdict 타입 불일치
-`page.tsx`의 `VerificationVerdict` 유니언에 `AUTHENTIC_EXACT`, `AUTHENTIC_SIMILAR`가 남아 있지만 백엔드는 `EXACT_MATCH`, `SAME_CONTENT` 등을 반환합니다. `| string`이 있어 깨지지는 않지만, `CERTIFICATE_INVALID` 같은 상태가 `warning` 하나로 뭉뚱그려집니다.
+::: warning CONTENT_SIMILAR 미처리
+`page.tsx`의 `DisplayStatus` 유니언은 `AUTHENTICATED | NOT_AUTHENTICATED | UNAVAILABLE` 세 가지뿐입니다. 백엔드가 `CONTENT_SIMILAR`를 내려주면 `unknown` 톤으로 떨어져 **미등록과 동일하게 표시**됩니다.
+
+"원본 후보는 찾았지만 무변조를 확정하지 못함"은 "등록 기록 없음"과 전혀 다른 정보이므로, 유니언에 `CONTENT_SIMILAR`를 추가하고 전용 톤(경고/주의)을 부여해야 합니다. [검증 API의 클라이언트 구현 가이드](/developers/api/verify#displaystatus-클라이언트-표시-상태)를 참고하세요.
 :::
