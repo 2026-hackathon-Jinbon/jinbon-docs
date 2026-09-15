@@ -38,9 +38,9 @@ source/Framework/did-wallet-sdk-ios-2.0.1/DIDWalletSDK.xcframework
 | `POST /api/auth/logout` | 로그아웃 |
 | `POST /api/videos` | 영상 등록 |
 | `GET /api/videos` | 내 영상 목록 |
-| `POST /api/videos/{id}/vc/prepare` | VC 발급 준비·재개 |
-| `POST /api/videos/{id}/vc/complete` | VC 발급 완료 연결 |
-| `PATCH /api/videos/{id}/deactivate` | 영상 비활성화 |
+| `POST /api/videos/{videoId}/vc/prepare` | VC 발급 준비·재개 |
+| `POST /api/videos/{videoId}/vc/complete` | VC 발급 완료 연결 |
+| `PATCH /api/videos/{videoId}/deactivate` | 영상 비활성화 |
 | `POST /api/verify` | 파일 검증 |
 | `POST /api/verify/url` | URL 검증 |
 

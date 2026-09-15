@@ -18,6 +18,28 @@
   --vp-c-brand-soft: #1E293B;
 }
 
+/* ─── 한글 줄바꿈 ───
+   기본값은 한글을 글자 단위로 끊어 "확/정하는", "삭제합니/다."처럼 잘립니다.
+   어절 단위로만 끊고, 긴 영문 토큰은 필요할 때만 강제로 넘깁니다. */
+body {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+/* ─── 스크린리더 전용 텍스트 ───
+   기호(✓ / —)만으로는 의미가 전달되지 않는 셀에 읽을 텍스트를 붙입니다. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* ─── Nav ─── */
 .VPNav .VPNavBar {
   backdrop-filter: blur(12px);

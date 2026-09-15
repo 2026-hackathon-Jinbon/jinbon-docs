@@ -85,6 +85,12 @@ export default defineConfig({
             { text: "보안 및 개인정보", link: "/developers/security/overview" },
           ],
         },
+        {
+          text: "운영",
+          items: [
+            { text: "배포 가이드 (AWS EC2)", link: "/developers/operations/deployment" },
+          ],
+        },
       ],
     },
 
@@ -93,12 +99,8 @@ export default defineConfig({
       label: "목차",
     },
 
-    socialLinks: [
-      {
-        icon: "github",
-        link: "https://github.com",
-      },
-    ],
+    // 저장소가 공개되면 실제 URL로 socialLinks를 다시 추가하세요.
+    // 플레이스홀더(https://github.com)는 GitHub 메인으로 나가버려 제거했습니다.
 
     search: {
       provider: "local",

@@ -144,7 +144,7 @@ DB의 `merkleRoot`로 온체인 등록 상태·등록자 DID를 확인하고, `H
 
 ## 6단계: VC 검증
 
-`video.vcId`가 있을 때만 Verifier를 호출합니다. 없으면 `CERTIFICATE_MISSING`으로 판정합니다.
+`video.vcId`가 있을 때만 Issuer로 VC 상태·서명을 조회합니다. 없으면 `CERTIFICATE_MISSING`으로 판정합니다.
 
 ## 최종 판정 규칙
 
@@ -153,7 +153,7 @@ DB의 `merkleRoot`로 온체인 등록 상태·등록자 DID를 확인하고, `H
 | 순위 | 조건 | verdict | authentic |
 |---|---|---|---|
 | 0 | 영상이 비활성 | `REGISTERED_BUT_REVOKED` | `false` |
-| 1 | 외부 검증 불가 (체인·Verifier 장애) | `VERIFICATION_UNAVAILABLE` | `false` |
+| 1 | 외부 검증 불가 (체인·Open DID 장애) | `VERIFICATION_UNAVAILABLE` | `false` |
 | 2 | 블록체인 서명 재대조 실패 | `VERIFICATION_UNAVAILABLE` | `false` |
 | 3 | VC 미발급 | `CERTIFICATE_MISSING` | `false` |
 | 4 | VC 무효 또는 클레임 결속 실패 | `CERTIFICATE_INVALID` | `false` |

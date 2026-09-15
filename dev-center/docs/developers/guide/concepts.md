@@ -121,7 +121,7 @@ merkleRoot는 등록 당시 두 해시를 묶어 기록하는 값입니다. 파�
 | 장애 지점 | 영향 |
 |---|---|
 | Open DID Issuer 장애 | 영상 등록은 성공, VC 발급 준비만 생략 |
-| Open DID Verifier 장애 | VC 발급된 영상만 `VERIFICATION_UNAVAILABLE` |
+| Open DID Issuer 장애 (검증 시) | VC 발급된 영상만 `VERIFICATION_UNAVAILABLE` |
 | OmniOne Chain 장애 | 검증은 `VERIFICATION_UNAVAILABLE`, 등록은 실패 |
 | Redis 장애 | 캐시 미스로 동작 (매 요청이 DB·체인 조회) |
 
