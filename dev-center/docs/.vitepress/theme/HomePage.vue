@@ -5,19 +5,19 @@
       <div class="hero-inner">
         <span class="hero-badge">Blockchain Video Verification</span>
         <h1 class="hero-title">
-          <span>등록 영상과 일치하는지,</span>
+          <span>등록 영상과 일치하는지</span>
           <span>누가 언제 등록했는지 확인하세요.</span>
         </h1>
         <p class="hero-desc">
-          진본은 영상의 디지털 지문을 블록체인에 기록하고,
+          진본은 영상의 디지털 지문을 블록체인에 기록해
           제출 영상과의 관계 및 누가 언제 등록했는지를 확인하는 서비스입니다.
         </p>
-        <p class="hero-note">영상 속 사건의 사실성, AI 생성 여부, 제작자·저작권자 여부는 보증하지 않습니다.</p>
+        <p class="hero-note">영상 속 사건의 사실성과 AI 생성 여부 및 제작자와 저작권자 여부는 보증하지 않습니다.</p>
         <div class="hero-actions">
           <a href="/downloads" class="btn btn-primary">영상 검증하기</a>
           <a href="/use-cases" class="btn btn-secondary">사용 사례 보기</a>
         </div>
-        <p class="hero-hint">검증은 로그인 없이 웹·Chrome 확장·카카오톡에서 바로 할 수 있습니다.</p>
+        <p class="hero-hint">검증은 로그인 없이 웹과 Chrome 확장 또는 카카오톡에서 바로 할 수 있습니다.</p>
       </div>
     </section>
 
@@ -33,7 +33,7 @@
             </div>
             <h3>영상 비교</h3>
             <p class="proof-question">등록 파일 또는 등록 지문과 얼마나 일치하는가?</p>
-            <p class="proof-answer">파일 해시로 정확한 일치를 확인하고, 파일이 다르면 영상·음성 지문으로 유사도를 비교합니다. 블록체인의 등록 기록도 별도로 확인합니다.</p>
+            <p class="proof-answer">파일 해시로 정확한 일치를 확인합니다. 파일이 다르면 영상과 음성 지문으로 유사도를 비교합니다. 블록체인의 등록 기록도 별도로 확인합니다.</p>
             <span class="proof-tech">OmniOne Chain</span>
           </div>
           <div class="proof-card">
@@ -42,7 +42,7 @@
             </div>
             <h3>등록 사실 확인</h3>
             <p class="proof-question">누가 언제 등록했는가?</p>
-            <p class="proof-answer">모바일 신분증으로 본인확인을 마친 등록자가 DID 기반 보증서(VC)를 발급받아, 등록 사실을 제3자에게 증명할 수 있습니다.</p>
+            <p class="proof-answer">모바일 신분증으로 본인확인을 마친 등록자는 DID 기반 보증서(VC)를 발급받아 등록 사실을 제3자에게 증명할 수 있습니다.</p>
             <span class="proof-tech">Open DID + OmniOne CX</span>
           </div>
         </div>
@@ -53,7 +53,7 @@
     <section class="section section-alt">
       <div class="section-inner">
         <span class="section-label">Core Technology</span>
-        <h2 class="section-title">두 종류의 해시, 하나의 지문</h2>
+        <h2 class="section-title">두 종류의 해시로 만드는 하나의 지문</h2>
         <div class="hash-flow">
           <div class="hash-step">
             <div class="hash-num">1</div>
@@ -66,7 +66,7 @@
             <div class="hash-num">2</div>
             <div>
               <h3>perceptualHash</h3>
-              <p>프레임별 DCT 기반 지각해시.<br/>재인코딩·리사이즈된 영상의 유사 후보를 찾습니다.</p>
+              <p>프레임별 DCT 기반 지각해시.<br/>재인코딩하거나 크기를 조정한 영상의 유사 후보를 찾습니다.</p>
             </div>
           </div>
           <div class="hash-step hash-step-result">
@@ -85,7 +85,7 @@
       <div class="section-inner">
         <span class="section-label">Verification Technology</span>
         <h2 class="section-title">영상과 음성을 따로 대조합니다</h2>
-        <p class="section-desc">파일이 다르면 지각해시로 유사 후보를 찾고, <strong>1초 간격의 대표 프레임과 음성 지문</strong>을 비교합니다. 이는 샘플 기반 유사도 평가이며 전체 영상의 무변조를 확정하는 검사는 아닙니다.</p>
+        <p class="section-desc">파일이 다르면 지각해시로 유사 후보를 찾은 뒤 <strong>1초 간격의 대표 프레임과 음성 지문</strong>을 비교합니다. 이는 샘플 기반 유사도 평가이며 전체 영상의 무변조를 확정하는 검사는 아닙니다.</p>
         <div class="pipeline">
           <div class="pipeline-step">
             <span class="pipeline-stage">1차</span>
@@ -95,7 +95,7 @@
           <div class="pipeline-step pipeline-step-key">
             <span class="pipeline-stage pipeline-stage-key">2차</span>
             <h3>구간 대조</h3>
-            <p>영상·음성 지문을 각각 일정한 시간 간격으로 맞춰보며 <strong>대응 비율</strong>을 계산합니다.</p>
+            <p>영상과 음성 지문을 각각 일정한 시간 간격으로 맞춰보며 <strong>대응 비율</strong>을 계산합니다.</p>
             <div class="pipeline-metrics">
               <span class="metric"><em>영상 커버리지</em><b class="metric-num">≥ 95%</b></span>
               <span class="metric"><em>음성 커버리지</em><b class="metric-num">≥ 90%</b></span>
@@ -105,18 +105,18 @@
           <div class="pipeline-step">
             <span class="pipeline-stage">3차</span>
             <h3>등록 증거</h3>
-            <p>서명을 재계산해 DB와 온체인 양쪽에 대조하고, VC 보증서가 등록 당시 정보와 결속됐는지 확인합니다.</p>
+            <p>서명을 재계산해 DB와 온체인 양쪽에 대조합니다. 이어서 VC 보증서가 등록 당시 정보와 결속됐는지 확인합니다.</p>
           </div>
         </div>
         <div class="detect-panel">
           <h3 class="detect-title">비교에서 차이가 나타날 수 있는 사례</h3>
           <ul class="detect-list">
             <li><strong>음성만 교체</strong><span>음성 지문의 대응 비율이 낮아질 수 있습니다</span></li>
-            <li><strong>얼굴·입모양 변경</strong><span>대표 프레임에 변화가 반영되면 차이가 나타날 수 있습니다</span></li>
+            <li><strong>얼굴이나 입모양 변경</strong><span>대표 프레임에 변화가 반영되면 차이가 나타날 수 있습니다</span></li>
             <li><strong>장면 삽입</strong><span>대응하지 않는 샘플 구간을 표시합니다. 삽입 여부를 확정하지는 않습니다</span></li>
             <li><strong>구간 순서 바꾸기</strong><span>같은 시간 간격으로 맞지 않는 구간은 대응 비율을 낮출 수 있습니다</span></li>
           </ul>
-          <p class="detect-note"><strong>재인코딩본이나 연속 쇼츠</strong>도 후보 검색·비교 기준·등록 증거 검증을 통과하면 승인될 수 있습니다. 짧은 편집, 작은 화면 변화, 일부 음성 교체는 놓칠 수 있으며, 일부 구간의 대응이 전체 맥락을 보증하지는 않습니다.</p>
+          <p class="detect-note"><strong>재인코딩본이나 연속 쇼츠</strong>도 후보 검색과 비교 기준 및 등록 증거 검증을 통과하면 승인될 수 있습니다. 짧은 편집과 작은 화면 변화 또는 일부 음성 교체는 놓칠 수 있습니다. 일부 구간의 대응이 전체 맥락을 보증하지는 않습니다.</p>
         </div>
       </div>
     </section>
@@ -130,7 +130,7 @@
         <div class="verdict-grid">
           <div class="verdict-item verdict-success">
             <span class="verdict-code">진본</span>
-            <span class="verdict-desc">파일 일치 또는 유사도 기준을 충족하고, 등록 증거도 유효함</span>
+            <span class="verdict-desc">파일 일치 또는 유사도 기준을 충족하며 등록 증거도 유효함</span>
           </div>
           <div class="verdict-item verdict-warn">
             <span class="verdict-code">콘텐츠 유사</span>
@@ -138,11 +138,11 @@
           </div>
           <div class="verdict-item verdict-neutral">
             <span class="verdict-code">미인증</span>
-            <span class="verdict-desc">등록 원본이 없거나, 등록이 취소됐거나, 보증서가 유효하지 않음</span>
+            <span class="verdict-desc">등록 원본이 없거나 등록이 취소됐거나 보증서가 유효하지 않음</span>
           </div>
           <div class="verdict-item verdict-pending">
             <span class="verdict-code">확인 중</span>
-            <span class="verdict-desc">외부 장애 또는 온체인 무결성 검증 실패 &mdash; 상세 사유 확인 필요</span>
+            <span class="verdict-desc">외부 장애 또는 온체인 무결성 검증 실패로 상세 사유 확인 필요</span>
           </div>
         </div>
         <p class="verdict-note">진본 배지는 <strong>콘텐츠 비교와 등록 증거 검증을 모두 통과</strong>했다는 뜻입니다. 파일 정확 일치와 유사도 기준 통과는 보증 수준이 다릅니다. <a href="/verification-status">판정별 의미와 한계 보기</a></p>
@@ -153,7 +153,7 @@
     <section class="section">
       <div class="section-inner">
         <span class="section-label">System</span>
-        <h2 class="section-title">네 개의 접점, 하나의 백엔드</h2>
+        <h2 class="section-title">네 개의 접점을 잇는 하나의 백엔드</h2>
         <div class="channel-grid">
           <div class="channel-card">
             <div class="channel-icon">
@@ -161,8 +161,8 @@
             </div>
             <h3>iOS 앱</h3>
             <span class="channel-badge channel-badge-code">jinbon-ios</span>
-            <p>회원가입, DID/Wallet 관리, <strong>영상 등록</strong>, VC 보증서 보관</p>
-            <span class="channel-tech">Swift &middot; UIKit &middot; DIDWalletSDK</span>
+            <p>회원가입부터 DID/Wallet 관리와 <strong>영상 등록</strong> 및 VC 보증서 보관까지 지원</p>
+            <span class="channel-tech">Swift / UIKit / DIDWalletSDK</span>
           </div>
           <div class="channel-card">
             <div class="channel-icon">
@@ -171,7 +171,7 @@
             <h3>검증 웹</h3>
             <span class="channel-badge channel-badge-code">jinbon-web</span>
             <p>파일 업로드로 영상 검증. <strong>로그인 불필요.</strong></p>
-            <span class="channel-tech">Next.js 16 &middot; React 19 &middot; Tailwind CSS</span>
+            <span class="channel-tech">Next.js 16 / React 19 / Tailwind CSS</span>
           </div>
           <div class="channel-card">
             <div class="channel-icon">
@@ -179,8 +179,8 @@
             </div>
             <h3>Chrome 확장</h3>
             <span class="channel-badge channel-badge-code">jinbon-extension</span>
-            <p>YouTube, Instagram 영상 페이지에서 <strong>버튼 하나로 검증.</strong> URL 기반이라 파일 다운로드가 필요 없습니다.</p>
-            <span class="channel-tech">Manifest V3 &middot; JavaScript</span>
+            <p>YouTube와 Instagram 영상 페이지에서 <strong>버튼 하나로 검증.</strong> URL 기반이라 파일 다운로드가 필요 없습니다.</p>
+            <span class="channel-tech">Manifest V3 / JavaScript</span>
           </div>
           <div class="channel-card">
             <div class="channel-icon">
@@ -189,7 +189,7 @@
             <h3>카카오톡 챗봇</h3>
             <span class="channel-badge">카카오톡 채널</span>
             <p>카카오톡 대화창에서 영상 URL을 보내면 <strong>즉시 검증 결과를 응답.</strong></p>
-            <span class="channel-tech">카카오톡 채널 &middot; 챗봇</span>
+            <span class="channel-tech">카카오톡 채널 / 챗봇</span>
           </div>
           <div class="channel-card channel-card-primary">
             <div class="channel-icon">
@@ -198,8 +198,8 @@
             <div class="channel-body">
               <h3>백엔드 API</h3>
               <span class="channel-badge channel-badge-code">jinbon-backend</span>
-              <p>등록, 검증, 인증의 <strong>중심 허브.</strong> 위 네 개 접점이 모두 여기로 모입니다. 인증·회원·영상·검증 REST API를 제공합니다.</p>
-              <span class="channel-tech">Java 21 &middot; Spring Boot &middot; PostgreSQL &middot; Redis</span>
+              <p>등록과 검증 및 인증의 <strong>중심 허브.</strong> 위 네 개 접점이 모두 여기로 모입니다. 인증과 회원 및 영상 검증 REST API를 제공합니다.</p>
+              <span class="channel-tech">Java 21 / Spring Boot / PostgreSQL / Redis</span>
             </div>
           </div>
         </div>
@@ -219,7 +219,7 @@
             </div>
             <div>
               <h3>시스템 아키텍처</h3>
-              <p>전체 구성도, 계층별 책임, 포트 맵, 데이터 흐름</p>
+              <p>전체 구성도와 계층별 책임 및 포트 맵과 데이터 흐름</p>
             </div>
           </a>
           <a href="/developers/api/conventions" class="link-card">
@@ -228,7 +228,7 @@
             </div>
             <div>
               <h3>API 레퍼런스</h3>
-              <p>인증·회원·영상·검증 엔드포인트, 요청/응답 예시, 에러 코드</p>
+              <p>인증과 회원 및 영상 검증 엔드포인트<br/>요청/응답 예시와 에러 코드</p>
             </div>
           </a>
           <a href="/developers/flows/video-register" class="link-card">
@@ -237,7 +237,7 @@
             </div>
             <div>
               <h3>핵심 플로우</h3>
-              <p>영상 등록, 검증, 가입/로그인, VC 발급 시퀀스</p>
+              <p>영상 등록과 검증<br/>가입/로그인 및 VC 발급 시퀀스</p>
             </div>
           </a>
           <a href="/developers/data/model" class="link-card">
@@ -246,7 +246,7 @@
             </div>
             <div>
               <h3>데이터 모델</h3>
-              <p>DB 스키마, 스마트 컨트랙트, Redis 키 구조</p>
+              <p>DB 스키마와 스마트 컨트랙트 및 Redis 키 구조</p>
             </div>
           </a>
           <a href="/developers/security/overview" class="link-card">
@@ -255,7 +255,7 @@
             </div>
             <div>
               <h3>보안</h3>
-              <p>CI 보호, SSRF 방어, 인증 정책, 키 관리</p>
+              <p>CI 보호와 SSRF 방어 및 인증 정책과 키 관리</p>
             </div>
           </a>
           <a href="/developers/guide/concepts" class="link-card">
@@ -264,7 +264,7 @@
             </div>
             <div>
               <h3>핵심 개념</h3>
-              <p>용어 정리, 설계 원칙, 장애 격리 정책</p>
+              <p>용어 정리와 설계 원칙 및 장애 격리 정책</p>
             </div>
           </a>
         </div>
@@ -300,7 +300,7 @@
     <!-- Closing CTA -->
     <section class="cta">
       <div class="cta-inner">
-        <h2 class="cta-title">영상을 검증하거나, 등록해 보세요</h2>
+        <h2 class="cta-title">영상을 검증하거나 등록해 보세요</h2>
         <p class="cta-desc">
           검증은 로그인 없이 파일 업로드만으로 가능합니다.
           등록은 iOS 앱에서 본인확인을 마친 뒤 진행합니다.
