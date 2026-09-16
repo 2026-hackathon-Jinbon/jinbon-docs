@@ -27,10 +27,11 @@
               회원가입, DID/Wallet 관리, <strong>영상 등록</strong>, VC 보증서 보관까지.
               진본의 모든 기능을 사용할 수 있는 메인 앱입니다.
             </p>
-            <div class="dl-card-stack">Swift · UIKit · DIDWalletSDK 2.0.1</div>
+            <div class="dl-card-stack">Swift / UIKit / DIDWalletSDK 2.0.1</div>
             <div class="dl-card-requires">
               <strong>필요 조건:</strong> iOS 기기, OmniOne CX 모바일 신분증
             </div>
+            <p class="dl-card-pending"><strong>배포 준비 중</strong><br/>아직 설치할 수 없습니다. 공개 후 이곳에서 설치 방법을 안내합니다.</p>
           </div>
 
           <!-- Web -->
@@ -42,13 +43,18 @@
             <h2>검증 웹</h2>
             <p class="dl-card-repo">jinbon-web</p>
             <p class="dl-card-desc">
-              브라우저에서 영상 파일을 올리면 즉시 검증합니다.
-              <strong>로그인이 필요 없어</strong> 누구나 바로 사용할 수 있습니다.
+              브라우저에서 영상 파일을 올려 검증하는 채널입니다.
+              <strong>로그인 없이</strong> 영상 파일을 선택할 수 있습니다.
             </p>
-            <div class="dl-card-stack">Next.js 16 · React 19 · Tailwind CSS</div>
+            <div class="dl-card-stack">Next.js 16 / React 19 / Tailwind CSS</div>
             <div class="dl-card-requires">
               <strong>필요 조건:</strong> 웹 브라우저
             </div>
+            <a class="dl-card-link" href="https://jinbon-web.vercel.app" target="_blank" rel="noopener noreferrer">
+              웹에서 검증하기<span class="dl-ext" aria-hidden="true">↗</span>
+              <span class="sr-only">(새 창)</span>
+            </a>
+            <p class="dl-card-pending">회사 네트워크에서 검증 서버 연결이 차단되면 네트워크 관리자에게 접속 허용을 요청해 주세요.</p>
           </div>
 
           <!-- Extension -->
@@ -63,10 +69,22 @@
               YouTube, Instagram에서 영상을 보면서 <strong>버튼 하나로 즉시 검증</strong>.
               URL 기반으로 동작해 파일 다운로드가 필요 없습니다.
             </p>
-            <div class="dl-card-stack">Manifest V3 · JavaScript</div>
+            <div class="dl-card-stack">Manifest V3 / JavaScript</div>
             <div class="dl-card-requires">
               <strong>필요 조건:</strong> Chrome 브라우저
             </div>
+            <a class="dl-card-link" href="/jinbon-extension-0.1.0.zip" download>Chrome 확장 다운로드</a>
+            <details class="dl-install">
+              <summary>다운로드 후 설치 방법</summary>
+              <ol>
+                <li>다운로드한 ZIP 파일의 압축을 해제합니다.</li>
+                <li>Chrome 주소창에 <code>chrome://extensions</code>를 입력합니다.</li>
+                <li>오른쪽 위의 ‘개발자 모드’를 켭니다.</li>
+                <li>‘압축해제된 확장 프로그램을 로드합니다’를 누르고 <code>manifest.json</code>이 들어 있는 폴더를 선택합니다.</li>
+                <li>YouTube 또는 Instagram 영상 페이지를 새로고침한 뒤 ‘진본 확인’ 버튼을 누릅니다.</li>
+              </ol>
+              <p>Chrome 웹 스토어를 통한 설치는 아직 제공하지 않습니다. 기존 설치를 업데이트할 때는 새 파일로 교체한 뒤 확장 관리 화면에서 새로고침하세요.</p>
+            </details>
           </div>
           <!-- KakaoTalk -->
           <div class="dl-card">
@@ -80,7 +98,7 @@
               카카오톡 대화창에서 영상 URL을 보내면 <strong>즉시 검증 결과를 응답</strong>합니다.
               별도 설치 없이 누구나 사용할 수 있습니다.
             </p>
-            <div class="dl-card-stack">카카오톡 채널 · 챗봇</div>
+            <div class="dl-card-stack">카카오톡 채널 / 챗봇</div>
             <div class="dl-card-requires">
               <strong>필요 조건:</strong> 카카오톡
             </div>
@@ -118,25 +136,25 @@
             </tr>
             <tr>
               <th scope="row">검증 웹</th>
-              <td class="dl-no"><span aria-hidden="true">—</span><span class="sr-only">불가</span></td>
+              <td class="dl-no"><span aria-hidden="true">×</span><span class="sr-only">불가</span></td>
               <td class="dl-yes"><span aria-hidden="true">✓</span><span class="sr-only">가능</span></td>
               <td>불필요</td>
             </tr>
             <tr>
               <th scope="row">Chrome 확장</th>
-              <td class="dl-no"><span aria-hidden="true">—</span><span class="sr-only">불가</span></td>
+              <td class="dl-no"><span aria-hidden="true">×</span><span class="sr-only">불가</span></td>
               <td class="dl-yes"><span aria-hidden="true">✓</span><span class="sr-only">가능</span></td>
               <td>불필요</td>
             </tr>
             <tr>
               <th scope="row">카카오톡 챗봇</th>
-              <td class="dl-no"><span aria-hidden="true">—</span><span class="sr-only">불가</span></td>
+              <td class="dl-no"><span aria-hidden="true">×</span><span class="sr-only">불가</span></td>
               <td class="dl-yes"><span aria-hidden="true">✓</span><span class="sr-only">가능</span></td>
               <td>불필요</td>
             </tr>
           </tbody>
         </table>
-        <p class="dl-note">영상 <strong>등록</strong>은 iOS 앱에서만 가능합니다. 검증은 모든 채널에서 할 수 있습니다.</p>
+        <p class="dl-note">위 표는 채널별 기능을 설명합니다. 영상 <strong>등록</strong>을 지원하는 iOS 앱은 배포 준비 중이며 현재 일반 다운로드는 제공하지 않습니다.</p>
       </div>
     </section>
 
@@ -348,6 +366,21 @@
 }
 
 .dl-ext { font-size: 12px; }
+
+.dl-install {
+  margin-top: 14px;
+  color: var(--jb-text);
+  font-size: 14px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.dl-install summary { cursor: pointer; font-weight: 600; }
+.dl-install ol { padding-left: 22px; margin: 12px 0; list-style: decimal; }
+.dl-install li + li { margin-top: 8px; }
+.dl-install p { margin: 12px 0 0; }
+.dl-card-link:focus-visible,
+.dl-install summary:focus-visible { outline: 2px solid var(--jb-blue); outline-offset: 4px; }
 
 .dl-card-pending {
   margin: 10px 0 0;

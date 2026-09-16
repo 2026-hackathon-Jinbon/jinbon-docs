@@ -1,7 +1,7 @@
 ---
 layout: page
 title: 검증 상태
-description: 진본·콘텐츠 유사·미인증·확인 중 — 네 가지 판정의 의미, 승인 기준, 그리고 보증하지 않는 범위.
+description: 진본과 콘텐츠 유사 및 미인증과 확인 중 상태의 의미와 승인 기준 그리고 보증하지 않는 범위를 설명합니다.
 ---
 
 <div class="vs-page">
@@ -22,8 +22,8 @@ description: 진본·콘텐츠 유사·미인증·확인 중 — 네 가지 판�
             <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
           </div>
           <span class="vs-chip vs-chip-green">진본</span>
-          <h3>비교·등록 증거 기준 통과</h3>
-          <p>파일 정확 일치 또는 영상·음성 유사도 기준 통과에 더해 등록 증거가 유효함</p>
+          <h3>비교와 등록 증거 기준 통과</h3>
+          <p>파일 정확 일치 또는 영상과 음성 유사도 기준을 통과하고 등록 증거도 유효함</p>
           <code class="vs-code">AUTHENTICATED</code>
         </div>
         <div class="vs-status-card vs-similar">
@@ -66,12 +66,12 @@ description: 진본·콘텐츠 유사·미인증·확인 중 — 네 가지 판�
           <dt>파일 정확 일치</dt>
           <dd>등록 파일과 SHA-256이 같습니다. 오디오가 없는 파일도 등록 증거가 유효하면 승인됩니다.</dd>
           <dt>유사도 기준 통과</dt>
-          <dd>샘플로 비교한 영상·음성 지문이 기준을 충족합니다. 전체 프레임·음성의 무변조를 확정하지 않습니다.</dd>
+          <dd>샘플로 비교한 영상과 음성 지문이 기준을 충족합니다. 전체 프레임과 음성의 무변조를 확정하지 않습니다.</dd>
           <dt>일부 구간 대응</dt>
           <dd>등록 원본의 대응 시간대를 함께 확인해야 합니다. 생략된 앞뒤 맥락까지 보증하지 않습니다.</dd>
         </dl>
       </div>
-      <div class="vs-note">등록 원본은 비교 기준으로 등록된 파일을 뜻합니다. 촬영 원본 여부, 영상 속 사건의 사실성, AI 생성 여부, 제작자·저작권자 여부는 보증하지 않습니다. 등록 시각은 촬영 시각과 다릅니다.</div>
+      <div class="vs-note">등록 원본은 비교 기준으로 등록된 파일을 뜻합니다. 촬영 원본 여부와 영상 속 사건의 사실성 및 AI 생성 여부 그리고 제작자와 저작권자 여부는 보증하지 않습니다. 등록 시각은 촬영 시각과 다릅니다.</div>
     </div>
   </section>
   <section class="vs-section">
@@ -95,10 +95,10 @@ description: 진본·콘텐츠 유사·미인증·확인 중 — 네 가지 판�
         <div class="vs-track-row vs-track-row-axis">
           <span class="vs-track-label"></span>
           <div class="vs-track vs-track-axis">
-            <span class="vs-axis-span">원본 3~9초 구간에 대응 · 순서 보존</span>
+            <span class="vs-axis-span">원본 3~9초 구간에 대응하며 순서를 보존</span>
           </div>
         </div>
-        <div class="vs-track-caption">제출본이 원본의 어느 위치에 대응하는지 슬라이딩으로 찾습니다. 쇼츠도 후보 검색·유사도 기준·등록 증거 검증을 통과하면 <strong>승인될 수 있습니다.</strong></div>
+        <div class="vs-track-caption">제출본이 원본의 어느 위치에 대응하는지 슬라이딩으로 찾습니다. 쇼츠도 후보 검색과 유사도 기준 및 등록 증거 검증을 통과하면 <strong>승인될 수 있습니다.</strong></div>
       </div>
       <div class="vs-threshold-grid">
         <div class="vs-threshold">
@@ -118,7 +118,7 @@ description: 진본·콘텐츠 유사·미인증·확인 중 — 네 가지 판�
           <p>1초 간격 스펙트로그램 해시의 대응 비율. 음성이 없으면 <strong>유사도 경로로는 승인하지 않습니다.</strong> 파일 정확 일치는 별도입니다.</p>
         </div>
       </div>
-      <div class="vs-note">이 수치는 유사도 경로의 승인 기준이며 정확도나 조작 탐지율이 아닙니다. 일부 불일치를 허용하고, 샘플 사이의 편집이나 작은 변화는 놓칠 수 있습니다. 각각의 영상·음성이 원본에서 같은 시간대의 조합인지까지는 확인하지 않습니다.</div>
+      <div class="vs-note">이 수치는 유사도 경로의 승인 기준이며 정확도나 조작 탐지율이 아닙니다. 일부 불일치를 허용하고 샘플 사이의 편집이나 작은 변화는 놓칠 수 있습니다. 각각의 영상과 음성이 원본에서 같은 시간대의 조합인지까지는 확인하지 않습니다.</div>
     </div>
   </section>
   <section class="vs-section">
@@ -140,8 +140,8 @@ description: 진본·콘텐츠 유사·미인증·확인 중 — 네 가지 판�
         </div>
         <div class="vs-flow-step">
           <div class="vs-flow-num">2</div>
-          <h4>영상·음성 대조</h4>
-          <p>파일이 다른 경우 대표 프레임·음성 지문의 대응 비율을 확인합니다</p>
+          <h4>영상과 음성 대조</h4>
+          <p>파일이 다른 경우 대표 프레임과 음성 지문의 대응 비율을 확인합니다</p>
           <div class="vs-flow-branch">
             <span class="vs-branch vs-branch-green">모두 통과 → 진본 후보</span>
             <span class="vs-branch vs-branch-yellow">일부 통과 → 콘텐츠 유사</span>
@@ -156,8 +156,8 @@ description: 진본·콘텐츠 유사·미인증·확인 중 — 네 가지 판�
           <h4>등록 증거 검증</h4>
           <p>온체인 서명 재대조와 VC 보증서를 확인합니다</p>
           <div class="vs-flow-branch">
-            <span class="vs-branch vs-branch-gray">VC 미발급·무효 → 미인증</span>
-            <span class="vs-branch vs-branch-blue">체인 검증 실패·외부 장애 → 확인 중</span>
+            <span class="vs-branch vs-branch-gray">VC 미발급 또는 무효이면 미인증</span>
+            <span class="vs-branch vs-branch-blue">체인 검증 실패 또는 외부 장애이면 확인 중</span>
           </div>
         </div>
         <div class="vs-flow-connector">
@@ -183,19 +183,19 @@ description: 진본·콘텐츠 유사·미인증·확인 중 — 네 가지 판�
       <div class="vs-case-group">
         <div class="vs-case-header vs-case-header-green">
           <span class="vs-chip vs-chip-green">진본</span>
-          <span>콘텐츠 비교·등록 증거 기준 통과</span>
+          <span>콘텐츠 비교와 등록 증거 기준 통과</span>
         </div>
         <div class="vs-case-item">
           <div class="vs-case-scenario">등록 파일 그대로 제출</div>
-          <div class="vs-case-detail">파일 SHA-256 일치 + 등록 증거 검증 통과 → 등록자·등록 시각 표시</div>
+          <div class="vs-case-detail">파일 SHA-256과 등록 증거 검증을 통과하면 등록자와 등록 시각을 표시</div>
         </div>
         <div class="vs-case-item">
-          <div class="vs-case-scenario">YouTube 재인코딩·해상도 변경</div>
-          <div class="vs-case-detail">후보 검색·영상·음성 비교 기준과 등록 증거 검증을 통과한 경우</div>
+          <div class="vs-case-scenario">YouTube 재인코딩 또는 해상도 변경</div>
+          <div class="vs-case-detail">후보 검색과 영상 및 음성 비교 기준 그리고 등록 증거 검증을 통과한 경우</div>
         </div>
         <div class="vs-case-item">
           <div class="vs-case-scenario">긴 원본에서 30초를 잘라낸 쇼츠</div>
-          <div class="vs-case-detail">후보 검색·영상·음성 비교 기준과 등록 증거 검증을 통과하면 승인. 원본 대응 구간을 표시하며 맥락은 별도 확인</div>
+          <div class="vs-case-detail">후보 검색과 영상 및 음성 비교 기준 그리고 등록 증거 검증을 통과하면 승인합니다. 원본 대응 구간을 표시하며 맥락은 별도 확인이 필요합니다.</div>
         </div>
       </div>
       <div class="vs-case-group">
@@ -208,16 +208,16 @@ description: 진본·콘텐츠 유사·미인증·확인 중 — 네 가지 판�
           <div class="vs-case-detail">영상 커버리지는 통과하지만 음성 커버리지 미달 → 진본으로 승격하지 않음</div>
         </div>
         <div class="vs-case-item">
-          <div class="vs-case-scenario">얼굴·입모양을 변경 (딥페이크)</div>
-          <div class="vs-case-detail">샘플에 변화가 반영돼 승인 기준에 미달한 경우. 얼굴·입모양 변경의 탐지를 보장하지 않음</div>
+          <div class="vs-case-scenario">얼굴이나 입모양을 변경 (딥페이크)</div>
+          <div class="vs-case-detail">샘플에 변화가 반영돼 승인 기준에 미달한 경우입니다. 얼굴이나 입모양 변경을 항상 탐지하지는 않습니다.</div>
         </div>
         <div class="vs-case-item">
           <div class="vs-case-scenario">여러 원본을 이어 붙이거나 장면 삽입</div>
-          <div class="vs-case-detail">대응 비율이 승인 기준에 미달한 경우. 불일치 구간은 삽입·편집의 확정 증거가 아님</div>
+          <div class="vs-case-detail">대응 비율이 승인 기준에 미달한 경우입니다. 불일치 구간만으로 삽입이나 편집을 확정할 수 없습니다.</div>
         </div>
         <div class="vs-case-item">
-          <div class="vs-case-scenario">자막·로고만 추가된 영상</div>
-          <div class="vs-case-detail">승인 기준에 미달하면 콘텐츠 유사. 작은 자막·로고는 지문에 충분히 반영되지 않을 수 있음</div>
+          <div class="vs-case-scenario">자막이나 로고만 추가된 영상</div>
+          <div class="vs-case-detail">승인 기준에 미달하면 콘텐츠 유사입니다. 작은 자막이나 로고는 지문에 충분히 반영되지 않을 수 있습니다.</div>
         </div>
         <div class="vs-case-item">
           <div class="vs-case-scenario">오디오 트랙이 없는 영상</div>
@@ -238,8 +238,8 @@ description: 진본·콘텐츠 유사·미인증·확인 중 — 네 가지 판�
           <div class="vs-case-detail">온체인 기록은 남지만 진본으로 표시하지 않음</div>
         </div>
         <div class="vs-case-item">
-          <div class="vs-case-scenario">보증서 미발급 · 폐기 · 클레임 불일치</div>
-          <div class="vs-case-detail">블록체인 등록은 확인되지만 등록자 신원 보증이 성립하지 않음</div>
+          <div class="vs-case-scenario">보증서 미발급 또는 폐기 및 클레임 불일치</div>
+          <div class="vs-case-detail">블록체인 등록은 확인되지만 등록자 정보에 대한 보증은 성립하지 않음</div>
         </div>
       </div>
       <div class="vs-case-group">
@@ -248,8 +248,8 @@ description: 진본·콘텐츠 유사·미인증·확인 중 — 네 가지 판�
           <span>현재 판정 불가</span>
         </div>
         <div class="vs-case-item">
-          <div class="vs-case-scenario">블록체인·Verifier 장애</div>
-          <div class="vs-case-detail">외부 장애는 재시도 안내. 온체인 무결성 불일치도 같은 상태로 반환되므로 message·notice의 운영자 확인 안내를 함께 표시</div>
+          <div class="vs-case-scenario">블록체인 또는 Verifier 장애</div>
+          <div class="vs-case-detail">외부 장애는 재시도를 안내합니다. 온체인 무결성 불일치도 같은 상태로 반환되므로 message와 notice의 운영자 확인 안내를 함께 표시합니다.</div>
         </div>
       </div>
     </div>

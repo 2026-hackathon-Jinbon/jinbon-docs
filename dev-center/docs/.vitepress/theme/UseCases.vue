@@ -15,7 +15,7 @@
     <section class="uc-section">
       <div class="uc-inner">
         <h2 class="uc-section-title">검증 결과가 의미하는 것</h2>
-        <p>사전에 등록된 영상과 비교한 결과와 등록 증거를 제공합니다. 등록 이전의 편집, 영상 속 사건의 사실성, AI 생성 여부, 제작자·저작권자 여부는 보증하지 않습니다. 등록 시각은 촬영 시각과 다릅니다.</p>
+        <p>사전에 등록된 영상과 비교한 결과와 등록 증거를 제공합니다. 등록 이전의 편집과 영상 속 사건의 사실성 및 AI 생성 여부 그리고 제작자와 저작권자 여부는 보증하지 않습니다. 등록 시각은 촬영 시각과 다릅니다.</p>
         <p>파일 정확 일치와 유사도 기준 통과는 구분해서 해석해야 합니다. <a href="/verification-status">검증 상태와 한계 보기</a></p>
       </div>
     </section>
@@ -26,7 +26,7 @@
         <div class="uc-stat">
           <span class="uc-stat-number">4</span>
           <span class="uc-stat-unit">개 채널</span>
-          <span class="uc-stat-desc">앱 · 웹 · 확장 · 카카오톡</span>
+          <span class="uc-stat-desc">앱과 웹 및 확장과 카카오톡</span>
         </div>
         <div class="uc-stat-divider"></div>
         <div class="uc-stat">
@@ -56,7 +56,7 @@
               <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>
             </div>
             <div>
-              <h3>언론사 · 팩트체크 기관</h3>
+              <h3>언론사와 팩트체크 기관</h3>
               <span class="uc-card-tag">보도 신뢰성</span>
             </div>
           </div>
@@ -87,7 +87,7 @@
                 <ul>
                   <li>취재원이 촬영 즉시 진본 앱으로 등록 &rarr; <strong>블록체인에 지문 기록</strong></li>
                   <li>편집국에서 웹 또는 Chrome 확장으로 <strong>원본 일치 여부 즉시 확인</strong></li>
-                  <li>VC 보증서로 <strong>등록자 · 등록 시점</strong>까지 추적 가능</li>
+                  <li>VC 보증서로 <strong>등록자와 등록 시점</strong>까지 확인 가능</li>
                 </ul>
               </div>
             </div>
@@ -106,7 +106,7 @@
               <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="m22 8-6 4 6 4V8Z"/><rect x="2" y="6" width="14" height="12" rx="2" ry="2"/></svg>
             </div>
             <div>
-              <h3>영상 제작자 · 크리에이터</h3>
+              <h3>영상 제작자와 크리에이터</h3>
               <span class="uc-card-tag">영상 등록 사실 증명</span>
             </div>
           </div>
@@ -124,8 +124,8 @@
                   <span>기존 방식</span>
                 </div>
                 <ul>
-                  <li>업로드 날짜만으로 원본 소유를 주장 &mdash; 플랫폼마다 기준이 다름</li>
-                  <li>재인코딩·리사이즈를 거치면 원본과 파일이 달라져 비교 불가</li>
+                  <li>업로드 날짜만으로 원본 소유를 주장하지만 플랫폼마다 기준이 다름</li>
+                  <li>재인코딩이나 크기 조정을 거치면 원본과 파일이 달라져 직접 비교 불가</li>
                   <li>저작권 분쟁 시 객관적 증거 부족</li>
                 </ul>
               </div>
@@ -136,7 +136,7 @@
                 </div>
                 <ul>
                   <li>플랫폼 업로드 전 진본 앱으로 등록 &rarr; <strong>등록 시점이 블록체인에 확정</strong></li>
-                  <li>영상·음성 지문으로 재인코딩·리사이즈된 <strong>등록 영상 후보와 유사도 비교</strong></li>
+                  <li>영상과 음성 지문으로 재인코딩하거나 크기를 조정한 <strong>등록 영상 후보와 유사도 비교</strong></li>
                   <li>DID 보증서로 <strong>등록자 본인임을 제3자에게 증명</strong></li>
                 </ul>
               </div>
@@ -148,14 +148,14 @@
           </div>
         </div>
 
-        <!-- Case 3: 기업 · 법적 증거 -->
+        <!-- Case 3: 기업과 법적 증거 -->
         <div class="uc-card">
           <div class="uc-card-header">
             <div class="uc-card-icon uc-card-icon-green">
               <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
             </div>
             <div>
-              <h3>기업 · 법적 증거</h3>
+              <h3>기업과 법적 증거</h3>
               <span class="uc-card-tag">증거 무결성</span>
             </div>
           </div>
@@ -173,7 +173,7 @@
                   <span>기존 방식</span>
                 </div>
                 <ul>
-                  <li>CCTV·회의 녹화 파일의 무결성을 증명할 표준화된 방법 없음</li>
+                  <li>CCTV와 회의 녹화 파일의 무결성을 증명할 표준화된 방법 없음</li>
                   <li>파일 복사 과정에서 변조 의혹이 제기되면 반박 어려움</li>
                   <li>타임스탬프 조작 가능성으로 증거 능력 약화</li>
                 </ul>
@@ -186,7 +186,7 @@
                 <ul>
                   <li>녹화 직후 진본에 등록 &rarr; <strong>해시가 블록체인에 불변 기록</strong></li>
                   <li>분쟁 시 영상 파일을 검증하면 <strong>바이트 단위 동일성 즉시 확인</strong></li>
-                  <li>모바일 신분증 기반 본인확인으로 <strong>등록자 신원까지 보증</strong></li>
+                  <li>모바일 신분증 기반 본인확인으로 <strong>등록자의 본인확인 상태를 함께 표시</strong></li>
                 </ul>
               </div>
             </div>
@@ -204,7 +204,7 @@
               <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
             </div>
             <div>
-              <h3>일반 사용자 · 시청자</h3>
+              <h3>일반 사용자와 시청자</h3>
               <span class="uc-card-tag">등록 영상과의 일치 확인</span>
             </div>
           </div>
@@ -233,9 +233,9 @@
                   <span>진본 도입 후</span>
                 </div>
                 <ul>
-                  <li>YouTube·Instagram 시청 중 Chrome 확장으로 <strong>버튼 하나로 즉시 검증</strong></li>
+                  <li>YouTube나 Instagram을 시청하면서 Chrome 확장으로 <strong>버튼 하나로 검증</strong></li>
                   <li>카카오톡 챗봇에 URL만 보내면 <strong>설치 없이 간편하게 확인</strong></li>
-                  <li>로그인 없이 누구나 사용 &mdash; <strong>기술 지식 불필요</strong></li>
+                  <li>로그인 없이 누구나 사용할 수 있고 <strong>기술 지식이 필요하지 않음</strong></li>
                 </ul>
               </div>
             </div>
@@ -254,7 +254,7 @@
               <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
             </div>
             <div>
-              <h3>플랫폼 · 소셜 미디어</h3>
+              <h3>플랫폼과 소셜 미디어</h3>
               <span class="uc-card-tag">콘텐츠 신뢰도</span>
             </div>
           </div>
@@ -272,7 +272,7 @@
                   <span>기존 방식</span>
                 </div>
                 <ul>
-                  <li>신고 기반 사후 대응 &mdash; 피해가 확산된 뒤에야 조치</li>
+                  <li>신고 기반 사후 대응으로 피해가 확산된 뒤에야 조치</li>
                   <li>자체 탐지 시스템 구축에 막대한 비용</li>
                   <li>사용자에게 영상의 신뢰도를 전달할 수단 없음</li>
                 </ul>
@@ -315,7 +315,7 @@
           <div class="uc-flow-step">
             <div class="uc-flow-num">2</div>
             <h4>검증</h4>
-            <p>누구나 웹, 확장, 카카오톡으로 영상의 원본 여부를 확인합니다.</p>
+            <p>누구나 웹과 확장 또는 카카오톡으로 등록 영상과의 일치 여부를 확인합니다.</p>
           </div>
           <div class="uc-flow-connector">
             <div class="uc-flow-line"></div>
@@ -324,7 +324,7 @@
           <div class="uc-flow-step">
             <div class="uc-flow-num">3</div>
             <h4>신뢰</h4>
-            <p>블록체인 기록과 DID 보증서로 변조 불가능한 증거가 됩니다.</p>
+            <p>블록체인 기록과 DID 보증서로 등록 사실을 확인할 수 있는 증거를 남깁니다.</p>
           </div>
         </div>
       </div>
