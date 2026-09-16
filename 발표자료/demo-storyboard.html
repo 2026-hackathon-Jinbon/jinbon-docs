@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>진본 시연 영상 스토리보드</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", sans-serif;
+    background: #0a0a0a;
+    color: #e5e7eb;
+    line-height: 1.6;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    padding: 60px 24px 40px;
+    border-bottom: 1px solid #1f2937;
+  }
+  .header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .header p {
+    font-size: 16px;
+    color: #9ca3af;
+  }
+  .header .total-time {
+    display: inline-block;
+    margin-top: 16px;
+    padding: 6px 16px;
+    background: #1e3a8a;
+    color: #93c5fd;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  /* Timeline */
+  .timeline {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* Scene */
+  .scene {
+    position: relative;
+    margin-bottom: 48px;
+    border: 1px solid #1f2937;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #111827;
+  }
+  .scene-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 24px;
+    background: #1f2937;
+    border-bottom: 1px solid #374151;
+  }
+  .scene-num {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .scene-meta {
+    flex: 1;
+  }
+  .scene-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .scene-subtitle {
+    font-size: 13px;
+    color: #9ca3af;
+  }
+  .scene-time {
+    font-family: "SF Mono", "Fira Code", monospace;
+    font-size: 13px;
+    font-weight: 600;
+    color: #6b7280;
+    background: #0a0a0a;
+    padding: 4px 10px;
+    border-radius: 6px;
+  }
+
+  /* Screen mockup */
+  .screen {
+    margin: 20px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #374151;
+  }
+  .screen-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: #1f2937;
+    border-bottom: 1px solid #374151;
+  }
+  .screen-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+  .dot-red { background: #ef4444; }
+  .dot-yellow { background: #eab308; }
+  .dot-green { background: #22c55e; }
+  .screen-url {
+    flex: 1;
+    text-align: center;
+    font-size: 11px;
+    color: #6b7280;
+    font-family: "SF Mono", monospace;
+  }
+  .screen-body {
+    background: #0f172a;
+    padding: 24px;
+    min-height: 200px;
+    position: relative;
+  }
+
+  /* Phone mockup */
+  .phone {
+    width: 220px;
+    margin: 20px auto;
+    border: 3px solid #374151;
+    border-radius: 28px;
+    overflow: hidden;
+    background: #000;
+  }
+  .phone-notch {
+    width: 80px;
+    height: 6px;
+    background: #374151;
+    border-radius: 0 0 8px 8px;
+    margin: 0 auto;
+  }
+  .phone-body {
+    padding: 16px;
+    min-height: 320px;
+    background: #0f172a;
+  }
+
+  /* Narration */
+  .narration {
+    margin: 0 20px 20px;
+    padding: 14px 18px;
+    background: #0a0a0a;
+    border: 1px solid #374151;
+    border-radius: 10px;
+    font-size: 14px;
+    color: #d1d5db;
+    line-height: 1.7;
+  }
+  .narration::before {
+    content: "narration";
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #6b7280;
+    margin-bottom: 6px;
+  }
+
+  /* UI components */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .badge-green { background: #065f46; color: #34d399; }
+  .badge-yellow { background: #78350f; color: #fbbf24; }
+  .badge-gray { background: #374151; color: #9ca3af; }
+  .badge-blue { background: #1e3a8a; color: #93c5fd; }
+
+  .btn {
+    display: inline-block;
+    padding: 10px 24px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    cursor: default;
+  }
+  .btn-primary { background: #2563eb; color: #fff; }
+  .btn-outline { background: transparent; border: 1px solid #374151; color: #d1d5db; }
+
+  .input-mock {
+    width: 100%;
+    padding: 10px 14px;
+    background: #1e293b;
+    border: 1px solid #374151;
+    border-radius: 8px;
+    color: #9ca3af;
+    font-size: 13px;
+    margin-bottom: 12px;
+  }
+
+  .upload-zone {
+    border: 2px dashed #374151;
+    border-radius: 12px;
+    padding: 32px;
+    text-align: center;
+    color: #6b7280;
+    margin-bottom: 16px;
+  }
+  .upload-zone .icon { font-size: 32px; margin-bottom: 8px; }
+
+  .result-card {
+    background: #1e293b;
+    border: 1px solid #374151;
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 16px;
+  }
+  .result-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    font-size: 13px;
+    border-bottom: 1px solid #1f2937;
+  }
+  .result-row:last-child { border: none; }
+  .result-label { color: #9ca3af; }
+  .result-value { color: #e5e7eb; font-weight: 600; font-family: "SF Mono", monospace; font-size: 12px; }
+
+  /* Comparison */
+  .compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 20px;
+  }
+  .compare-item {
+    border: 1px solid #374151;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .compare-label {
+    padding: 10px 14px;
+    font-size: 13px;
+    font-weight: 700;
+    text-align: center;
+    border-bottom: 1px solid #374151;
+  }
+  .compare-label-warn { background: #78350f; color: #fde68a; }
+  .compare-body {
+    padding: 16px;
+    background: #0f172a;
+    min-height: 120px;
+  }
+
+  /* Scene color accents */
+  .act1 .scene-num { background: #2563eb; }
+  .act2 .scene-num { background: #059669; }
+  .act3 .scene-num { background: #d97706; }
+
+  /* Section divider */
+  .act-divider {
+    text-align: center;
+    padding: 40px 24px 16px;
+  }
+  .act-divider h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .act-divider p {
+    font-size: 14px;
+    color: #6b7280;
+    margin-top: 4px;
+  }
+  .act-divider .act-time {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 4px 12px;
+    border: 1px solid #374151;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #9ca3af;
+    font-family: "SF Mono", monospace;
+  }
+
+  /* Blockchain visual */
+  .chain-blocks {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin: 12px 0;
+  }
+  .chain-block {
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .chain-block-old { background: #374151; }
+  .chain-block-new { background: #2563eb; border: 2px solid #60a5fa; }
+  .chain-link { color: #374151; font-size: 10px; }
+
+  /* Kakao chat */
+  .chat-bubble {
+    max-width: 80%;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 13px;
+    margin-bottom: 8px;
+    line-height: 1.5;
+  }
+  .chat-user {
+    background: #fde68a;
+    color: #1f2937;
+    margin-left: auto;
+    border-bottom-right-radius: 4px;
+  }
+  .chat-bot {
+    background: #1e293b;
+    color: #e5e7eb;
+    border-bottom-left-radius: 4px;
+  }
+
+  /* Extension popup */
+  .ext-popup {
+    width: 100%;
+    background: #1e293b;
+    border-radius: 10px;
+    padding: 14px;
+    border: 1px solid #374151;
+  }
+  .ext-popup-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .video-thumb {
+    width: 100%;
+    height: 80px;
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #374151;
+    font-size: 28px;
+    margin-bottom: 12px;
+    border: 1px solid #374151;
+  }
+
+  /* Title card */
+  .title-card {
+    margin: 0 20px 20px;
+    padding: 32px 24px;
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid #374151;
+  }
+  .title-card-label {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+  .title-card-heading {
+    font-size: 22px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .title-card-sub {
+    font-size: 13px;
+    color: #9ca3af;
+  }
+  .title-card-time {
+    display: inline-block;
+    margin-top: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    font-family: "SF Mono", monospace;
+    color: #6b7280;
+    background: #0a0a0a;
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+  .tc-act1 { background: #0f1d3d; border-color: #1e3a8a; }
+  .tc-act1 .title-card-label { color: #60a5fa; }
+  .tc-act2 { background: #0a2620; border-color: #065f46; }
+  .tc-act2 .title-card-label { color: #34d399; }
+  .tc-act3 { background: #271a05; border-color: #78350f; }
+  .tc-act3 .title-card-label { color: #fbbf24; }
+
+  @media (max-width: 768px) {
+    .compare { grid-template-columns: 1fr; }
+    .header h1 { font-size: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>진본 시연 영상 스토리보드</h1>
+  <div class="total-time">TOTAL 2:24</div>
+</div>
+
+<div class="timeline">
+
+  <!-- ═══════════════ ACT 1 ═══════════════ -->
+  <div class="act-divider">
+    <h2>1막. 가입 + 등록</h2>
+    <p>회원가입 → 로그인 → 영상 등록 → 블록체인 기록 → VC 발급</p>
+    <div class="act-time">0:00 – 0:53</div>
+  </div>
+
+  <!-- Title Card 1 -->
+  <div class="scene act1">
+    <div class="scene-header">
+      <div class="scene-num">T</div>
+      <div class="scene-meta">
+        <div class="scene-title">타이틀 카드</div>
+        <div class="scene-subtitle">화면에 3초간 표시 후 페이드 아웃</div>
+      </div>
+      <div class="scene-time">0:00 – 0:03</div>
+    </div>
+    <div class="title-card tc-act1">
+      <div class="title-card-label">PART 1</div>
+      <div class="title-card-heading">가입 + 등록</div>
+      <div class="title-card-sub">모바일 신분증으로 가입하고 영상을 블록체인에 등록합니다</div>
+      <div class="title-card-time">0:00</div>
+    </div>
+  </div>
+
+  <!-- Scene 1 -->
+  <div class="scene act1">
+    <div class="scene-header">
+      <div class="scene-num">1</div>
+      <div class="scene-meta">
+        <div class="scene-title">회원가입 + 로그인</div>
+        <div class="scene-subtitle">iOS 앱 — 모바일 신분증 본인확인 → DID 생성 → 로그인</div>
+      </div>
+      <div class="scene-time">0:03 – 0:18</div>
+    </div>
+    <div style="display:flex; align-items:flex-start; gap:20px; padding:20px;">
+      <div class="phone" style="flex-shrink:0;">
+        <div class="phone-notch"></div>
+        <div class="phone-body" style="text-align:center; padding-top:24px;">
+          <div style="font-size:20px; font-weight:700; color:#fff; margin-bottom:16px;">진본</div>
+          <div style="font-size:12px; color:#9ca3af; margin-bottom:20px;">영상 진위 검증 서비스</div>
+          <div class="btn btn-primary" style="width:100%; text-align:center; margin-bottom:10px;">모바일 신분증으로 가입</div>
+          <div style="font-size:11px; color:#6b7280; margin:16px 0 8px;">- - -</div>
+          <div style="font-size:12px; color:#9ca3af;">OmniOne CX 본인확인</div>
+          <div style="font-size:11px; color:#6b7280; margin-top:6px;">신분증 제출 → 검증 완료</div>
+          <div style="margin-top:16px;">
+            <div style="padding:6px 10px; background:#065f46; border-radius:6px; font-size:11px; color:#34d399;">DID 생성 완료</div>
+          </div>
+          <div style="margin-top:10px;">
+            <div style="padding:6px 10px; background:#1e3a8a; border-radius:6px; font-size:11px; color:#93c5fd;">로그인 성공</div>
+          </div>
+        </div>
+      </div>
+      <div style="flex:1; padding-top:8px;">
+        <div style="font-size:13px; color:#d1d5db; margin-bottom:16px;">
+          <strong style="color:#fff;">컷 편집</strong>으로 핵심 화면만 빠르게 보여줌
+        </div>
+        <div style="font-size:12px; color:#6b7280; line-height:2;">
+          1. 앱 실행 → "모바일 신분증으로 가입" 터치<br>
+          2. 모바일 신분증 앱 → 제출 → 본인확인 완료<br>
+          3. DID 자동 생성 → ACTIVE 상태<br>
+          4. 로그인 → 메인 화면 진입
+        </div>
+      </div>
+    </div>
+    <div class="narration">
+      "모바일 신분증으로 본인확인 후 가입하면 블록체인 DID가 발급됩니다. 이 DID로 로그인합니다."
+    </div>
+  </div>
+
+  <!-- Scene 2 -->
+  <div class="scene act1">
+    <div class="scene-header">
+      <div class="scene-num">2</div>
+      <div class="scene-meta">
+        <div class="scene-title">영상 등록 + 블록체인 기록 + VC 발급</div>
+        <div class="scene-subtitle">iOS 앱 — 영상 업로드 → 온체인 기록 → 보증서 발급</div>
+      </div>
+      <div class="scene-time">0:18 – 0:53</div>
+    </div>
+    <div style="display:flex; align-items:flex-start; gap:20px; padding:20px;">
+      <div class="phone" style="flex-shrink:0;">
+        <div class="phone-notch"></div>
+        <div class="phone-body" style="text-align:center;">
+          <div style="font-size:14px; font-weight:700; color:#fff; margin-bottom:12px;">영상 등록</div>
+          <div class="video-thumb">&#9654;</div>
+          <div class="input-mock">interview_2026.mp4</div>
+          <div class="btn btn-primary" style="width:100%; text-align:center; margin-bottom:16px;">등록하기</div>
+          <div style="text-align:left;">
+            <div style="font-size:10px; color:#6b7280; margin-bottom:4px;">블록체인 기록 완료</div>
+            <div style="font-size:9px; color:#34d399; font-family:monospace; word-break:break-all; background:#065f46; padding:6px 8px; border-radius:6px; margin-bottom:6px;">
+              txHash: 0x7a3f...c821
+            </div>
+            <div style="font-size:9px; color:#93c5fd; font-family:monospace; background:#1e3a8a; padding:6px 8px; border-radius:6px; margin-bottom:6px;">
+              block: #4,812,307
+            </div>
+            <div style="font-size:9px; color:#fbbf24; font-family:monospace; background:#78350f; padding:6px 8px; border-radius:6px;">
+              VC 보증서 발급 완료
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="flex:1;">
+        <div style="font-size:13px; color:#d1d5db; margin-bottom:16px;">
+          <strong style="color:#fff;">핵심 포인트:</strong> 원본 파일은 서버에 남지 않음
+        </div>
+        <div style="background:#0a0a0a; border:1px solid #374151; border-radius:10px; padding:16px; margin-bottom:16px;">
+          <div style="font-size:11px; color:#6b7280; margin-bottom:8px;">처리 과정 (화면에 단계별로 표시)</div>
+          <div style="font-size:12px; color:#d1d5db; line-height:2;">
+            <span style="color:#34d399;">&#10003;</span> SHA-256 파일 해시 계산<br>
+            <span style="color:#34d399;">&#10003;</span> 영상/음성 지각해시 생성<br>
+            <span style="color:#34d399;">&#10003;</span> merkleRoot 생성<br>
+            <span style="color:#34d399;">&#10003;</span> OmniOne Chain 기록<br>
+            <span style="color:#34d399;">&#10003;</span> 임시 파일 즉시 삭제<br>
+            <span style="color:#34d399;">&#10003;</span> VC 보증서 발급 (PIN 인증 → Wallet 저장)
+          </div>
+        </div>
+        <div class="chain-blocks">
+          <div class="chain-block chain-block-old">#305</div>
+          <span class="chain-link">&#8594;</span>
+          <div class="chain-block chain-block-old">#306</div>
+          <span class="chain-link">&#8594;</span>
+          <div class="chain-block chain-block-new">#307</div>
+          <div style="font-size:11px; color:#60a5fa; margin-left:8px;">&#8592; merkleRoot 기록</div>
+        </div>
+      </div>
+    </div>
+    <div class="narration">
+      "영상의 디지털 지문을 추출해 블록체인에 기록합니다. 원본 파일은 서버에 남지 않습니다. 기록을 기반으로 Open DID 보증서를 발급받아 Wallet에 보관합니다."
+    </div>
+  </div>
+
+  <!-- ═══════════════ ACT 2 ═══════════════ -->
+  <div class="act-divider">
+    <h2>2막. 검증 성공</h2>
+    <p>등록한 영상을 3개 채널에서 검증 — 모두 "진본" 판정</p>
+    <div class="act-time">0:53 – 1:36</div>
+  </div>
+
+  <!-- Title Card 2 -->
+  <div class="scene act2">
+    <div class="scene-header">
+      <div class="scene-num">T</div>
+      <div class="scene-meta">
+        <div class="scene-title">타이틀 카드</div>
+        <div class="scene-subtitle">화면에 3초간 표시 후 페이드 아웃</div>
+      </div>
+      <div class="scene-time">0:53 – 0:56</div>
+    </div>
+    <div class="title-card tc-act2">
+      <div class="title-card-label">PART 2</div>
+      <div class="title-card-heading">검증 성공</div>
+      <div class="title-card-sub">웹, 브라우저 확장, 카카오톡 — 세 가지 채널에서 검증합니다</div>
+      <div class="title-card-time">0:53</div>
+    </div>
+  </div>
+
+  <!-- Scene 3 -->
+  <div class="scene act2">
+    <div class="scene-header">
+      <div class="scene-num">3</div>
+      <div class="scene-meta">
+        <div class="scene-title">웹에서 원본 파일 검증</div>
+        <div class="scene-subtitle">jinbon-web — 파일 업로드 → 진본 판정</div>
+      </div>
+      <div class="scene-time">0:56 – 1:11</div>
+    </div>
+    <div class="screen">
+      <div class="screen-bar">
+        <div class="screen-dot dot-red"></div>
+        <div class="screen-dot dot-yellow"></div>
+        <div class="screen-dot dot-green"></div>
+        <div class="screen-url">jinbon.vercel.app/verify</div>
+      </div>
+      <div class="screen-body">
+        <div style="text-align:center;">
+          <div style="font-size:18px; font-weight:700; color:#fff; margin-bottom:20px;">영상 검증</div>
+          <div class="upload-zone" style="margin:0 auto 20px; max-width:400px;">
+            <div class="icon">&#128196;</div>
+            <div style="font-size:13px;">interview_2026.mp4 업로드 완료</div>
+          </div>
+          <div style="max-width:400px; margin:0 auto;">
+            <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px; justify-content:center;">
+              <span class="badge badge-green" style="font-size:16px;">&#10003; 진본</span>
+            </div>
+            <div class="result-card">
+              <div class="result-row">
+                <span class="result-label">판정 근거</span>
+                <span class="result-value" style="color:#34d399;">파일 정확 일치 (EXACT_MATCH)</span>
+              </div>
+              <div class="result-row">
+                <span class="result-label">등록자</span>
+                <span class="result-value">김OO</span>
+              </div>
+              <div class="result-row">
+                <span class="result-label">등록 시각</span>
+                <span class="result-value">2026-09-15 14:23:01</span>
+              </div>
+              <div class="result-row">
+                <span class="result-label">블록체인</span>
+                <span class="result-value">0x7a3f...c821</span>
+              </div>
+              <div class="result-row">
+                <span class="result-label">VC 보증서</span>
+                <span class="result-value" style="color:#34d399;">유효</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="narration">
+      "등록한 원본 파일을 그대로 올리면, SHA-256 해시가 일치해 즉시 '진본'으로 판정됩니다. 등록자와 등록 시각, 블록체인 기록까지 함께 표시됩니다."
+    </div>
+  </div>
+
+  <!-- Scene 4 -->
+  <div class="scene act2">
+    <div class="scene-header">
+      <div class="scene-num">4</div>
+      <div class="scene-meta">
+        <div class="scene-title">Chrome 확장 — YouTube 재인코딩 영상 검증</div>
+        <div class="scene-subtitle">YouTube에 업로드된 동일 영상 (재인코딩됨) → 진본</div>
+      </div>
+      <div class="scene-time">1:11 – 1:26</div>
+    </div>
+    <div class="screen">
+      <div class="screen-bar">
+        <div class="screen-dot dot-red"></div>
+        <div class="screen-dot dot-yellow"></div>
+        <div class="screen-dot dot-green"></div>
+        <div class="screen-url">youtube.com/watch?v=example</div>
+      </div>
+      <div class="screen-body">
+        <div style="display:flex; gap:20px; align-items:flex-start;">
+          <div style="flex:1;">
+            <div style="background:#000; border-radius:8px; height:180px; display:flex; align-items:center; justify-content:center; color:#374151; font-size:36px; margin-bottom:12px;">&#9654;</div>
+            <div style="font-size:14px; color:#fff; font-weight:600;">인터뷰 원본 영상</div>
+            <div style="font-size:12px; color:#6b7280;">조회수 1,234회 - 2026. 9. 16.</div>
+          </div>
+          <div style="width:240px; flex-shrink:0;">
+            <div class="ext-popup">
+              <div class="ext-popup-title">
+                <span style="color:#34d399;">&#9679;</span> 진본 검증 결과
+              </div>
+              <div style="margin-bottom:10px;">
+                <span class="badge badge-green" style="font-size:12px;">&#10003; 진본</span>
+              </div>
+              <div style="font-size:11px; color:#9ca3af; line-height:1.7;">
+                <div>판정: <span style="color:#34d399;">SIMILAR_MATCH</span></div>
+                <div>영상 유사도: <span style="color:#fff;">97.2%</span></div>
+                <div>음성 유사도: <span style="color:#fff;">94.8%</span></div>
+                <div style="margin-top:6px;">등록자: 김OO</div>
+                <div>등록일: 2026-09-15</div>
+              </div>
+            </div>
+            <div style="font-size:10px; color:#6b7280; margin-top:8px; text-align:center;">
+              &#8593; Chrome 확장 팝업
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="narration">
+      "YouTube에 업로드하면 파일 자체는 달라지지만, 콘텐츠는 동일합니다. 진본은 영상과 음성의 지각해시를 비교해 같은 영상임을 인식합니다. 파일이 달라도 콘텐츠가 일치하면 '진본'입니다. 브라우저 확장을 클릭하면 바로 검증됩니다."
+    </div>
+  </div>
+
+  <!-- Scene 5 -->
+  <div class="scene act2">
+    <div class="scene-header">
+      <div class="scene-num">5</div>
+      <div class="scene-meta">
+        <div class="scene-title">카카오톡 챗봇 검증</div>
+        <div class="scene-subtitle">URL만 보내면 즉시 검증</div>
+      </div>
+      <div class="scene-time">1:26 – 1:36</div>
+    </div>
+    <div style="display:flex; justify-content:center; padding:20px;">
+      <div style="width:280px; background:#b2c7d9; border-radius:16px; padding:16px; min-height:280px;">
+        <div style="text-align:center; font-size:13px; font-weight:700; color:#1f2937; margin-bottom:16px;">진본 챗봇</div>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <div class="chat-bubble chat-user" style="font-size:12px;">
+            https://youtube.com/watch?v=example
+          </div>
+          <div class="chat-bubble chat-bot">
+            <div style="font-weight:700; margin-bottom:6px; color:#34d399;">&#10003; 진본 인증 영상</div>
+            <div style="font-size:11px; line-height:1.6; color:#d1d5db;">
+              등록자: 김OO<br>
+              등록일: 2026-09-15 14:23<br>
+              영상 유사도: 97.2%<br>
+              음성 유사도: 94.8%<br>
+              <span style="color:#93c5fd;">블록체인 검증 통과</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="narration">
+      "카카오톡에서 영상 URL만 보내도 검증 결과를 바로 확인할 수 있습니다. 로그인 없이, 누구나 사용 가능합니다."
+    </div>
+  </div>
+
+  <!-- ═══════════════ ACT 3 ═══════════════ -->
+  <div class="act-divider">
+    <h2>3막. 변조 탐지</h2>
+    <p>변조된 영상과 미등록 영상의 검증 결과 대비</p>
+    <div class="act-time">1:36 – 2:14</div>
+  </div>
+
+  <!-- Title Card 3 -->
+  <div class="scene act3">
+    <div class="scene-header">
+      <div class="scene-num">T</div>
+      <div class="scene-meta">
+        <div class="scene-title">타이틀 카드</div>
+        <div class="scene-subtitle">화면에 3초간 표시 후 페이드 아웃</div>
+      </div>
+      <div class="scene-time">1:36 – 1:39</div>
+    </div>
+    <div class="title-card tc-act3">
+      <div class="title-card-label">PART 3</div>
+      <div class="title-card-heading">변조 탐지</div>
+      <div class="title-card-sub">변조된 영상과 미등록 영상은 어떻게 판정될까요?</div>
+      <div class="title-card-time">1:36</div>
+    </div>
+  </div>
+
+  <!-- Scene 6 -->
+  <div class="scene act3">
+    <div class="scene-header">
+      <div class="scene-num">6</div>
+      <div class="scene-meta">
+        <div class="scene-title">변조 vs 미등록 — 결과 대비</div>
+        <div class="scene-subtitle">핵심 장면: 검증 결과가 갈리는 순간</div>
+      </div>
+      <div class="scene-time">1:39 – 2:14</div>
+    </div>
+    <div class="compare">
+      <div class="compare-item">
+        <div class="compare-label compare-label-warn">음성 교체 영상</div>
+        <div class="compare-body">
+          <div style="text-align:center; margin-bottom:12px;">
+            <div class="video-thumb" style="height:60px; font-size:18px;">&#9654;</div>
+          </div>
+          <div style="text-align:center; margin-bottom:12px;">
+            <span class="badge badge-yellow">&#9888; 콘텐츠 유사</span>
+          </div>
+          <div class="result-card" style="background:#0a0a0a;">
+            <div class="result-row">
+              <span class="result-label">영상</span>
+              <span class="result-value" style="color:#34d399;">96.1% &#10003;</span>
+            </div>
+            <div class="result-row">
+              <span class="result-label">음성</span>
+              <span class="result-value" style="color:#fbbf24;">43.2% &#10007;</span>
+            </div>
+            <div class="result-row">
+              <span class="result-label">판정</span>
+              <span class="result-value" style="color:#fbbf24;">CONTENT_SIMILAR</span>
+            </div>
+          </div>
+          <div style="font-size:11px; color:#6b7280; margin-top:10px; text-align:center;">
+            영상은 일치하나 음성 커버리지 미달
+          </div>
+        </div>
+      </div>
+      <div class="compare-item">
+        <div class="compare-label" style="background:#374151; color:#9ca3af;">미등록 영상</div>
+        <div class="compare-body">
+          <div style="text-align:center; margin-bottom:12px;">
+            <div class="video-thumb" style="height:60px; font-size:18px;">&#9654;</div>
+          </div>
+          <div style="text-align:center; margin-bottom:12px;">
+            <span class="badge badge-gray">&#10007; 미인증</span>
+          </div>
+          <div class="result-card" style="background:#0a0a0a;">
+            <div class="result-row">
+              <span class="result-label">판정</span>
+              <span class="result-value" style="color:#9ca3af;">NOT_REGISTERED</span>
+            </div>
+          </div>
+          <div style="font-size:11px; color:#6b7280; margin-top:10px; text-align:center; line-height:1.6;">
+            등록된 적이 없는 영상입니다.<br>
+            <strong style="color:#9ca3af;">미등록은 가짜라는 뜻이 아닙니다.</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="narration">
+      "음성을 교체한 영상은 영상 유사도는 통과하지만, 음성 커버리지가 기준에 미달해 '콘텐츠 유사'로 판정됩니다. 등록된 적 없는 영상은 '미인증'입니다. 미등록은 가짜라는 뜻이 아니라 등록 기록이 없다는 의미입니다."
+    </div>
+  </div>
+
+  <!-- ═══════════════ ENDING ═══════════════ -->
+
+  <!-- Scene 7 -->
+  <div class="scene" style="border-color:#2563eb;">
+    <div class="scene-header" style="background:#1e3a8a;">
+      <div class="scene-num" style="background:#2563eb;">E</div>
+      <div class="scene-meta">
+        <div class="scene-title">엔딩</div>
+        <div class="scene-subtitle">로고 + 핵심 메시지 + URL</div>
+      </div>
+      <div class="scene-time">2:14 – 2:24</div>
+    </div>
+    <div style="padding:40px 20px; text-align:center;">
+      <div style="font-size:36px; font-weight:800; color:#fff; margin-bottom:12px;">진본</div>
+      <div style="font-size:16px; color:#93c5fd; margin-bottom:24px;">블록체인 기반 영상 진위 검증</div>
+      <div style="display:flex; justify-content:center; gap:12px; flex-wrap:wrap; margin-bottom:20px;">
+        <span class="badge badge-blue">Open DID</span>
+        <span class="badge badge-blue">OmniOne Chain</span>
+        <span class="badge badge-blue">지각해시</span>
+      </div>
+      <div style="font-size:13px; color:#6b7280; font-family:'SF Mono',monospace;">jinbon.vercel.app</div>
+    </div>
+    <div class="narration">
+      페이드 아웃. BGM만 남기고 마무리.
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
