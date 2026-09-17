@@ -24,8 +24,7 @@
             <h2>iOS 앱</h2>
             <p class="dl-card-repo">jinbon-ios</p>
             <p class="dl-card-desc">
-              회원가입, DID/Wallet 관리, <strong>영상 등록</strong>, VC 보증서 보관까지.
-              진본의 모든 기능을 사용할 수 있는 메인 앱입니다.
+              본인확인부터 <strong>영상 등록</strong>, 디지털 지갑의 등록 보증서 보관까지 지원합니다. 원본 파일은 직접 보관하세요.
             </p>
             <div class="dl-card-stack">Swift / UIKit / DIDWalletSDK 2.0.1</div>
             <div class="dl-card-requires">
@@ -43,8 +42,8 @@
             <h2>검증 웹</h2>
             <p class="dl-card-repo">jinbon-web</p>
             <p class="dl-card-desc">
-              브라우저에서 영상 파일을 올려 검증하는 채널입니다.
-              <strong>로그인 없이</strong> 영상 파일을 선택할 수 있습니다.
+              브라우저에서 영상 파일을 올리거나 지원하는 영상 URL을 입력하세요.
+              <strong>로그인 없이</strong> 등록 기록과 비교 결과를 확인할 수 있습니다.
             </p>
             <div class="dl-card-stack">Next.js 16 / React 19 / Tailwind CSS</div>
             <div class="dl-card-requires">
@@ -66,8 +65,8 @@
             <h2>Chrome 확장</h2>
             <p class="dl-card-repo">jinbon-extension</p>
             <p class="dl-card-desc">
-              YouTube, Instagram에서 영상을 보면서 <strong>버튼 하나로 즉시 검증</strong>.
-              URL 기반으로 동작해 파일 다운로드가 필요 없습니다.
+              YouTube, Instagram에서 영상을 보면서 <strong>버튼 하나로 검증 시작</strong>.
+              직접 파일을 내려받을 필요 없이, 서버가 URL의 영상을 분석합니다.
             </p>
             <div class="dl-card-stack">Manifest V3 / JavaScript</div>
             <div class="dl-card-requires">
@@ -95,8 +94,8 @@
             <h2>카카오톡 챗봇</h2>
             <p class="dl-card-repo">카카오톡 채널</p>
             <p class="dl-card-desc">
-              카카오톡 대화창에서 영상 URL을 보내면 <strong>즉시 검증 결과를 응답</strong>합니다.
-              별도 설치 없이 누구나 사용할 수 있습니다.
+              카카오톡 대화창에서 <strong>영상 URL로 검증을 요청</strong>하는 채널입니다.
+              채널에서 이용 안내를 확인하세요.
             </p>
             <div class="dl-card-stack">카카오톡 채널 / 챗봇</div>
             <div class="dl-card-requires">
@@ -107,8 +106,6 @@
               카카오톡 채널 열기<span class="dl-ext" aria-hidden="true">↗</span>
               <span class="sr-only">(새 창)</span>
             </a>
-            <!-- 백엔드 배포 후 이 줄만 삭제하세요 -->
-            <p class="dl-card-pending">채널 추가는 지금 가능하며, 검증 응답은 백엔드 배포 후 동작합니다.</p>
           </div>
         </div>
       </div>
