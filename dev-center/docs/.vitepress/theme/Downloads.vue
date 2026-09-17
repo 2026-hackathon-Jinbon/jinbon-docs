@@ -73,7 +73,7 @@
             <div class="dl-card-requires">
               <strong>필요 조건:</strong> Chrome 브라우저
             </div>
-            <a class="dl-card-link" href="/jinbon-extension-0.1.0.zip" download>Chrome 확장 다운로드</a>
+            <a class="dl-card-link" href="/jinbon-extension-0.1.1.zip" download>Chrome 확장 다운로드 · v0.1.1</a>
             <details class="dl-install">
               <summary>다운로드 후 설치 방법</summary>
               <ol>

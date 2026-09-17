@@ -3,14 +3,14 @@
     <!-- Hero -->
     <section class="hero">
       <div class="hero-inner">
-        <span class="hero-badge">Blockchain Video Verification</span>
+        <span class="hero-badge">모바일 신분증 기반 공인 영상 진본 증명 플랫폼</span>
         <h1 class="hero-title">
-          <span>등록 영상과 일치하는지</span>
-          <span>누가 언제 등록했는지 확인하세요.</span>
+          <span>영상을 믿고 공유하기 전,</span>
+          <span>출처와 원본을 확인하세요.</span>
         </h1>
         <p class="hero-desc">
-          진본은 영상의 디지털 지문을 블록체인에 기록해
-          제출 영상과의 관계 및 누가 언제 등록했는지를 확인하는 서비스입니다.
+          발표자는 영상의 디지털 지문을 블록체인에 등록하고,
+          시청자는 등록자와 등록 기록, 원본과의 영상·음성 비교 결과를 확인합니다.
         </p>
         <p class="hero-note">영상 속 사건의 사실성과 AI 생성 여부 및 제작자와 저작권자 여부는 보증하지 않습니다.</p>
         <div class="hero-actions">
@@ -42,7 +42,7 @@
             </div>
             <h3>등록 사실 확인</h3>
             <p class="proof-question">누가 언제 등록했는가?</p>
-            <p class="proof-answer">모바일 신분증으로 본인확인을 마친 등록자는 DID 기반 보증서(VC)를 발급받아 등록 사실을 제3자에게 증명할 수 있습니다.</p>
+            <p class="proof-answer">공인 등록자는 모바일 신분증으로 본인확인을 완료한 진본 등록자입니다. 등록 사실을 담은 DID 보증서(VC)를 발급받습니다. 기관 소속·공식 발행 권한을 별도로 인증했다는 뜻은 아닙니다.</p>
             <span class="proof-tech">Open DID + OmniOne CX</span>
           </div>
         </div>
@@ -129,8 +129,8 @@
         <p class="section-desc">등록 기록과 콘텐츠 상태를 함께 확인해 네 가지로 표시합니다.</p>
         <div class="verdict-grid">
           <div class="verdict-item verdict-success">
-            <span class="verdict-code">진본</span>
-            <span class="verdict-desc">파일 일치 또는 유사도 기준을 충족하며 등록 증거도 유효함</span>
+            <span class="verdict-code">진본 확인 완료</span>
+            <span class="verdict-desc">파일 정확 일치 또는 영상·음성 유사도 기준 통과 및 원본의 같은 시간대에 대응. 등록 증거도 유효함</span>
           </div>
           <div class="verdict-item verdict-warn">
             <span class="verdict-code">콘텐츠 유사</span>
@@ -145,7 +145,7 @@
             <span class="verdict-desc">외부 장애 또는 온체인 무결성 검증 실패로 상세 사유 확인 필요</span>
           </div>
         </div>
-        <p class="verdict-note">진본 배지는 <strong>콘텐츠 비교와 등록 증거 검증을 모두 통과</strong>했다는 뜻입니다. 파일 정확 일치와 유사도 기준 통과는 보증 수준이 다릅니다. <a href="/verification-status">판정별 의미와 한계 보기</a></p>
+        <p class="verdict-note">진본 배지는 <strong>콘텐츠 비교와 등록 증거 검증을 모두 통과</strong>했다는 뜻입니다. 확인 방식은 ‘원본 파일 정확 일치’와 ‘영상·음성 비교’로 구분됩니다. 두 방식은 보증 수준이 다릅니다. <a href="/verification-status">판정별 의미와 한계 보기</a></p>
       </div>
     </section>
 
@@ -188,7 +188,7 @@
             </div>
             <h3>카카오톡 챗봇 <span class="channel-status">채널 추가 가능</span></h3>
             <span class="channel-badge">카카오톡 채널</span>
-            <p>카카오톡 대화창에서 영상 URL을 보내면 <strong>즉시 검증 결과를 응답.</strong> 검증 응답은 백엔드 배포 후 동작합니다.</p>
+            <p>카카오톡 대화창에서 영상 URL을 보내면 <strong>분석 후 검증 결과를 응답.</strong> 검증 응답은 백엔드 배포 후 동작합니다.</p>
             <span class="channel-tech">카카오톡 채널 / 챗봇</span>
           </div>
           <div class="channel-card channel-card-primary">
