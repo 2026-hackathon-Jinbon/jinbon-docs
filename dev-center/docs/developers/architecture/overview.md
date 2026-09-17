@@ -42,7 +42,7 @@ graph LR
 |---|---|---|---|
 | **jinbon-backend** | 등록, 검증, 인증 API 허브 | Java 21, Spring Boot 4.1, PostgreSQL 16.4, Redis 7 | 8070 |
 | **jinbon-ios** | 등록자용 Wallet 앱 | Swift, UIKit, DIDWalletSDK 2.0.1 | — |
-| **jinbon-web** | 파일 업로드 기반 영상 검증 | Next.js 16, React 19, Tailwind CSS | 8071 |
+| **jinbon-web** | 파일 업로드·URL 기반 영상 검증 | Next.js 16, React 19, Tailwind CSS | 8071 |
 | **jinbon-extension** | YouTube·Instagram 시청 중 검증 | Manifest V3, 순수 JavaScript | — |
 
 ## 계층별 책임

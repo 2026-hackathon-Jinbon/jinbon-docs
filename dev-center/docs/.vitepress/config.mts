@@ -7,7 +7,7 @@ const OG_IMAGE = `${SITE_URL}/logo-full.png`;
 
 export default defineConfig({
   title: "진본",
-  description: "블록체인 기반 영상 진위 검증 서비스",
+  description: "영상의 등록 기록과 비교 결과를 확인하는 서비스",
   lang: "ko-KR",
   lastUpdated: true,
   cleanUrls: true,
@@ -40,9 +40,9 @@ export default defineConfig({
       ? fm.titleTemplate === false
         ? pageTitle
         : `${pageTitle} | 진본`
-      : "진본 - 블록체인 기반 영상 진위 검증";
+      : "진본 - 영상의 등록 기록과 비교 결과";
     const description =
-      fm.description ?? "블록체인 기반 영상 진위 검증 서비스";
+      fm.description ?? "영상의 등록 기록과 비교 결과를 확인하는 서비스";
 
     // index.md -> "", developers/guide/introduction.md -> "developers/guide/introduction"
     const slug = pageData.relativePath
@@ -175,7 +175,7 @@ export default defineConfig({
     },
 
     footer: {
-      message: "블록체인 기반 영상 진위 검증 서비스",
+      message: "영상의 등록 기록과 비교 결과를 확인하는 서비스",
       copyright: "진본 (JinBon)",
     },
 
