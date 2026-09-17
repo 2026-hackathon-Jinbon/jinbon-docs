@@ -21,9 +21,9 @@ description: 진본과 콘텐츠 유사 및 미인증과 확인 중 상태의 �
           <div class="vs-status-icon">
             <svg aria-hidden="true" focusable="false" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
           </div>
-          <span class="vs-chip vs-chip-green">진본</span>
+          <span class="vs-chip vs-chip-green">진본 확인 완료</span>
           <h3>비교와 등록 증거 기준 통과</h3>
-          <p>파일 정확 일치 또는 영상과 음성 유사도 기준을 통과하고 등록 증거도 유효함</p>
+          <p>파일 정확 일치 또는 영상·음성 유사도와 동일한 원본 대응 시간 오프셋 기준을 통과하고 등록 증거도 유효함</p>
           <code class="vs-code">AUTHENTICATED</code>
         </div>
         <div class="vs-status-card vs-similar">
@@ -118,7 +118,7 @@ description: 진본과 콘텐츠 유사 및 미인증과 확인 중 상태의 �
           <p>1초 간격 스펙트로그램 해시의 대응 비율. 음성이 없으면 <strong>유사도 경로로는 승인하지 않습니다.</strong> 파일 정확 일치는 별도입니다.</p>
         </div>
       </div>
-      <div class="vs-note">이 수치는 유사도 경로의 승인 기준이며 정확도나 조작 탐지율이 아닙니다. 일부 불일치를 허용하고 샘플 사이의 편집이나 작은 변화는 놓칠 수 있습니다. 각각의 영상과 음성이 원본에서 같은 시간대의 조합인지까지는 확인하지 않습니다.</div>
+      <div class="vs-note">이 수치는 유사도 경로의 승인 기준이며 정확도나 조작 탐지율이 아닙니다. 일부 불일치를 허용하고 샘플 사이의 편집이나 작은 변화는 놓칠 수 있습니다. 영상과 음성 지문의 최적 원본 대응 시간 오프셋이 같아야 승인합니다. 반복 장면 등으로 최적 오프셋이 다르면 보수적으로 확인을 보류합니다. 이는 샘플 수준의 시간 정합성 확인이며 모든 프레임·음성의 무변조를 보증하지 않습니다.</div>
     </div>
   </section>
   <section class="vs-section">
@@ -182,7 +182,7 @@ description: 진본과 콘텐츠 유사 및 미인증과 확인 중 상태의 �
       <h2 class="vs-section-title">대표 사례</h2>
       <div class="vs-case-group">
         <div class="vs-case-header vs-case-header-green">
-          <span class="vs-chip vs-chip-green">진본</span>
+          <span class="vs-chip vs-chip-green">진본 확인 완료</span>
           <span>콘텐츠 비교와 등록 증거 기준 통과</span>
         </div>
         <div class="vs-case-item">
