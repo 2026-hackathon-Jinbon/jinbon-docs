@@ -1,6 +1,10 @@
 import { defineConfig } from "vitepress";
 import markdownItMermaid from "./markdown-mermaid";
 
+// 카카오톡·슬랙 공유 카드와 canonical/OG 절대 URL의 기준입니다.
+const SITE_URL = "https://jinbon-docs.vercel.app";
+const OG_IMAGE = `${SITE_URL}/logo-full.png`;
+
 export default defineConfig({
   title: "진본",
   description: "블록체인 기반 영상 진위 검증 서비스",
@@ -8,9 +12,54 @@ export default defineConfig({
   lastUpdated: true,
   cleanUrls: true,
 
+  sitemap: { hostname: SITE_URL },
+
   head: [
     ["link", { rel: "icon", type: "image/png", href: "/favicon.png" }],
+    // 페이지별로 안 바뀌는 값만 여기 둡니다.
+    // title/description/url은 transformPageData에서 페이지마다 채웁니다.
+    ["meta", { property: "og:type", content: "website" }],
+    ["meta", { property: "og:site_name", content: "진본" }],
+    ["meta", { property: "og:locale", content: "ko_KR" }],
+    ["meta", { property: "og:image", content: OG_IMAGE }],
+    ["meta", { property: "og:image:width", content: "1024" }],
+    ["meta", { property: "og:image:height", content: "1024" }],
+    ["meta", { property: "og:image:alt", content: "진본 로고" }],
+    ["meta", { name: "twitter:card", content: "summary" }],
+    ["meta", { name: "twitter:image", content: OG_IMAGE }],
   ],
+
+  // 검증 채널 중 하나가 카카오톡이라, 공유 시 제목·설명·썸네일이 뜨는 게 중요합니다.
+  // frontmatter의 title/description을 페이지별 OG 태그와 canonical로 옮깁니다.
+  transformPageData(pageData) {
+    const fm = pageData.frontmatter;
+    // 개발자 문서는 frontmatter title 없이 H1만 쓰는데, VitePress가 그 H1을
+    // pageData.title로 넣어줍니다. 이걸 안 보면 모든 문서가 홈 제목을 공유합니다.
+    const pageTitle = fm.title ?? pageData.title;
+    const title = pageTitle
+      ? fm.titleTemplate === false
+        ? pageTitle
+        : `${pageTitle} | 진본`
+      : "진본 - 블록체인 기반 영상 진위 검증";
+    const description =
+      fm.description ?? "블록체인 기반 영상 진위 검증 서비스";
+
+    // index.md -> "", developers/guide/introduction.md -> "developers/guide/introduction"
+    const slug = pageData.relativePath
+      .replace(/(?:index)?\.md$/, "")
+      .replace(/\/$/, "");
+    const url = slug ? `${SITE_URL}/${slug}` : SITE_URL;
+
+    pageData.frontmatter.head ??= [];
+    pageData.frontmatter.head.push(
+      ["link", { rel: "canonical", href: url }],
+      ["meta", { property: "og:title", content: title }],
+      ["meta", { property: "og:description", content: description }],
+      ["meta", { property: "og:url", content: url }],
+      ["meta", { name: "twitter:title", content: title }],
+      ["meta", { name: "twitter:description", content: description }],
+    );
+  },
 
   markdown: {
     config(md) {
@@ -99,8 +148,13 @@ export default defineConfig({
       label: "목차",
     },
 
-    // 저장소가 공개되면 실제 URL로 socialLinks를 다시 추가하세요.
-    // 플레이스홀더(https://github.com)는 GitHub 메인으로 나가버려 제거했습니다.
+    socialLinks: [
+      {
+        icon: "github",
+        link: "https://github.com/2026-hackathon-Jinbon",
+        ariaLabel: "진본 GitHub 조직",
+      },
+    ],
 
     search: {
       provider: "local",

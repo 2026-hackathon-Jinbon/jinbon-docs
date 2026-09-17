@@ -19,7 +19,7 @@
           <div class="dl-card dl-card-primary">
             <div class="dl-card-badge">등록 + 검증</div>
             <div class="dl-card-icon">
-              <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+              <svg aria-hidden="true" focusable="false" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
             </div>
             <h2>iOS 앱</h2>
             <p class="dl-card-repo">jinbon-ios</p>
@@ -38,7 +38,7 @@
           <div class="dl-card">
             <div class="dl-card-badge">검증 전용</div>
             <div class="dl-card-icon">
-              <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              <svg aria-hidden="true" focusable="false" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
             </div>
             <h2>검증 웹</h2>
             <p class="dl-card-repo">jinbon-web</p>
@@ -61,7 +61,7 @@
           <div class="dl-card">
             <div class="dl-card-badge">검증 전용</div>
             <div class="dl-card-icon">
-              <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              <svg aria-hidden="true" focusable="false" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
             </div>
             <h2>Chrome 확장</h2>
             <p class="dl-card-repo">jinbon-extension</p>
@@ -90,7 +90,7 @@
           <div class="dl-card">
             <div class="dl-card-badge">검증 전용</div>
             <div class="dl-card-icon">
-              <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              <svg aria-hidden="true" focusable="false" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
             </div>
             <h2>카카오톡 챗봇</h2>
             <p class="dl-card-repo">카카오톡 채널</p>
@@ -172,40 +172,9 @@
 </template>
 
 <style scoped>
+/* 공용 --jb-* 토큰은 custom.css의 :root/.dark에 있습니다. */
 .downloads-page {
-  /* --jb-blue: 표면 위 텍스트·아이콘용 / --jb-blue-solid: 흰 글자를 올리는 채움 배경용 */
-  --jb-blue: #2457E6;
-  --jb-blue-solid: #2457E6;
-  --jb-blue-solid-hover: #1a45c4;
-  --jb-blue-light: #EEF4FF;
-  /* 연파랑 카드 위에서는 --jb-text-secondary(#6B7280)가 4.38:1로 AA 미달 */
-  --jb-text-on-tint: #5A6373;
-  --jb-blue-border: #C3D3FC;
-  --jb-ink: #111827;
-  --jb-text: #374151;
-  --jb-text-secondary: #6B7280;
-  --jb-border: #E5E7EB;
-  --jb-bg: #FFFFFF;
-  --jb-bg-alt: #F9FAFB;
-  --jb-green: #047857;
   font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", sans-serif;
-}
-
-.dark .downloads-page {
-  --jb-ink: #F9FAFB;
-  --jb-text: #D1D5DB;
-  --jb-text-secondary: #9CA3AF;
-  --jb-border: #374151;
-  --jb-bg: #111827;
-  --jb-bg-alt: #1F2937;
-  /* 강조색을 함께 뒤집지 않으면 어두운 배경 위 어두운 글자가 됨 */
-  --jb-blue: #7AA3F5;
-  --jb-blue-solid: #3B6CF0;
-  --jb-blue-solid-hover: #2E5DE0;
-  --jb-blue-light: #1E293B;
-  --jb-text-on-tint: #9CA3AF;
-  --jb-blue-border: #334155;
-  --jb-green: #34D399;
 }
 
 .dl-hero {
@@ -299,9 +268,6 @@
   margin-bottom: 16px;
 }
 
-.dl-card-primary .dl-card-repo,
-.dl-card-primary .dl-card-stack { color: var(--jb-text-on-tint); }
-
 .dl-card-primary .dl-card-icon {
   background: var(--jb-blue-solid);
   color: #fff;
@@ -379,8 +345,6 @@
 .dl-install ol { padding-left: 22px; margin: 12px 0; list-style: decimal; }
 .dl-install li + li { margin-top: 8px; }
 .dl-install p { margin: 12px 0 0; }
-.dl-card-link:focus-visible,
-.dl-install summary:focus-visible { outline: 2px solid var(--jb-blue); outline-offset: 4px; }
 
 .dl-card-pending {
   margin: 10px 0 0;

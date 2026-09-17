@@ -159,7 +159,7 @@
             <div class="channel-icon">
               <svg aria-hidden="true" focusable="false" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
             </div>
-            <h3>iOS 앱</h3>
+            <h3>iOS 앱 <span class="channel-status">배포 준비 중</span></h3>
             <span class="channel-badge channel-badge-code">jinbon-ios</span>
             <p>회원가입부터 DID/Wallet 관리와 <strong>영상 등록</strong> 및 VC 보증서 보관까지 지원</p>
             <span class="channel-tech">Swift / UIKit / DIDWalletSDK</span>
@@ -186,9 +186,9 @@
             <div class="channel-icon">
               <svg aria-hidden="true" focusable="false" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
             </div>
-            <h3>카카오톡 챗봇</h3>
+            <h3>카카오톡 챗봇 <span class="channel-status">채널 추가 가능</span></h3>
             <span class="channel-badge">카카오톡 채널</span>
-            <p>카카오톡 대화창에서 영상 URL을 보내면 <strong>즉시 검증 결과를 응답.</strong></p>
+            <p>카카오톡 대화창에서 영상 URL을 보내면 <strong>즉시 검증 결과를 응답.</strong> 검증 응답은 백엔드 배포 후 동작합니다.</p>
             <span class="channel-tech">카카오톡 채널 / 챗봇</span>
           </div>
           <div class="channel-card channel-card-primary">
@@ -316,54 +316,10 @@
 
 <style scoped>
 /* ─── Base ─── */
+/* 공용 --jb-* 토큰은 custom.css의 :root/.dark에 있습니다. */
 .home-page {
-  /* --jb-blue: 표면 위에 얹는 텍스트·아이콘용 (대비가 배경 대비로 결정됨)
-     --jb-blue-solid: 흰 글자를 올리는 채움 배경용 (대비가 흰색 대비로 결정됨)
-     두 용도의 대비 요구가 반대 방향이라 다크모드에서 갈라져야 함 */
-  --jb-blue: #2457E6;
-  --jb-blue-solid: #2457E6;
-  --jb-blue-solid-hover: #1a45c4;
-  --jb-blue-light: #EEF4FF;
-  /* 연파랑 카드 위에서는 --jb-text-secondary(#6B7280)가 4.38:1로 AA 미달 */
-  --jb-text-on-tint: #5A6373;
-  --jb-blue-border: #C3D3FC;
-  --jb-ink: #111827;
-  --jb-text: #374151;
-  --jb-text-secondary: #6B7280;
-  --jb-border: #E5E7EB;
-  --jb-bg: #FFFFFF;
-  --jb-bg-alt: #F9FAFB;
-  --jb-green: #047857;
-  --jb-green-bg: #ECFDF5;
-  --jb-yellow: #B45309;
-  --jb-yellow-bg: #FFFBEB;
-  --jb-gray-bg: #F3F4F6;
-  /* 배지 위 텍스트는 --jb-text-secondary보다 진해야 AA를 넘김 */
-  --jb-neutral-fg: #4B5563;
   font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", sans-serif;
   /* word-break: keep-all은 custom.css에서 전역 적용 */
-}
-
-.dark .home-page {
-  --jb-ink: #F9FAFB;
-  --jb-text: #D1D5DB;
-  --jb-text-secondary: #9CA3AF;
-  --jb-border: #374151;
-  --jb-bg: #111827;
-  --jb-bg-alt: #1F2937;
-  --jb-blue: #7AA3F5;
-  --jb-blue-solid: #3B6CF0;
-  /* 채움 버튼의 hover는 밝히면 흰 글자 대비가 무너져서 다크모드에서도 어둡게 */
-  --jb-blue-solid-hover: #2E5DE0;
-  --jb-blue-light: #1E293B;
-  --jb-text-on-tint: #9CA3AF;
-  --jb-blue-border: #334155;
-  --jb-green: #34D399;
-  --jb-green-bg: #064E3B;
-  --jb-yellow: #FBBF24;
-  --jb-yellow-bg: #78350F;
-  --jb-gray-bg: #1F2937;
-  --jb-neutral-fg: #9CA3AF;
 }
 
 /* ─── Hero ─── */
@@ -903,9 +859,6 @@
   gap: 20px;
 }
 
-.channel-card-primary .channel-badge,
-.channel-card-primary .channel-tech { color: var(--jb-text-on-tint); }
-
 .channel-card-primary .channel-icon {
   flex-shrink: 0;
   margin-bottom: 0;
@@ -946,6 +899,20 @@
   font-size: 12px;
   color: var(--jb-text-secondary);
   margin-bottom: 10px;
+}
+
+/* 아직 설치·응답이 안 되는 채널을 제목 옆에 표시 — Downloads 페이지와 어긋나지 않게 */
+.channel-status {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: var(--jb-gray-bg);
+  color: var(--jb-neutral-fg);
+  white-space: nowrap;
 }
 
 /* 저장소명(영문)만 모노 — "카카오톡 채널"은 본문 폰트 유지 */
@@ -1123,9 +1090,6 @@
   .verdict-grid { grid-template-columns: 1fr; }
   /* 좁은 화면에선 허브 카드도 다른 카드와 같은 세로 배치로 */
   .channel-card-primary { flex-direction: column; gap: 0; }
-  .channel-card-primary .channel-badge,
-.channel-card-primary .channel-tech { color: var(--jb-text-on-tint); }
-
-.channel-card-primary .channel-icon { margin-bottom: 14px; }
+  .channel-card-primary .channel-icon { margin-bottom: 14px; }
 }
 </style>

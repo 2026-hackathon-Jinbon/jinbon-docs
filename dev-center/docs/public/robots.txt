@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jinbon-docs.vercel.app/sitemap.xml
