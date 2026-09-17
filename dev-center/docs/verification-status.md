@@ -19,7 +19,7 @@ description: 진본과 콘텐츠 유사 및 미인증과 확인 중 상태의 �
       <div class="vs-status-grid">
         <div class="vs-status-card vs-authentic">
           <div class="vs-status-icon">
-            <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            <svg aria-hidden="true" focusable="false" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
           </div>
           <span class="vs-chip vs-chip-green">진본</span>
           <h3>비교와 등록 증거 기준 통과</h3>
@@ -28,7 +28,7 @@ description: 진본과 콘텐츠 유사 및 미인증과 확인 중 상태의 �
         </div>
         <div class="vs-status-card vs-similar">
           <div class="vs-status-icon">
-            <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+            <svg aria-hidden="true" focusable="false" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
           </div>
           <span class="vs-chip vs-chip-yellow">콘텐츠 유사</span>
           <h3>원본 후보를 찾음</h3>
@@ -37,7 +37,7 @@ description: 진본과 콘텐츠 유사 및 미인증과 확인 중 상태의 �
         </div>
         <div class="vs-status-card vs-unverified">
           <div class="vs-status-icon">
-            <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+            <svg aria-hidden="true" focusable="false" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
           </div>
           <span class="vs-chip vs-chip-gray">미인증</span>
           <h3>진본 승인 불가</h3>
@@ -46,7 +46,7 @@ description: 진본과 콘텐츠 유사 및 미인증과 확인 중 상태의 �
         </div>
         <div class="vs-status-card vs-pending">
           <div class="vs-status-icon">
-            <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            <svg aria-hidden="true" focusable="false" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
           </div>
           <span class="vs-chip vs-chip-blue">확인 중</span>
           <h3>일시적으로 판정 불가</h3>
@@ -136,7 +136,7 @@ description: 진본과 콘텐츠 유사 및 미인증과 확인 중 상태의 �
         </div>
         <div class="vs-flow-connector">
           <div class="vs-flow-line"></div>
-          <svg class="vs-flow-chevron" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          <svg aria-hidden="true" focusable="false" class="vs-flow-chevron" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
         </div>
         <div class="vs-flow-step">
           <div class="vs-flow-num">2</div>
@@ -149,7 +149,7 @@ description: 진본과 콘텐츠 유사 및 미인증과 확인 중 상태의 �
         </div>
         <div class="vs-flow-connector">
           <div class="vs-flow-line"></div>
-          <svg class="vs-flow-chevron" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          <svg aria-hidden="true" focusable="false" class="vs-flow-chevron" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
         </div>
         <div class="vs-flow-step">
           <div class="vs-flow-num">3</div>
@@ -162,7 +162,7 @@ description: 진본과 콘텐츠 유사 및 미인증과 확인 중 상태의 �
         </div>
         <div class="vs-flow-connector">
           <div class="vs-flow-line"></div>
-          <svg class="vs-flow-chevron" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          <svg aria-hidden="true" focusable="false" class="vs-flow-chevron" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
         </div>
         <div class="vs-flow-step">
           <div class="vs-flow-num">4</div>
@@ -265,7 +265,8 @@ description: 진본과 콘텐츠 유사 및 미인증과 확인 중 상태의 �
   --vs-blue-border: #C3D3FC;
   --vs-ink: #111827;
   --vs-text: #374151;
-  --vs-text-2: #6B7280;
+  /* 연파랑 카드 위 AA 확보 — custom.css의 --jb-text-secondary와 같은 값 */
+  --vs-text-2: #646B78;
   --vs-text-3: #9CA3AF;
   --vs-border: #E5E7EB;
   --vs-bg: #FFFFFF;

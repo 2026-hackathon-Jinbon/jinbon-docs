@@ -53,7 +53,7 @@
         <div class="uc-card">
           <div class="uc-card-header">
             <div class="uc-card-icon uc-card-icon-red">
-              <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>
+              <svg aria-hidden="true" focusable="false" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>
             </div>
             <div>
               <h3>언론사와 팩트체크 기관</h3>
@@ -103,7 +103,7 @@
         <div class="uc-card">
           <div class="uc-card-header">
             <div class="uc-card-icon uc-card-icon-purple">
-              <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="m22 8-6 4 6 4V8Z"/><rect x="2" y="6" width="14" height="12" rx="2" ry="2"/></svg>
+              <svg aria-hidden="true" focusable="false" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="m22 8-6 4 6 4V8Z"/><rect x="2" y="6" width="14" height="12" rx="2" ry="2"/></svg>
             </div>
             <div>
               <h3>영상 제작자와 크리에이터</h3>
@@ -152,7 +152,7 @@
         <div class="uc-card">
           <div class="uc-card-header">
             <div class="uc-card-icon uc-card-icon-green">
-              <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+              <svg aria-hidden="true" focusable="false" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
             </div>
             <div>
               <h3>기업과 법적 증거</h3>
@@ -201,7 +201,7 @@
         <div class="uc-card">
           <div class="uc-card-header">
             <div class="uc-card-icon uc-card-icon-yellow">
-              <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              <svg aria-hidden="true" focusable="false" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
             </div>
             <div>
               <h3>일반 사용자와 시청자</h3>
@@ -251,7 +251,7 @@
         <div class="uc-card">
           <div class="uc-card-header">
             <div class="uc-card-icon uc-card-icon-blue">
-              <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              <svg aria-hidden="true" focusable="false" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
             </div>
             <div>
               <h3>플랫폼과 소셜 미디어</h3>
@@ -310,7 +310,7 @@
           </div>
           <div class="uc-flow-connector">
             <div class="uc-flow-line"></div>
-            <svg class="uc-flow-chevron" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+            <svg aria-hidden="true" focusable="false" class="uc-flow-chevron" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
           </div>
           <div class="uc-flow-step">
             <div class="uc-flow-num">2</div>
@@ -319,7 +319,7 @@
           </div>
           <div class="uc-flow-connector">
             <div class="uc-flow-line"></div>
-            <svg class="uc-flow-chevron" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+            <svg aria-hidden="true" focusable="false" class="uc-flow-chevron" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
           </div>
           <div class="uc-flow-step">
             <div class="uc-flow-num">3</div>
@@ -345,31 +345,15 @@
 </template>
 
 <style scoped>
-/* ─── Base ─── */
+/* ─── Base ───
+   공용 --jb-* 토큰은 custom.css의 :root/.dark에 있습니다.
+   이 페이지에만 쓰는 색(웜그레이 대조 컬럼, 사례별 아이콘색)만 여기 둡니다. */
 .use-cases-page {
-  /* --jb-blue: 표면 위 텍스트·아이콘용 / --jb-blue-solid: 흰 글자를 올리는 채움 배경용 */
-  --jb-blue: #2457E6;
-  --jb-blue-solid: #2457E6;
-  --jb-blue-solid-hover: #1a45c4;
-  --jb-blue-light: #EEF4FF;
-  --jb-blue-border: #C3D3FC;
-  --jb-ink: #111827;
-  --jb-text: #374151;
-  /* 웜그레이 카드(#F7F6F3) 위에서 #6B7280은 4.47:1로 근소 미달 → 한 단계 진하게 */
-  --jb-text-secondary: #646B78;
-  --jb-text-tertiary: #646B78;
-  --jb-border: #E5E7EB;
-  --jb-bg: #FFFFFF;
-  --jb-bg-alt: #F9FAFB;
   --jb-bg-warm: #F7F6F3;
-  --jb-green: #047857;
-  --jb-green-bg: #ECFDF5;
   --jb-red: #DC2626;
   --jb-red-bg: #FEF2F2;
   --jb-purple: #7C3AED;
   --jb-purple-bg: #F5F3FF;
-  --jb-yellow: #B45309;
-  --jb-yellow-bg: #FFFBEB;
   --jb-comp-before-bg: #F7F6F3;
   --jb-comp-before-border: #E8E5DF;
   --jb-comp-before-dot: #9CA3AF;
@@ -380,28 +364,11 @@
 }
 
 .dark .use-cases-page {
-  --jb-ink: #F9FAFB;
-  --jb-text: #D1D5DB;
-  --jb-text-secondary: #9CA3AF;
-  --jb-text-tertiary: #9CA3AF;
-  --jb-border: #374151;
-  --jb-bg: #111827;
-  --jb-bg-alt: #1F2937;
   --jb-bg-warm: #1C1917;
-  /* 강조색을 함께 뒤집지 않으면 어두운 배경 위 어두운 글자가 됨 */
-  --jb-blue: #7AA3F5;
-  --jb-blue-solid: #3B6CF0;
-  --jb-blue-solid-hover: #2E5DE0;
-  --jb-blue-light: #1E293B;
-  --jb-blue-border: #334155;
-  --jb-green: #34D399;
-  --jb-green-bg: #064E3B;
   --jb-red: #F87171;
   --jb-red-bg: #450A0A;
   --jb-purple: #C4B5FD;
   --jb-purple-bg: #2E1065;
-  --jb-yellow: #FBBF24;
-  --jb-yellow-bg: #78350F;
   --jb-comp-before-bg: #1C1917;
   --jb-comp-before-border: #292524;
   --jb-comp-before-dot: #6B7280;
@@ -511,6 +478,35 @@
   letter-spacing: -0.01em;
 }
 
+/* "검증 결과가 의미하는 것" 섹션 — 이 섹션만 카드 없이 본문 단락으로 되어 있어서
+   p/a에 스타일이 하나도 안 붙어 링크가 일반 텍스트로 보였습니다.
+   .uc-cta / .uc-flow-section의 단락까지 건드리지 않도록 .uc-section 직계로 한정합니다. */
+.uc-section > .uc-inner > p {
+  font-size: 15.5px;
+  line-height: 1.75;
+  color: var(--jb-text);
+  margin: 0 0 10px;
+}
+
+.uc-section > .uc-inner > p:last-child { margin-bottom: 0; }
+
+.uc-section > .uc-inner > p a {
+  color: var(--jb-blue);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  white-space: nowrap;
+}
+
+.uc-section > .uc-inner > p a::after {
+  content: " →";
+  text-decoration: none;
+  display: inline-block;
+}
+
+.uc-section > .uc-inner > p a:hover { text-decoration-thickness: 2px; }
+
 /* ─── Cards ─── */
 .uc-card {
   background: var(--jb-bg);
@@ -562,7 +558,7 @@
   display: inline-block;
   font-size: 12px;
   font-weight: 600;
-  color: var(--jb-text-tertiary);
+  color: var(--jb-text-secondary);
   letter-spacing: 0.02em;
 }
 
@@ -635,7 +631,7 @@
   letter-spacing: 0.02em;
 }
 
-.uc-comp-before .uc-comp-label span:last-child { color: var(--jb-text-tertiary); }
+.uc-comp-before .uc-comp-label span:last-child { color: var(--jb-text-secondary); }
 .uc-comp-after .uc-comp-label span:last-child { color: var(--jb-blue); }
 
 .uc-comp-dot {
@@ -794,7 +790,7 @@
 }
 
 .uc-flow-chevron {
-  color: var(--jb-text-tertiary);
+  color: var(--jb-text-secondary);
   flex-shrink: 0;
 }
 

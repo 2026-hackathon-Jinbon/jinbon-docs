@@ -18,6 +18,76 @@
   --vp-c-brand-soft: #1E293B;
 }
 
+/* ─── 공통 디자인 토큰 ───
+   HomePage·UseCases·Downloads·verification-status가 같은 값을 각자 선언하고 있었어서
+   대비 하나를 고치려면 네 곳을 함께 손대야 했습니다. 공용 값은 여기 한 벌만 둡니다.
+   페이지 고유색(uc-purple, vs-*-border 등)은 각 파일에 남겨둡니다.
+
+   --jb-blue        표면 위에 얹는 텍스트·아이콘용 (대비가 배경색 대비로 결정됨)
+   --jb-blue-solid  흰 글자를 올리는 채움 배경용 (대비가 흰색 대비로 결정됨)
+   두 용도의 대비 요구가 반대 방향이라 다크모드에서 갈라져야 합니다. */
+:root {
+  --jb-blue: #2457E6;
+  --jb-blue-solid: #2457E6;
+  --jb-blue-solid-hover: #1a45c4;
+  --jb-blue-light: #EEF4FF;
+  --jb-blue-border: #C3D3FC;
+  --jb-ink: #111827;
+  --jb-text: #374151;
+  /* 연파랑(#EEF4FF) 위에서 #6B7280은 4.38:1로 AA 미달이었습니다.
+     #646B78은 흰 배경 5.31:1 ~ 연파랑 4.86:1로 모든 표면에서 AA를 넘겨서,
+     표면별 예외 토큰 없이 이 값 하나로 통일합니다. */
+  --jb-text-secondary: #646B78;
+  --jb-border: #E5E7EB;
+  --jb-bg: #FFFFFF;
+  --jb-bg-alt: #F9FAFB;
+  --jb-green: #047857;
+  --jb-green-bg: #ECFDF5;
+  --jb-yellow: #B45309;
+  --jb-yellow-bg: #FFFBEB;
+  --jb-gray-bg: #F3F4F6;
+  /* 배지·pill 위 텍스트는 --jb-text-secondary보다 진해야 AA를 넘김 */
+  --jb-neutral-fg: #4B5563;
+}
+
+.dark {
+  --jb-blue: #7AA3F5;
+  --jb-blue-solid: #3B6CF0;
+  /* 채움 버튼의 hover는 밝히면 흰 글자 대비가 무너져서 다크모드에서도 어둡게 */
+  --jb-blue-solid-hover: #2E5DE0;
+  --jb-blue-light: #1E293B;
+  --jb-blue-border: #334155;
+  --jb-ink: #F9FAFB;
+  --jb-text: #D1D5DB;
+  --jb-text-secondary: #9CA3AF;
+  --jb-border: #374151;
+  --jb-bg: #111827;
+  --jb-bg-alt: #1F2937;
+  --jb-green: #34D399;
+  --jb-green-bg: #064E3B;
+  --jb-yellow: #FBBF24;
+  --jb-yellow-bg: #78350F;
+  --jb-gray-bg: #1F2937;
+  --jb-neutral-fg: #9CA3AF;
+}
+
+/* ─── 포커스 표시 ───
+   VitePress 기본 CSS에 outline:none이 여러 곳 있어서, 키보드 사용자가
+   현재 위치를 잃는 요소가 생깁니다. 커스텀 페이지의 인터랙티브 요소에
+   일괄로 가시적 포커스를 보장합니다. (:focus-visible이라 마우스 클릭에는 안 뜸) */
+.home-page a:focus-visible,
+.home-page summary:focus-visible,
+.use-cases-page a:focus-visible,
+.use-cases-page summary:focus-visible,
+.downloads-page a:focus-visible,
+.downloads-page summary:focus-visible,
+.vs-page a:focus-visible,
+.vs-page summary:focus-visible {
+  outline: 2px solid var(--jb-blue);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
 /* ─── 한글 줄바꿈 ───
    기본값은 한글을 글자 단위로 끊어 "확/정하는", "삭제합니/다."처럼 잘립니다.
    어절 단위로만 끊고, 긴 영문 토큰은 필요할 때만 강제로 넘깁니다. */
