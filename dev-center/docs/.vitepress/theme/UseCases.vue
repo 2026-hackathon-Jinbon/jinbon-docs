@@ -5,7 +5,7 @@ import { useCases } from './useCases'
 <template>
   <div class="use-cases-page">
     <header class="uc-hero">
-      <div class="uc-inner"><span class="eyebrow">진본 활용 사례</span><h1>“같은 영상이 맞나요?”<br /><span>그 질문에 답할 근거를 남기세요.</span></h1><p>발표를 전하고, 콘텐츠를 공유하고, 업무 기록을 주고받을 때.<br />미리 등록한 영상이 나중에 확인할 기준이 됩니다.</p>
+      <div class="uc-inner"><span class="eyebrow">진본 활용 사례</span><h1>이 영상, 다시 공유해도 될까요?<br /><span>등록자와 비교 결과부터 살펴보세요.</span></h1><p>대화방에서 받은 발표, 짧게 잘린 발언, 주고받은 업무 영상.<br />공유하기 전, 미리 등록된 영상과 비교해 확인할 근거를 찾으세요.</p>
         <nav class="case-nav" aria-label="관심 있는 활용 사례"><a v-for="item in useCases" :key="item.id" :href="`#${item.id}`"><span aria-hidden="true">{{ item.number }}</span>{{ item.audience }} <span aria-hidden="true">↓</span></a></nav>
       </div>
     </header>
