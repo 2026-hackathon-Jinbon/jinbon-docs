@@ -1,8 +1,8 @@
 <script setup lang="ts">
 const states = [
   { id: 'complete', label: '진본 확인 완료', icon: '✓', title: '비교와 등록 증거를 모두 확인했어요.', text: '파일 정확 일치 또는 영상·음성 비교 기준을 통과했고, 등록 기록과 보증서도 유효합니다.', action: '확인 방식과 등록자·등록 시각을 함께 살펴보세요.' },
-  { id: 'similar', label: '콘텐츠 유사 · 확인 보류', icon: '!', title: '유사한 등록 영상은 찾았어요.', text: '비교 기준을 충족하지 못했거나 영상·음성 정보가 부족합니다. 일부 구간만 유사할 수도 있습니다.', action: '상세 사유와 등록 영상의 대응 구간을 확인하세요.' },
-  { id: 'unverified', label: '미인증', icon: '−', title: '등록 증거를 확인하지 못했어요.', text: '등록 기록을 찾지 못했거나, 등록이 비활성화되었거나, 보증서가 없거나 유효하지 않습니다.', action: '기록 없음과 보증서 문제를 구분하세요. 미등록은 가짜라는 뜻이 아닙니다.' },
+  { id: 'similar', label: '콘텐츠 유사 · 확인 보류', icon: '!', title: '유사한 등록 영상은 찾았어요.', text: '비교 기준을 충족하지 못했거나 영상·음성 정보가 부족합니다. 일부 구간만 유사할 수도 있습니다.', action: '상세 사유와 대응 구간을 살펴보세요. 이 결과만으로 조작을 단정할 수 없으니 원 게시자나 공식 채널에서도 확인하세요.' },
+  { id: 'unverified', label: '미인증', icon: '−', title: '등록 증거를 확인하지 못했어요.', text: '등록 기록을 찾지 못했거나, 등록이 비활성화되었거나, 보증서가 없거나 유효하지 않습니다.', action: '상세 사유를 살펴보세요. 미등록은 가짜라는 뜻이 아닙니다. 원 게시자나 공식 채널에서 내용과 등록 여부를 확인하세요.' },
   { id: 'unavailable', label: '현재 확인할 수 없음', icon: '…', title: '지금은 검증을 완료할 수 없어요.', text: '외부 서비스 연결 문제 또는 블록체인 등록 기록의 검증 문제로 판정할 수 없습니다.', action: '연결 문제는 재시도하고, 기록 불일치는 안내에 따라 운영자 확인이 필요합니다.' },
 ]
 const examples = [
@@ -20,8 +20,8 @@ const examples = [
     <header class="vs-hero">
       <div class="vs-hero-inner">
         <span class="eyebrow">검증 결과 안내</span>
-        <h1>결과와 함께,<br /><span>확인한 근거를 읽어보세요.</span></h1>
-        <p>등록 영상과 어떻게 일치하는지, 등록 증거는 유효한지.<br />진본의 검증 결과를 이해하는 방법입니다.</p>
+        <h1>공유하기 전,<br /><span>결과의 의미까지 확인하세요.</span></h1>
+        <p>누가 등록했는지, 등록 영상과 어떻게 일치하는지.<br />결과별로 확인된 범위와 다음에 살펴볼 내용을 안내합니다.</p>
         <nav class="vs-jump" aria-label="검증 안내 바로가기"><a href="#states">상태의 의미</a><a href="#methods">확인 방식</a><a href="#examples">상황별 해석</a></nav>
       </div>
     </header>
@@ -110,7 +110,7 @@ const examples = [
       </div>
     </section>
 
-    <section class="closing"><h2>확인할 영상이 있나요?</h2><p>파일이나 링크로 등록 기록과 비교 결과를 살펴보세요.</p><a class="primary" href="https://jinbon-web.vercel.app">영상 확인하기 <span aria-hidden="true">↗</span></a></section>
+    <section class="closing"><h2>공유하기 전, 영상의 출처를 확인하세요.</h2><p>등록자와 등록 시각, 영상의 비교 결과를 함께 살펴보세요.</p><a class="primary" href="https://jinbon-web.vercel.app">영상 확인하기 <span aria-hidden="true">↗</span></a></section>
   </div>
 </template>
 

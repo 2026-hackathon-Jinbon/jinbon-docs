@@ -7,7 +7,7 @@ const OG_IMAGE = `${SITE_URL}/logo-full.png`;
 
 export default defineConfig({
   title: "진본",
-  description: "영상의 등록 기록과 비교 결과를 확인하는 서비스",
+  description: "공유하기 전, 영상의 출처를 확인하세요. 진본에서 등록자와 등록 영상의 일치 여부를 확인합니다.",
   lang: "ko-KR",
   lastUpdated: true,
   cleanUrls: true,
@@ -40,9 +40,9 @@ export default defineConfig({
       ? fm.titleTemplate === false
         ? pageTitle
         : `${pageTitle} | 진본`
-      : "진본 - 영상의 등록 기록과 비교 결과";
+      : "진본 - 공유하기 전, 영상의 출처를 확인하세요.";
     const description =
-      fm.description ?? "영상의 등록 기록과 비교 결과를 확인하는 서비스";
+      fm.description ?? "공유하기 전, 영상의 출처를 확인하세요. 진본에서 등록자와 등록 영상의 일치 여부를 확인합니다.";
 
     // index.md -> "", developers/guide/introduction.md -> "developers/guide/introduction"
     const slug = pageData.relativePath
@@ -175,7 +175,7 @@ export default defineConfig({
     },
 
     footer: {
-      message: "영상의 등록 기록과 비교 결과를 확인하는 서비스",
+      message: "공유하기 전, 영상의 출처를 확인하세요.",
       copyright: "진본 (JinBon)",
     },
 

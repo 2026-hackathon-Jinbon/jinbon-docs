@@ -8,9 +8,10 @@ const proofs = [
   { number: '03', title: '등록 보증서를 확인합니다', text: '보증서의 유효성과 발급자·등록자 정보를 확인하고, 해당 영상의 등록 기록에 연결되는지 대조합니다.' },
 ]
 const faqs = [
-  { question: '아무 영상이나 확인할 수 있나요?', answer: '사전에 진본에 등록된 영상이 비교 기준으로 필요합니다. 등록 기록을 찾지 못하면 일치 여부를 확인할 수 없으며, 그 결과가 가짜라는 뜻은 아닙니다.' },
+  { question: '진본에서 확인하는 ‘출처’는 무엇인가요?', answer: '누가 언제 영상을 등록했는지, 지금 보는 영상이 그 등록 영상과 어떻게 일치하는지를 확인합니다. 인터넷에서 처음 게시된 곳이나 모든 공유 경로를 추적하는 것은 아닙니다.' },
+  { question: '등록 기록이 없으면 가짜 영상인가요?', answer: '아닙니다. 진본은 사전에 등록된 영상을 기준으로 비교합니다. 기록을 찾지 못했다면 등록 영상과의 일치 여부를 확인할 수 없다는 뜻입니다. 원 게시자나 공식 채널에서 발표 내용과 등록 여부를 확인하세요.' },
   { question: '등록 영상이면 내용도 사실인가요?', answer: '진본이 확인하는 것은 등록 기록과 영상의 비교 결과입니다. 영상 속 사건의 사실성, 촬영 원본 여부, AI 생성 여부, 제작자·저작권자 여부까지 보증하지는 않습니다.' },
-  { question: '등록한 사람은 공식 기관의 담당자인가요?', answer: '모바일 신분증을 통한 본인확인과 기관의 공식 권한 확인은 별개입니다. 등록자 표시명만으로 소속이나 직함이 인증되는 것은 아닙니다.' },
+  { question: '등록자 이름이 기관명이면 공식 발표인가요?', answer: '등록자 표시명만으로 기관 소속이나 공식 발표 권한이 인증되는 것은 아닙니다. 기관 홈페이지나 공식 채널에서 안내하는 등록자 정보와 발표 내용을 함께 확인하세요. 모바일 신분증을 통한 본인확인과 기관의 공식 권한 확인은 별개입니다.' },
   { question: '영상 파일은 어떻게 처리하나요?', answer: '영상은 분석을 위해 서버로 전송됩니다. 원본을 장기 보관하지 않으며, 분석용 임시 파일은 처리 후 삭제합니다. 등록한 영상의 지문과 등록 정보 등은 검증에 사용됩니다. 원본 파일은 직접 보관하세요.' },
   { question: '영상을 등록하려면 무엇이 필요한가요?', answer: 'iOS 앱에서 모바일 신분증으로 본인확인을 마치고 디지털 지갑을 연결해야 합니다. 영상 등록 후 보증서 발급도 완료해야 합니다. 현재 앱은 배포 준비 중이며, 시작하기 페이지에서 공개 후 설치 방법을 안내합니다.' },
 ]
@@ -22,16 +23,16 @@ const faqs = [
       <div class="hero-inner">
         <div class="hero-copy">
           <span class="eyebrow"><span class="brand-dot" aria-hidden="true" />영상 등록·검증 서비스, 진본</span>
-          <h1>이 영상, 누가 등록했고<br /><span>등록 영상과 얼마나 같을까요?</span></h1>
-          <p class="hero-desc">전하는 사람은 비교할 기준을 남기고,<br class="desktop-break" /> 보는 사람은 등록 기록과 영상의 일치 여부를 확인합니다.</p>
+          <h1>공유하기 전,<br /><span>영상의 출처를 확인하세요.</span></h1>
+          <p class="hero-desc">누가 등록한 영상인지, 등록 영상과 일치하는지.<br class="desktop-break" /> 진본에서 확인하고 공유하세요.</p>
           <div class="actions">
-            <a href="https://jinbon-web.vercel.app" class="btn primary">내 영상 확인하기 <span aria-hidden="true">↗</span></a>
+            <a href="https://jinbon-web.vercel.app" class="btn primary">영상 확인하기 <span aria-hidden="true">↗</span></a>
             <a href="#experience" class="btn secondary">결과 예시 살펴보기 <span aria-hidden="true">↓</span></a>
           </div>
-          <p class="hint">웹 검증은 설치·로그인 없이.<br class="mobile-break" /> 사전에 등록된 영상을 기준으로 비교합니다.</p>
+          <p class="hint">설치·로그인 없이, 사전에 등록된 영상과 비교합니다.<br />등록 기록이 없다는 이유만으로 가짜 영상은 아닙니다.</p>
         </div>
         <aside class="example" aria-label="가상의 파일 정확 일치 결과 예시">
-          <div class="example-top"><span>확인할 수 있는 정보</span><span class="example-mark">가상 예시</span></div>
+          <div class="example-top"><span>공유하기 전에 확인할 정보</span><span class="example-mark">가상 예시</span></div>
           <div class="example-heading"><span class="check-icon" aria-hidden="true">✓</span><div><span class="success-label">파일 정확 일치</span><h2>등록 파일과 같아요.</h2></div></div>
           <dl class="identity">
             <div><dt>등록자 · 예시</dt><dd>김진본 <span class="identity-note">본인확인 완료</span></dd></div>
@@ -41,12 +42,12 @@ const faqs = [
           <p class="example-note">실제 검증 결과가 아닌 이해를 돕기 위한 예시입니다.</p>
         </aside>
       </div>
-      <div class="hero-bottom"><span>등록자와 등록 시각</span><i aria-hidden="true" /><span>영상·음성 비교</span><i aria-hidden="true" /><span>확인 근거까지 함께</span></div>
+      <div class="hero-bottom"><span>누가 등록했는지</span><i aria-hidden="true" /><span>언제 등록했는지</span><i aria-hidden="true" /><span>등록 영상과 일치하는지</span></div>
     </section>
 
     <section id="use-cases" class="section cases-section">
       <div class="inner">
-        <div class="section-heading"><div><span class="eyebrow">이런 순간에, 진본</span><h2>영상만 전하기엔,<br />확인이 필요한 순간들.</h2></div><p class="heading-description">내가 전달한 영상인지, 같은 파일인지.<br />미리 남긴 기록이 나중에 확인할 기준이 됩니다.</p></div>
+        <div class="section-heading"><div><span class="eyebrow">이런 순간에, 진본</span><h2>다시 공유하기 전에,<br />한 번 더 확인하세요.</h2></div><p class="heading-description">대화방에서 받은 발표부터 짧게 잘린 영상까지.<br />등록자와 비교 결과를 살펴보세요.</p></div>
         <div class="case-grid">
           <article v-for="item in useCases" :key="item.id" class="case-card">
             <div class="case-top"><span>{{ item.audience }}</span><span class="case-number" aria-hidden="true">{{ item.number }}</span></div>
@@ -64,26 +65,26 @@ const faqs = [
       <div class="inner">
         <span class="eyebrow">파일 없이 먼저 살펴보세요</span>
         <h2>어떤 결과를 받게 될까요?</h2>
-        <p class="intro">세 가지 상황을 선택해, 결과와 확인할 근거가 어떻게 달라지는지 살펴보세요.<br class="desktop-break" /> 실제 검증이 아닌 결과 안내입니다.</p>
+        <p class="intro">등록 영상과 일치할 때, 일부 구간이 대응할 때, 등록 기록을 찾지 못했을 때.<br class="desktop-break" /> 세 가지 가상 예시로 결과의 의미와 다음에 확인할 내용을 살펴보세요.</p>
         <VerificationDemo />
-        <div class="demo-followup"><p>이제 확인할 영상이 있다면</p><a href="https://jinbon-web.vercel.app">내 영상으로 확인하기 <span aria-hidden="true">↗</span></a></div>
+        <div class="demo-followup"><p>공유하려는 영상이 있다면</p><a href="https://jinbon-web.vercel.app">영상 확인하기 <span aria-hidden="true">↗</span></a></div>
       </div>
     </section>
 
     <section id="using-jinbon" class="section">
       <div class="inner">
-        <span class="eyebrow">등록부터 확인까지</span><h2>먼저 남긴 기록을,<br />필요할 때 꺼내봅니다.</h2>
+        <span class="eyebrow">등록부터 확인까지</span><h2>전하는 사람은 기록을 남기고,<br />공유하는 사람은 출처를 확인합니다.</h2>
         <div class="journeys">
           <article class="journey">
             <div class="journey-top"><span class="tag">영상을 전하는 사람</span><span class="availability">iOS 앱 · 배포 준비 중</span></div>
-            <h3>공유 전에, 비교 기준 남기기</h3>
+            <h3>공개 전에, 확인할 기준 남기기</h3>
             <ol><li><strong>본인확인</strong><p>모바일 신분증으로 본인확인을 마치고 디지털 지갑을 연결합니다.</p></li><li><strong>영상 등록</strong><p>공유할 영상의 디지털 지문을 계산해 블록체인에 등록합니다.</p></li><li><strong>보증서 발급</strong><p>지갑에서 발급 절차를 완료해 등록 보증서를 보관합니다.</p></li></ol>
             <div class="journey-bottom"><p>등록과 보증서 발급은 별도 단계입니다.<br />원본 파일은 직접 보관하세요.</p><a href="/downloads">앱 이용 준비 확인하기 <span aria-hidden="true">→</span></a></div>
           </article>
           <article class="journey viewer">
             <div class="journey-top"><span class="tag blue">영상을 보는 사람</span><span class="availability">웹 · 로그인 없이</span></div>
-            <h3>공유받은 뒤, 근거 확인하기</h3>
-            <ol><li><strong>확인할 영상 선택</strong><p>웹에서 영상 파일을 올려 비교를 시작합니다.</p></li><li><strong>영상과 기록 대조</strong><p>등록 영상을 찾아 비교하고 등록 기록과 보증서를 확인합니다.</p></li><li><strong>결과와 확인 범위 살펴보기</strong><p>비교 방식, 등록자·등록 시각과 상세 사유를 함께 읽어보세요.</p></li></ol>
+            <h3>다시 공유하기 전, 등록 정보 확인하기</h3>
+            <ol><li><strong>공유받은 영상 선택</strong><p>웹에서 영상 파일을 올려 비교를 시작합니다.</p></li><li><strong>등록자와 비교 결과 확인</strong><p>누가 언제 등록했는지, 등록 영상과 어떻게 일치하는지 살펴보세요.</p></li><li><strong>확인이 더 필요하다면</strong><p>등록 기록이 없거나 출처가 불분명하면 원 게시자나 공식 채널에서 확인하세요.</p></li></ol>
             <div class="journey-bottom"><p>YouTube·Instagram에서는<br />Chrome 확장으로도 검증을 시작할 수 있습니다.</p><a href="https://jinbon-web.vercel.app">웹에서 영상 확인하기 <span aria-hidden="true">↗</span></a></div>
           </article>
         </div>
@@ -93,7 +94,7 @@ const faqs = [
 
     <section id="how-it-works" class="section proof-section">
       <div class="inner">
-        <div class="section-heading"><div><span class="eyebrow">확인 결과를 뒷받침하는 근거</span><h2>영상 비교에,<br />등록 증거를 더합니다.</h2></div><p class="heading-description">영상이 일치하는지와 등록 증거가 유효한지를<br />모두 확인해야 검증 완료로 표시합니다.</p></div>
+        <div class="section-heading"><div><span class="eyebrow">확인 결과를 뒷받침하는 근거</span><h2>영상의 일치 여부와<br />등록 기록을 함께 확인합니다.</h2></div><p class="heading-description">파일 정확 일치 또는 영상·음성 비교 기준을 통과하고,<br />등록 기록과 보증서가 유효해야 진본으로 표시합니다.</p></div>
         <div class="proof-grid"><article v-for="item in proofs" :key="item.number"><span class="proof-number">{{ item.number }}</span><h3>{{ item.title }}</h3><p>{{ item.text }}</p></article></div>
         <a class="text-link" href="/verification-status">확인 방식과 결과의 한계 자세히 보기 <span aria-hidden="true">→</span></a>
       </div>
@@ -105,7 +106,7 @@ const faqs = [
 
     <section class="closing">
       <div class="inner closing-grid">
-        <div><span class="eyebrow">확인의 시작, 진본</span><h2>영상을 전할 때도,<br />믿고 공유하기 전에도.</h2><p>등록 기록과 비교 결과를 함께 확인하세요.</p><a href="https://jinbon-web.vercel.app" class="btn primary">내 영상 확인하기 <span aria-hidden="true">↗</span></a></div>
+        <div><span class="eyebrow">공유 전 확인하는 습관, 진본</span><h2>공유하기 전,<br />영상의 출처를 확인하세요.</h2><p>누가 등록했는지, 등록 영상과 일치하는지 확인하세요.</p><a href="https://jinbon-web.vercel.app" class="btn primary">영상 확인하기 <span aria-hidden="true">↗</span></a></div>
         <div class="adoption"><span class="tag blue">더 알아보기</span><h3>등록 과정이 궁금하다면</h3><p>본인확인부터 영상 등록, 보증서 발급까지의 흐름을 살펴보세요. iOS 앱은 배포 준비 중입니다.</p><a href="/downloads">등록·이용 방법 보기 <span aria-hidden="true">→</span></a><a href="/developers/guide/introduction">기술 문서 살펴보기 <span aria-hidden="true">→</span></a></div>
       </div>
     </section>
@@ -129,7 +130,6 @@ h1 span { color: var(--jb-blue); }
 .secondary { background: var(--jb-bg); border-color: var(--jb-border); }
 .secondary:hover { border-color: var(--jb-blue); }
 .hint { color: var(--jb-text-secondary); font-size: 12px; line-height: 1.8; margin: 18px 0 0; }
-.mobile-break { display: none; }
 .example { background: var(--jb-bg); border: 1px solid var(--jb-blue-border); border-radius: 20px; padding: 26px; box-shadow: 0 16px 50px #2457e60a; }
 .example-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 11px; color: var(--jb-text-secondary); }
 .example-mark { border: 1px solid var(--jb-border); border-radius: 5px; padding: 2px 6px; }
@@ -224,7 +224,6 @@ h3 { font-size: 20px; line-height: 1.55; font-weight: 650; letter-spacing: -.025
   .eyebrow { font-size: 11px; margin-bottom: 16px; }
   .actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
   .btn { padding: 13px 10px; gap: 8px; font-size: 12px; }
-  .mobile-break { display: block; }
   .hint { margin-top: 14px; font-size: 11px; }
   .example { padding: 20px; border-radius: 16px; }
   .example-heading { margin: 18px 0; }
