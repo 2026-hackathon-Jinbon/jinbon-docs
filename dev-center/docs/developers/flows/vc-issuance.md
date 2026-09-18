@@ -97,15 +97,19 @@ NOT_REQUESTED → PENDING_WALLET → ISSUED
 
 ## 검증 시 VC 확인
 
-| 결과 | verdict 영향 |
-|---|---|
-| `VERIFIED` | `vcVerified = true`, 판정 그대로 |
-| `INVALID` | `CERTIFICATE_INVALID` |
-| `UNAVAILABLE` | `VERIFICATION_UNAVAILABLE` (캐싱하지 않음) |
-| `DISABLED` | VC 미발급. 블록체인 검증만으로 판정 |
+**VC 발급과 검증은 진본 인증의 필수 조건입니다.** 콘텐츠가 일치하고 블록체인 기록이 유효해도 VC가 없거나 유효성을 확인할 수 없으면 `authentic: false`입니다.
 
-::: warning
-VC가 없다고 해서 진본이 아닌 것은 아닙니다. `authentic` 판정의 필수 조건은 블록체인 검증이며, VC는 발급된 경우에만 추가로 확인합니다.
+| 상태 | 최종 판정에 미치는 영향 |
+|---|---|
+| VC 미발급 (`vcId` 없음) | `CERTIFICATE_MISSING`, `authentic: false` |
+| `VERIFIED` | 발급자·등록자·영상 등록 클레임의 일치 여부를 추가 확인. 콘텐츠 일치와 블록체인 검증까지 모두 통과해야 `authentic: true` |
+| `INVALID` 또는 클레임 결속 실패 | `CERTIFICATE_INVALID`, `authentic: false` |
+| VC가 있으나 `UNAVAILABLE` 또는 `DISABLED` | `VERIFICATION_UNAVAILABLE`, `authentic: false` (캐싱하지 않음) |
+
+위 표는 활성 등록의 블록체인 검증이 통과한 경우를 기준으로 합니다. 비활성 등록과 블록체인 검증 실패 등 전체 판정 우선순위는 [영상 검증](./video-verify#최종-판정-규칙)을 참고하세요.
+
+::: warning 등록 완료와 인증 완료는 다릅니다
+영상의 블록체인 등록이 완료되어도 Wallet에서 VC를 수령하고 발급 완료 연결을 마치기 전에는 진본으로 인증하지 않습니다. `authentic: true`는 **콘텐츠 일치 + 블록체인 검증 + VC 유효성 검증 + 등록 클레임 결속**을 모두 통과한 경우에만 가능합니다.
 :::
 
 ## Open DID를 끈 경우
@@ -113,5 +117,6 @@ VC가 없다고 해서 진본이 아닌 것은 아닙니다. `authentic` 판정�
 `OPENDID_ENABLED=false`이면:
 - 발급 준비 생략 (등록 응답의 VC 관련 필드 모두 `null`)
 - `vc/complete`, `vc/prepare` 호출 시 `VC_FEATURE_DISABLED` (D006, 503)
-- 검증 시 `vcVerified`는 항상 `false`
-- 영상 등록과 블록체인 기록, 검증은 정상 동작
+- 검증 시 `vcVerified`는 항상 `false`이며, **진본 인증은 불가** (`authentic: false`)
+- 영상 등록과 블록체인 기록은 가능하지만, 콘텐츠 비교만으로 진본 인증을 완료하지 않음
+- VC가 없는 등록 건은 `CERTIFICATE_MISSING`, 기존 VC가 있는 등록 건은 검증 기능이 꺼져 있으므로 `VERIFICATION_UNAVAILABLE` (비활성 등록·블록체인 오류 등 상위 판정이 없는 경우)
