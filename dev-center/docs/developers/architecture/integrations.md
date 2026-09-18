@@ -56,6 +56,9 @@ DID Document 앵커링용 블록체인은 Hyperledger Besu이며, 영상 기록�
 | `UNAVAILABLE` | VC 상태·서명 조회 중 예외 발생 |
 | `DISABLED` | `opendid.enabled=false` 이거나 VC 미발급 |
 
+**VC 없이 진본 인증은 불가합니다.** `DISABLED`는 인증 조건을 생략한다는 뜻이 아닙니다. VC 미발급 건은 `CERTIFICATE_MISSING`, 이미 VC가 있지만 Open DID가 비활성화된 건은 `VERIFICATION_UNAVAILABLE`로 처리하며, 두 경우 모두 `authentic: false`입니다. 콘텐츠 일치·블록체인 검증·VC 유효성·등록 클레임 결속을 모두 통과해야 인증합니다. 비활성 등록이나 블록체인 오류가 있으면 [전체 판정 우선순위](../flows/video-verify#최종-판정-규칙)를 따릅니다.
+
+
 ## 3. OmniOne Chain — 온체인 등록
 
 ### 역할
@@ -96,7 +99,7 @@ DID Document 앵커링용 블록체인은 Hyperledger Besu이며, 영상 기록�
 | 연동 | 끊겼을 때 |
 |---|---|
 | OmniOne CX | 가입·로그인 불가. 검증은 정상 |
-| Open DID Issuer | VC 발급 준비만 실패. 영상 등록은 성공 |
+| Open DID Issuer | 영상 등록은 가능하나 VC 발급 준비 실패. VC 미발급 상태에서는 진본 인증 불가 |
 | Open DID Issuer | VC 발급 영상 검증이 `VERIFICATION_UNAVAILABLE` |
 | OmniOne Chain | 등록 실패, 검증은 `VERIFICATION_UNAVAILABLE` |
 | yt-dlp | URL 검증만 실패 |
