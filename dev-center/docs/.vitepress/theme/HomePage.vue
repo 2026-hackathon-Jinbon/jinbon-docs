@@ -13,6 +13,7 @@ const faqs = [
   { question: '등록 영상이면 내용도 사실인가요?', answer: '진본이 확인하는 것은 등록 기록과 영상의 비교 결과입니다. 영상 속 사건의 사실성, 촬영 원본 여부, AI 생성 여부, 제작자·저작권자 여부까지 보증하지는 않습니다.' },
   { question: '등록자 이름이 기관명이면 공식 발표인가요?', answer: '등록자 표시명만으로 기관 소속이나 공식 발표 권한이 인증되는 것은 아닙니다. 기관 홈페이지나 공식 채널에서 안내하는 등록자 정보와 발표 내용을 함께 확인하세요. 모바일 신분증을 통한 본인확인과 기관의 공식 권한 확인은 별개입니다.' },
   { question: '영상 파일은 어떻게 처리하나요?', answer: '영상은 분석을 위해 서버로 전송됩니다. 원본을 장기 보관하지 않으며, 분석용 임시 파일은 처리 후 삭제합니다. 등록한 영상의 지문과 등록 정보 등은 검증에 사용됩니다. 원본 파일은 직접 보관하세요.' },
+  { question: 'Instagram 링크를 가져오지 못하면 어떻게 하나요?', answer: '현재 데모는 Instagram도 yt-dlp를 통해 영상을 내려받아 비교하며, 화면녹화 방식은 사용하지 않습니다. 공개된 영상이어도 로그인 요구, 접근 제한, 플랫폼 변경에 따라 가져오지 못할 수 있습니다. 이 경우 본인이 보유하고 검증에 사용할 권한이 있는 영상 파일을 직접 올려 확인해 주세요.' },
   { question: '영상을 등록하려면 무엇이 필요한가요?', answer: 'iOS 앱에서 모바일 신분증으로 본인확인을 마치고 디지털 지갑을 연결해야 합니다. 영상 등록 후 보증서 발급도 완료해야 합니다. 현재 앱은 배포 준비 중이며, 시작하기 페이지에서 공개 후 설치 방법을 안내합니다.' },
 ]
 </script>
@@ -101,6 +102,30 @@ const faqs = [
     </section>
 
     <section class="section">
+      <div id="platform-plan" class="inner platform-plan">
+        <span class="eyebrow">현재 데모와 앞으로의 계획</span>
+        <h2>더 안정적인 영상 확인을 위해,<br />공식 플랫폼 연동을 목표로 합니다.</h2>
+        <p class="intro">진본은 현재 영상 등록·검증 흐름을 시연하는 데모입니다.<br class="desktop-break" /> 향후 플랫폼·콘텐츠 권리자와의 협력을 통해 영상 접근 경로와 출처 확인 근거를 강화할 계획입니다.</p>
+        <div class="journeys">
+          <article class="journey platform-card">
+            <div class="journey-top"><span class="tag">현재 · 데모 구현</span></div>
+            <h3>파일 업로드와 URL로 검증합니다</h3>
+            <p>영상 파일을 직접 올리거나, 오픈소스 도구인 yt-dlp로 URL의 영상을 내려받아 등록 영상과 비교합니다. YouTube·Instagram 링크도 이 경로를 사용합니다.</p>
+            <p>URL 다운로드는 플랫폼의 공식 영상 제공 연동과는 별개이며, 로그인 요구나 접근 제한에 따라 이용이 어려울 수 있습니다.</p>
+          </article>
+          <article class="journey platform-card viewer">
+            <div class="journey-top"><span class="tag blue">향후 · 추진 계획</span></div>
+            <h3>공식 API 연동과 영상 제공 계약</h3>
+            <p>플랫폼 및 콘텐츠 권리자와의 협의를 바탕으로, 공식 API 연동과 검증 목적의 영상 제공 계약을 추진할 계획입니다.</p>
+            <p>영상 접근뿐 아니라 검증을 위한 분석과 지문 활용 범위도 함께 협의해, 승인된 범위에서 안정적으로 검증할 수 있는 구조를 목표로 합니다.</p>
+          </article>
+        </div>
+        <p class="platform-value">협력을 통해 제작자가 제공한 기준 영상과 SNS에 유통된 영상의 연결을 강화하고, 출처 확인과 변조 의심 신고 검토에 활용할 수 있는 근거를 제공하고자 합니다.</p>
+        <p class="note">공식 연동과 영상 제공 계약은 향후 추진 계획이며, 현재 계약 체결이나 플랫폼의 공식 지원을 의미하지 않습니다. 실제 지원 범위와 일정은 협의·승인 결과에 따라 정해집니다.</p>
+      </div>
+    </section>
+
+    <section class="section alternate">
       <div class="inner faq-layout"><div><span class="eyebrow">궁금한 점을 먼저 확인하세요</span><h2>시작하기 전에.</h2><p class="heading-description">진본이 확인하는 범위와<br />이용에 필요한 내용을 모았습니다.</p></div><div class="faq"><details v-for="item in faqs" :key="item.question"><summary>{{ item.question }}</summary><p>{{ item.answer }}</p></details></div></div>
     </section>
 
@@ -197,6 +222,10 @@ h3 { font-size: 20px; line-height: 1.55; font-weight: 650; letter-spacing: -.025
 .proof-grid h3 { font-size: 18px; }
 .proof-grid p { font-size: 14px; line-height: 1.9; color: var(--jb-text-secondary); margin: 0; }
 .text-link { display: inline-block; color: var(--jb-blue); font-size: 13px; font-weight: 600; margin-top: 28px; padding: 10px 0; }
+.platform-plan { scroll-margin-top: 100px; }
+.platform-card p, .platform-value { color: var(--jb-text-secondary); font-size: 14px; line-height: 1.9; margin: 0 0 16px; }
+.platform-card p:last-child { margin-bottom: 0; }
+.platform-value { color: var(--jb-text); margin: 28px 0 0; }
 .faq-layout { display: grid; grid-template-columns: 1fr 1.65fr; gap: 64px; }
 .faq details { border-bottom: 1px solid var(--jb-border); }
 .faq details:first-child { border-top: 1px solid var(--jb-border); }

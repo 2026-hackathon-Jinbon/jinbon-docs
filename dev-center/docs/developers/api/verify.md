@@ -64,15 +64,15 @@
     "silentSegments": 0
   },
   "audioMatch": {
-    "coverage": 0.9333333333333333,
+    "coverage": 1.0,
     "orderPreserved": true,
     "bestOffsetMs": 15000,
     "matchedStartMs": 15000,
     "matchedEndMs": 45000,
-    "matchedSegments": 28,
+    "matchedSegments": 30,
     "totalQuerySegments": 30,
     "totalRefSegments": 600,
-    "unmatchedRanges": [{ "startMs": 10000, "endMs": 12000 }],
+    "unmatchedRanges": [],
     "silentSegments": 2
   }
 }
@@ -179,7 +179,7 @@ URL로 영상을 검증합니다.
 | verdict | 의미 | 메시지 |
 |---|---|---|
 | `EXACT_MATCH` | 원본 파일과 SHA-256 일치 | 등록된 원본 파일과 정확히 일치합니다. |
-| `SIMILAR_MATCH` | 지각해시 후보 + **영상 커버리지 ≥ 95%** + **음성 커버리지 ≥ 90%** + 양쪽 모두 시간 순서 보존 + 동일한 원본 대응 시간 오프셋 | 등록 원본과 영상·음성 유사도 기준을 통과했습니다. |
+| `SIMILAR_MATCH` | 지각해시 후보 + **영상 커버리지 ≥ 95%** + **음성 커버리지 100%** + 양쪽 모두 시간 순서 보존 + 동일한 원본 대응 시간 오프셋 | 등록 원본과 영상·음성 유사도 기준을 통과했습니다. |
 | `SAME_CONTENT` | 프레임 지각해시 완전 일치 (컨테이너·메타데이터만 다름) | 등록된 영상과 동일한 콘텐츠로 판단됩니다. |
 
 플랫폼 재인코딩본과 연속 쇼츠는 후보 검색·영상·음성 비교 기준을 충족하면 `SIMILAR_MATCH`가 될 수 있습니다. 샘플 기반 판정은 전체 무변조나 맥락을 보증하지 않습니다. 세 verdict 모두 온체인 서명 재대조와 VC 클레임 결속을 추가로 통과해야 `authentic: true`가 됩니다.
