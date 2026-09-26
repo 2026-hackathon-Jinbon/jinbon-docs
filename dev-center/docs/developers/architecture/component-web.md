@@ -40,7 +40,7 @@ npm run dev     # http://localhost:8071
 | 파일 | 영상 MIME 유형과 최대 100MB 크기를 확인하고 `multipart/form-data`로 전송 |
 | URL | URL 형식과 지원 플랫폼 등을 확인하고 JSON으로 전송 |
 
-웹에서 안내하는 URL 플랫폼은 YouTube, Instagram, TikTok, X(Twitter), Vimeo입니다. 실제 분석은 서버의 URL 검사와 다운로드 성공 여부에 영향을 받습니다.
+지원 플랫폼과 입력 방식의 차이는 [URL·파일 검증 차이](/developers/guide/verification-methods)를 참고하세요.
 
 ## 백엔드 호출
 
@@ -63,23 +63,22 @@ await fetch(`${API_BASE_URL}/api/verify/url`, {
 });
 ```
 
-URL 검증에서는 서버가 영상을 다운로드합니다. 파일 검증과 URL 검증은 공통 지문 생성·비교 로직을 사용하므로 URL 방식 자체가 더 정밀한 검사를 뜻하지는 않습니다.
+요청·응답 형식과 제한은 [검증 API](/developers/api/verify)에 정리되어 있습니다.
 
-## 결과 표시
+## 결과 표시 {#result-display}
 
 `displayStatus`로 기본 결과를 구분하고 `verdict`로 확인 방식과 세부 문구를 결정합니다.
 
-<div class="table-wrapper" tabindex="0" role="region" aria-label="검증 결과 표시 기준">
+현재 `app/page.tsx`는 아래 순서로 제목을 결정합니다.
 
-| 조건 | 표시 |
+| 조건 | 제목 |
 |---|---|
-| `AUTHENTICATED` | 진본 확인 완료 |
-| `CONTENT_SIMILAR` 또는 `PARTIAL_SIMILAR` | 진본 확인 보류 |
-| `NOT_REGISTERED` verdict | 등록 기록 없음 |
-| `UNAVAILABLE` | 지금은 확인할 수 없어요 |
-| 그 밖의 미인증 | 진본 인증이 확인되지 않았어요 |
+| `displayStatus=AUTHENTICATED` | 진본 확인 |
+| `verdict=NOT_REGISTERED` | 등록 기록 없음 |
+| 콘텐츠 유사 결과이며 영상·음성 비교 정보가 모두 있고, 어느 한쪽에 불일치 구간이 있음 | 원본 불일치 |
+| 그 외 | 확인 불가 |
 
-</div>
+`UNAVAILABLE`은 별도 색상으로 표시합니다. 비교 정보가 부족한 경우에도 ‘확인 불가’가 나올 수 있으므로 제목과 서버의 상세 메시지를 함께 읽어야 합니다.
 
 확인 방식은 `EXACT_MATCH`일 때 “원본 파일 정확 일치”, `SIMILAR_MATCH` 또는 레거시 `SAME_CONTENT`일 때 “영상·음성 비교”로 표시합니다. 두 방식의 확인 범위는 다릅니다.
 

@@ -30,25 +30,11 @@ source/Framework/did-wallet-sdk-ios-2.0.1/DIDWalletSDK.xcframework
 
 `Common/JinBonAPIClient.swift`가 백엔드 호출을 전담합니다. 서버 주소는 xcconfig의 `JINBON_URL`에서 읽습니다.
 
-| 엔드포인트 | 용도 |
-|---|---|
-| `POST /api/signup/did/complete` | 가입 완료 (DID 연결) |
-| `POST /api/auth/did/rebind` | 앱 재설치 후 DID 재연결 |
-| `POST /api/auth/refresh` | 토큰 갱신 |
-| `POST /api/auth/logout` | 로그아웃 |
-| `POST /api/videos` | 영상 등록 |
-| `GET /api/videos` | 내 영상 목록 |
-| `POST /api/videos/{videoId}/vc/prepare` | VC 발급 준비·재개 |
-| `POST /api/videos/{videoId}/vc/complete` | VC 발급 완료 연결 |
-| `PATCH /api/videos/{videoId}/deactivate` | 영상 비활성화 |
-| `POST /api/verify` | 파일 검증 |
-| `POST /api/verify/url` | URL 검증 |
-
-::: info 인증 웹뷰
-`/api/auth/token`, `/api/auth/app/request`, `/api/auth/app/verify`는 앱이 직접 호출하지 않습니다. 웹뷰가 로드하는 `/auth.html` 안에서 수행되고 결과만 `WKScriptMessageHandler`로 앱에 전달됩니다.
-:::
+가입·로그인에는 [인증 API](/developers/api/auth)와 [회원가입 API](/developers/api/signup), 영상에는 [영상 관리 API](/developers/api/videos)와 [검증 API](/developers/api/verify)를 사용합니다. VC 발급 중에는 Holder 정보 동기화도 수행합니다.
 
 ## 인증 웹뷰 (AuthWebViewController)
+
+본인확인 API는 웹뷰의 `/auth.html`에서 호출합니다. 앱은 `WKScriptMessageHandler`로 결과를 전달받습니다.
 
 | 모드 | 접두사 | 결과 |
 |---|---|---|
@@ -80,14 +66,14 @@ source/Framework/did-wallet-sdk-ios-2.0.1/DIDWalletSDK.xcframework
 
 ## 환경 설정
 
-`Dev.xcconfig`는 개발 서버 IP를, `Prod.xcconfig`는 도메인 자리표시자를 담고 있습니다.
+`Configuration/Dev.xcconfig`와 `Prod.xcconfig`에서 서버 주소를 관리합니다. 개발용 IP는 환경에 따라 바뀌므로 해당 파일을 기준으로 확인하세요.
 
-| 키 | Dev | Prod |
-|---|---|---|
-| `JINBON_URL` | `http://10.48.200.183:8070` | `https://jinbon.example.com` |
-| `TAS_URL` | `http://10.48.200.183:8090` | `https://jinbon-tas.example.com` |
-| `VERIFIER_URL` | `http://10.48.200.183:8092` | `https://jinbon-verifier.example.com` |
+| 키 | 연결 대상 |
+|---|---|
+| `JINBON_URL` | 진본 백엔드 |
+| `TAS_URL` · `VERIFIER_URL` | Open DID TAS·Verifier |
+| `CAS_URL` · `WALLET_URL` · `API_URL` | Open DID CA·Wallet·API Gateway |
 
-::: warning 프로덕션 배포 전 필수 수정
-Prod 값은 아직 실제 도메인으로 교체되지 않았습니다. `Info.plist`의 `NSAllowsArbitraryLoads`도 `true`로 열려 있으므로 프로덕션 배포 전 수정이 필요합니다.
+::: warning 배포 전 설정
+`Prod.xcconfig`의 예시 도메인을 실제 주소로 교체하고, `Info.plist`의 `NSAllowsArbitraryLoads` 설정을 확인해야 합니다.
 :::

@@ -5,7 +5,7 @@
 
 ## 목적
 
-영상의 `merkleRoot`를 키로 등록자 DID와 서명을 온체인에 남깁니다. 검증 시 이 기록과 서버가 재계산한 값을 대조해 무결성을 판정합니다.
+영상의 `merkleRoot`를 키로 등록자 DID와 서명을 온체인에 남깁니다. 백엔드는 등록 상태·DID·서명을 대조합니다. 해시 재계산 여부를 포함한 실제 확인 범위는 [등록 증거 확인](/developers/flows/video-verify#registration-evidence)을 참고하세요.
 
 ## 저장 구조
 
@@ -102,4 +102,4 @@ event VideoDeactivated(string indexed merkleRoot, string issuerDid, uint256 time
 | 항목 | 온체인 |
 |---|---|
 | merkleRoot, 등록자 DID, 서명, 시각 | O |
-| fineHash, perceptualHash, 영상 제목, 영상 파일, CI·이름 | **X** |
+| 개별 파일·화면·영상·음성 지문, 영상 제목·파일, CI·이름 | **X** |

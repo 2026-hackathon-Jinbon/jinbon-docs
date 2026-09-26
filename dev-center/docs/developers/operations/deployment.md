@@ -2,7 +2,7 @@
 
 로컬에서 돌던 진본 스택을 EC2 한 대에 올려 **테스트 환경**을 구성하는 절차입니다.
 
-## 무엇을 직접 띄우고, 무엇을 연결만 하는가
+## 배포할 구성 요소
 
 가장 먼저 구분해야 할 부분입니다. 외부 벤더 서비스는 **띄우는 것이 아니라 아웃바운드로 연결**합니다.
 
@@ -80,22 +80,11 @@ java -Xmx1g -jar build/libs/*.jar
 
 ### 비용
 
-EC2는 **실행 중인 시간만** 과금됩니다. 안 쓸 때 중지하면 인스턴스 요금은 발생하지 않습니다.
+컴퓨팅, EBS 저장 공간, 퍼블릭 IPv4, 데이터 전송 비용을 각각 확인하세요. 리전·인스턴스·사용량에 따라 달라지므로 [EC2 요금표](https://aws.amazon.com/ec2/pricing/on-demand/)를 기준으로 산정합니다.
 
-| 사용 패턴 | t3.large 대략치 |
-|---|---|
-| 작업·시연 때만 (8h × 10일) | 약 $10 |
-| 일주일 24시간 | 약 $19 |
-| 한 달 24시간 | 약 $83 |
+**Elastic IP는 실행 중인 인스턴스에 연결해도 과금됩니다.** 사용 중·유휴 퍼블릭 IPv4 모두 시간당 과금 대상입니다. [AWS VPC 요금표](https://aws.amazon.com/vpc/pricing/)에서 현재 단가를 확인하세요.
 
-::: tip 중지 중에도 나가는 비용
-- **EBS 50 GB** — 월 약 $5 (중지해도 계속)
-- **Elastic IP** — 실행 중인 인스턴스에 연결돼 있으면 무료지만, **인스턴스를 중지하면 시간당 과금**됩니다 (월 3~4천원 수준)
-
-Open DID가 IP에 묶여 있어 EIP를 해제할 수는 없습니다.
-:::
-
-위 단가는 서울 리전 온디맨드 대략치입니다. 실제 청구액은 AWS 요금 페이지에서 확인하세요. 해커톤에서 AWS 크레딧을 제공한다면 먼저 확인해 보시기 바랍니다.
+Open DID 설정에 IP가 포함되므로 Elastic IP를 해제하거나 변경할 때는 관련 URL도 함께 수정해야 합니다.
 
 ### 보안 그룹
 
@@ -242,7 +231,7 @@ sudo apt install -y openjdk-21-jdk docker.io docker-compose-v2 git nodejs npm ca
 sudo usermod -aG docker $USER   # 재로그인 필요
 ```
 
-::: warning Node.js와 docker-compose 셰임이 필요합니다
+::: warning Node.js와 docker-compose 호환 명령 준비
 - **Node.js** — Besu 컨트랙트를 hardhat으로 배포합니다 (`shells/Besu/start.sh`가 `npm install`·`npx hardhat run` 실행)
 - **`docker-compose`(하이픈)** — Orchestrator 스크립트가 v1 문법을 씁니다. Compose v2만 설치하면 `command not found`로 실패합니다.
 

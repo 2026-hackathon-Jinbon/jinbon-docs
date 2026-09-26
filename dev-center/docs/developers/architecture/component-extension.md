@@ -22,12 +22,10 @@ src/
 |---|---|
 | `manifest_version` | 3 |
 | `permissions` | `storage`, `activeTab` |
-| `host_permissions` | `http://localhost:8070/*`, YouTube |
+| `host_permissions` | 로컬 주소, 배포 API 호스트, YouTube·Instagram |
 | `content_scripts` | YouTube·Instagram 전체 경로, `document_idle` |
 
-::: warning host_permissions 하드코딩
-`localhost:8070`이 고정되어 있어, 다른 서버를 쓰려면 manifest도 함께 수정해야 합니다.
-:::
+기본 백엔드 주소는 `http://localhost:8070`입니다. 팝업에서 주소를 바꿀 수 있지만, 해당 호스트가 `manifest.json`의 `host_permissions`에도 포함되어 있어야 합니다.
 
 ## 동작 흐름
 
@@ -53,28 +51,8 @@ YouTube는 페이지 이동 시 문서를 새로 불러오지 않습니다. 1초
 
 ## 결과 표시
 
-`displayStatus`를 보고 제목과 톤을 정합니다. 응답에 `displayStatus`가 없는 구버전 백엔드를 대비해 `authentic`으로 폴백합니다.
+`displayStatus`를 보고 제목과 색상을 결정하며, 값이 없는 이전 응답은 `authentic`으로 구분합니다. 현재 제목은 ‘진본 확인’, ‘원본 불일치’, ‘등록 기록 없음’, ‘확인 불가’입니다. 조건은 [웹의 결과 표시](/developers/architecture/component-web#result-display)와 같습니다.
 
-| displayStatus | 패널 제목 | 톤 |
-|---|---|---|
-| `AUTHENTICATED` | 등록 원본과 일치 | `success` |
-| `CONTENT_SIMILAR` | 등록 영상과 유사 | `warning` |
-| `UNAVAILABLE` | 확인 중 | `warning` |
-| 그 외 (`NOT_AUTHENTICATED`) | 미인증 | `warning` |
+패널에는 확인 방식, 등록자 표시명, 등록 증거의 검증 여부, 등록 시각을 표시합니다. `CONTENT_SIMILAR` 결과에서 영상·음성 비교 정보가 모두 있고 불일치 구간이 확인되면 해당 사유를 안내합니다.
 
-::: warning PARTIAL_SIMILAR 분기는 죽은 코드
-`content.js`에 `PARTIAL_SIMILAR` 분기가 남아 있지만 백엔드 `DisplayStatus`에는 없는 값입니다. 부분 일치는 `CONTENT_SIMILAR`로 내려오므로 이 분기는 실행되지 않습니다.
-:::
-
-패널에 들어가는 항목:
-
-| 행 | 조건 |
-|---|---|
-| 판정 | `verdict`가 있을 때 |
-| 유사도 거리 | `similarityDistance`가 숫자일 때 |
-| 영상 ID | `videoId`가 있을 때 |
-| 등록 시각 | `registeredAt`이 있을 때 |
-| 블록체인 | 항상 (`검증됨` / `미검증`) |
-| VC | 항상 (`검증됨` / `미검증`) |
-
-모든 삽입값은 `escapeHtml()`을 거칩니다.
+`PARTIAL_SIMILAR` 분기는 이전 응답을 위한 코드이며 현재 백엔드는 이 표시 상태를 반환하지 않습니다. 모든 삽입값은 `escapeHtml()`을 거칩니다.

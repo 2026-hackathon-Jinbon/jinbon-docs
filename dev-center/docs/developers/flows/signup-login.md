@@ -40,12 +40,6 @@ sequenceDiagram
   B-->>A: accessToken, refreshToken, memberId, name, role, status, did
 ```
 
-### 상태 전이
-
-```
-[없음] → PENDING(USER) → ACTIVE(ISSUER)
-```
-
 ## 로그인
 
 로그인 응답에는 **항상 `didRebindToken`이 포함**됩니다. 앱은 기기 Wallet 상태를 확인한 뒤 필요할 때만 이 토큰을 사용합니다.
@@ -62,16 +56,7 @@ sequenceDiagram
 
 ## 토큰 정책
 
-| 토큰 | 만료 | 저장 위치 |
-|---|---|---|
-| accessToken | 30분 | 앱 로컬 |
-| refreshToken | 7일 | 앱 로컬 + 서버(Redis) |
-| signupToken | 단기 | 앱 로컬 (가입 완료 후 삭제) |
-| didRebindToken | 단기 | 앱 로컬 (재연결 후 삭제) |
-
-### Refresh Token Rotation
-
-`POST /api/auth/refresh`는 새 accessToken과 **새 refreshToken을 함께** 발급하고 기존 refreshToken을 즉시 무효화합니다.
+`POST /api/auth/refresh`는 새 accessToken과 refreshToken을 함께 발급하고 이전 refreshToken을 무효화합니다. 만료 시간과 토큰별 폐기 조건은 [토큰 정책](/developers/security/overview#tokens)을 참고하세요.
 
 ### JWT 구조
 

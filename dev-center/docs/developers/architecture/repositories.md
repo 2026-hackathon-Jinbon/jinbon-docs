@@ -1,64 +1,23 @@
 # 저장소 구조
 
-## 4개 저장소
+수정하려는 기능에 따라 다음 저장소에서 시작하면 됩니다. 전체 연결 관계는 [시스템 구성](/developers/architecture/overview)을 참고하세요.
 
-```mermaid
-flowchart LR
-  IOS("jinbon-ios<br/>Swift · UIKit"):::soft --> BE("jinbon-backend<br/>Java 21 · Spring Boot"):::primary
-  WEB("jinbon-web<br/>Next.js 16 · React 19"):::input --> BE
-  EXT("jinbon-extension<br/>Manifest V3 · JS"):::input --> BE
-  KAKAO("카카오톡 챗봇"):::input --> BE
-  BE --> CHAIN("OmniOne Chain"):::soft
-  BE --> DID("Open DID"):::soft
-  IOS -.Wallet SDK.-> DID
+| 저장소 | 주요 코드 위치 | 담당 기능 |
+|---|---|---|
+| [jinbon-backend](/developers/architecture/component-backend) | `src/main/java/com/jinbon/` | 인증, 영상 등록·검증 API, 챗봇, 외부 연동 |
+| [jinbon-ios](/developers/architecture/component-ios) | `source/DIDCA/` | 본인확인, DID·Wallet, 영상 등록, 보증서 보관 |
+| [jinbon-web](/developers/architecture/component-web) | `app/page.tsx` | 파일·URL 입력, 검증 결과 화면 |
+| [jinbon-extension](/developers/architecture/component-extension) | `src/content.js`, `src/background.js` | YouTube·Instagram 검증 버튼, URL 검증 요청 |
+| `jinbon-docs` | `dev-center/docs/` | 서비스 소개, 개발자 문서 |
 
-  classDef input fill:#FFFFFF,stroke:#D0D5DD,color:#111827
-  classDef soft fill:#EEF4FF,stroke:#C3D3FC,color:#1943BE
-  classDef primary fill:#2457E6,stroke:#2457E6,color:#FFFFFF
-```
+## 백엔드에서 기능 찾기
 
-## jinbon-backend
-
-| 항목 | 내용 |
+| 작업 | 패키지 |
 |---|---|
-| 언어 | Java 21 |
-| 프레임워크 | Spring Boot 4.1 |
-| DB | PostgreSQL 16.4, Redis 7 |
-| 포트 | 8070 |
-| 역할 | 등록, 검증, 인증 API 허브, 외부 연동 |
-
-## jinbon-ios
-
-| 항목 | 내용 |
-|---|---|
-| 언어 | Swift |
-| UI | UIKit (WebView 기반 인증 화면) |
-| SDK | DIDWalletSDK 2.0.1, OmniOneCXSDK |
-| 역할 | 회원가입, DID/Wallet 관리, 영상 등록, VC 보관 |
-
-## jinbon-web
-
-| 항목 | 내용 |
-|---|---|
-| 프레임워크 | Next.js 16, React 19 |
-| 스타일 | Tailwind CSS |
-| 포트 | 8071 |
-| 역할 | 파일 업로드 기반 영상 검증 (비로그인) |
-
-## jinbon-extension
-
-| 항목 | 내용 |
-|---|---|
-| 매니페스트 | Manifest V3 |
-| 언어 | 순수 JavaScript |
-| 역할 | YouTube·Instagram 시청 중 URL 기반 즉시 검증 |
-| 권한 | `localhost:8070` 고정 (임의 호스트 요청 불가) |
-
-## 채널별 역할 요약
-
-| 채널 | 등록 | 검증 | 로그인 |
-|---|---|---|---|
-| iOS 앱 | O | O | 필요 |
-| 웹 | — | O (파일) | 불필요 |
-| Chrome 확장 | — | O (URL) | 불필요 |
-| 카카오톡 챗봇 | — | O (URL) | 불필요 |
+| 가입·로그인·토큰 | `domain/auth` |
+| 회원·등록자 표시명 | `domain/member` |
+| 등록·중복 확인·지문 비교·판정 | `domain/video` |
+| 블록체인 호출 | `infra/blockchain` |
+| 보증서 발급·검증 | `infra/opendid` |
+| URL 영상 다운로드 | `infra/download` |
+| 공통 응답·예외·보안 설정 | `global` |

@@ -2,7 +2,7 @@
 
 ## POST /api/videos
 
-영상을 등록하고 VC 발급을 준비합니다.
+영상을 등록하고 VC 발급을 준비합니다. 업로드 → 블록체인 기록 → Wallet 발급·연결의 전체 흐름은 [영상 등록](/developers/flows/video-register)을 참고하세요. 아래 응답 예시는 공통 응답의 `data` 내부입니다.
 
 **형식** `multipart/form-data`
 
@@ -84,13 +84,7 @@
 }
 ```
 
-**vcIssuanceStatus 값**
-
-| 값 | 의미 |
-|---|---|
-| `NOT_REQUESTED` | 발급 요청 전 |
-| `PENDING_WALLET` | Wallet 수령 대기 |
-| `ISSUED` | 발급 완료 |
+`vcIssuanceStatus`의 상태별 의미는 [보증서 발급 상태](/developers/flows/vc-issuance#issuance-status)를 참고하세요.
 
 **에러**
 
@@ -125,10 +119,20 @@ Wallet에서 발급받은 VC를 연결합니다.
 **요청**
 
 ```json
-{ "vcId": "vc-abc123", "offerId": "offer-abc123" }
+{
+  "vcId": "vc-abc123",
+  "offerId": "offer-abc123",
+  "credential": "<Wallet에서 읽은 서명 포함 VC JSON 문자열>"
+}
 ```
 
-두 필드 모두 필수이며 각각 500자 이하.
+| 필드 | 필수 | 제약·설명 |
+|---|---|---|
+| `vcId` | O | Wallet에 저장된 VC 식별자, 최대 500자 |
+| `offerId` | O | 해당 영상의 발급 Offer 식별자, 최대 500자 |
+| `credential` | O | 서명 포함 VC JSON 원문을 문자열로 전달, 최대 100,000자 |
+
+예시의 `credential`은 자리표시자입니다. 실제 요청에는 Wallet에서 읽은 JSON 원문을 넣어야 합니다. 서버는 원장 상태·VC 서명·발급자·등록자·등록 클레임을 확인하고 연결하며, 성공 시 관련 검증 캐시를 제거합니다.
 
 **응답** `data: null`
 
@@ -145,14 +149,24 @@ Wallet에서 발급받은 VC를 연결합니다.
 
 ---
 
-## PATCH /api/videos/{videoId}/deactivate
+## PUT /api/videos/{videoId}/vc/holder
+
+Wallet의 `issuer_init` 발급 프로필 조회 전에 Holder 정보를 Issuer에 동기화합니다. 앱의 VC 발급 절차에서 사용합니다.
+
+**권한** 로그인한 영상 등록자 본인. **요청 본문** 없음. **응답** `data: null`.
+
+Open DID가 비활성화되어 있으면 `D006`(503), 본인 영상이 아니면 `V006`(403), 등록 DID가 맞지 않으면 `D005`(400)입니다.
+
+---
+
+## PATCH /api/videos/{videoId}/deactivate {#deactivate}
 
 영상을 비활성화합니다. 요청 본문 없음.
 
 **응답** `data: null`
 
 ::: warning
-비활성화된 영상은 검증 시 `REGISTERED_BUT_REVOKED`로 판정됩니다. 등록 기록 자체가 사라지지는 않습니다.
+비활성화된 파일의 정확 일치 검증은 `REGISTERED_BUT_REVOKED`로 판정됩니다. 유사도 검색은 활성 등록만 대상으로 하므로 재압축된 사본은 후보를 찾지 못할 수 있습니다. 등록 기록 자체가 사라지지는 않습니다.
 :::
 
 **에러**

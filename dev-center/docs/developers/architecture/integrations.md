@@ -42,22 +42,21 @@ DID Document 앵커링용 블록체인은 Hyperledger Besu이며, 영상 기록�
 
 | 클래스 | 역할 |
 |---|---|
-| `VcIssuanceService` | 발급 준비 오케스트레이션 |
+| `VcIssuanceService` | 발급 준비 과정 조율 |
 | `OpenDidIssuerClient` | Holder·클레임 등록, Offer 생성 |
-| `VcVerificationService` | 상태·서명 검증 (`OpenDidIssuerClient` 경유) |
+| `VcVerificationService` | Issuer 발급 원장 조회 + VC 원문·발급자 DID 문서로 서명 검증 |
 | `OpenDidTasClient` | TAS 연동 |
 
 ### 검증 판정
 
 | 값 | 조건 |
 |---|---|
-| `VERIFIED` | 상태 `ACTIVE` + 서명 `VALID` |
-| `INVALID` | 상태가 ACTIVE가 아니거나 서명 실패 |
-| `UNAVAILABLE` | VC 상태·서명 조회 중 예외 발생 |
+| `VERIFIED` | 발급 원장 `ACTIVE`, VC 원문이 있으면 식별자·주체 확인과 서명 검증 통과 |
+| `INVALID` | 상태가 ACTIVE가 아니거나 VC 식별자·주체·서명 검증 실패 |
+| `UNAVAILABLE` | 발급 원장·발급자 DID 문서 조회 등 외부 호출 실패 |
 | `DISABLED` | `opendid.enabled=false` 이거나 VC 미발급 |
 
-**VC 없이 진본 인증은 불가합니다.** `DISABLED`는 인증 조건을 생략한다는 뜻이 아닙니다. VC 미발급 건은 `CERTIFICATE_MISSING`, 이미 VC가 있지만 Open DID가 비활성화된 건은 `VERIFICATION_UNAVAILABLE`로 처리하며, 두 경우 모두 `authentic: false`입니다. 콘텐츠 일치·블록체인 검증·VC 유효성·등록 클레임 결속을 모두 통과해야 인증합니다. 비활성 등록이나 블록체인 오류가 있으면 [전체 판정 우선순위](../flows/video-verify#최종-판정-규칙)를 따릅니다.
-
+보증서 발급 순서는 [VC 보증서 발급](/developers/flows/vc-issuance), VC 원문 유무에 따른 확인 방식과 최종 판정은 [등록 증거 확인](/developers/flows/video-verify#registration-evidence)을 참고하세요.
 
 ## 3. OmniOne Chain — 온체인 등록
 
@@ -91,7 +90,7 @@ DID Document 앵커링용 블록체인은 Hyperledger Besu이며, 영상 기록�
 
 - 사용처: `VideoDownloadService`
 - 호출 시점: `POST /api/verify/url`
-- 처리: 다운로드 → 해시 계산 → 즉시 삭제
+- 처리: URL 검사 → 다운로드 → 파일·영상·음성 비교와 등록 증거 확인 → 임시 파일 정리
 - 미설치 시 URL 검증만 실패, 파일 업로드 검증은 정상
 
 ## 연동별 실패 영향
@@ -99,7 +98,6 @@ DID Document 앵커링용 블록체인은 Hyperledger Besu이며, 영상 기록�
 | 연동 | 끊겼을 때 |
 |---|---|
 | OmniOne CX | 가입·로그인 불가. 검증은 정상 |
-| Open DID Issuer | 영상 등록은 가능하나 VC 발급 준비 실패. VC 미발급 상태에서는 진본 인증 불가 |
-| Open DID Issuer | VC 발급 영상 검증이 `VERIFICATION_UNAVAILABLE` |
+| Open DID Issuer | VC 발급 준비 실패. 이미 발급한 영상의 검증은 `VERIFICATION_UNAVAILABLE` |
 | OmniOne Chain | 등록 실패, 검증은 `VERIFICATION_UNAVAILABLE` |
 | yt-dlp | URL 검증만 실패 |

@@ -27,7 +27,7 @@
 }
 ```
 
-`null` 필드는 직렬화에서 제외됩니다 (`@JsonInclude(NON_NULL)`).
+응답 래퍼의 `null` 필드는 생략됩니다 (`@JsonInclude(NON_NULL)`). `data` 안의 필드 포함 여부는 각 응답 DTO를 따릅니다.
 
 ## 인증
 
@@ -37,10 +37,7 @@
 Authorization: Bearer {accessToken}
 ```
 
-| 토큰 | 만료 |
-|---|---|
-| accessToken | 30분 |
-| refreshToken | 7일 |
+토큰 만료와 무효화는 [토큰 정책](/developers/security/overview#tokens)을 참고하세요.
 
 ## 업로드 제한
 
@@ -80,6 +77,7 @@ Authorization: Bearer {accessToken}
 | GET | `/api/videos` | 내 영상 목록 | O |
 | GET | `/api/videos/{videoId}` | 영상 상세 | O (본인) |
 | POST | `/api/videos/{videoId}/vc/prepare` | VC 발급 준비·재개 | O (본인) |
+| PUT | `/api/videos/{videoId}/vc/holder` | VC 발급용 Holder 동기화 | O (본인) |
 | POST | `/api/videos/{videoId}/vc/complete` | VC 발급 완료 연결 | O (본인) |
 | PATCH | `/api/videos/{videoId}/deactivate` | 영상 비활성화 | O (본인) |
 

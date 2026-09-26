@@ -18,7 +18,7 @@ graph LR
 
     CX[OmniOne CX<br/>모바일 신분증]
     ISS[Open DID Issuer :8091]
-    VER[Open DID Verifier :8092]
+    TAS[Open DID TAS :8090]
     CHAIN[OmniOne Chain<br/>JinBon.sol]
 
     IOS --> API
@@ -31,7 +31,7 @@ graph LR
     API --> RD
     API --> CX
     API --> ISS
-    API --> VER
+    API --> TAS
     API --> CHAIN
     IOS -.Wallet 프로토콜.-> ISS
 ```
@@ -45,16 +45,6 @@ graph LR
 | **jinbon-web** | 파일 업로드·URL 기반 영상 검증 | Next.js 16, React 19, Tailwind CSS | 8071 |
 | **jinbon-extension** | YouTube·Instagram 시청 중 검증 | Manifest V3, 순수 JavaScript | — |
 
-## 계층별 책임
-
-| 계층 | 책임 | 대표 클래스 |
-|---|---|---|
-| Controller | HTTP 요청 수신, 인증 주체 추출 | `VideoRegisterController`, `VideoVerifyController` |
-| Service (domain) | 등록·검증·인증 비즈니스 규칙 | `VideoRegisterService`, `VideoVerifyService` |
-| Service (기술) | 해시·서명 계산 | `HashService`, `PerceptualHashService`, `SignatureService` |
-| Infra | 외부 시스템 호출 | `OmniOneChainClient`, `OpenDidIssuerClient` |
-| Global | 공통 응답·예외·보안 설정 | `CommonResponse`, `ErrorCode`, `SecurityConfig` |
-
 ## 포트 맵
 
 ### 진본 구성 요소
@@ -66,36 +56,11 @@ graph LR
 | 5432 | PostgreSQL | `DB_PORT`로 변경 가능 |
 | 6380 | Redis | 컨테이너 내부 6379 매핑 |
 
-### Open DID Orchestrator
+Open DID의 서버별 포트와 호출 관계는 [외부 연동](/developers/architecture/integrations)에서 확인하세요.
 
-백엔드는 이 중 TAS(8090)와 Issuer(8091)만 호출합니다. 나머지는 iOS 앱이 직접 호출합니다.
+## 구현 문서로 이동
 
-| 포트 | 서버 |
-|---|---|
-| 8091 | Issuer |
-| 8092 | Verifier |
-| 8090 | TAS |
-| 8093 | API Gateway |
-| 8094 | CA |
-| 8095 | Wallet |
-| 9001 | Orchestrator 관리 UI |
-
-## 데이터 흐름 요약
-
-### 등록 (앱 → 백엔드 → 체인 → Issuer)
-
-1. 앱이 영상 파일과 제목을 `POST /api/videos`로 전송
-2. 백엔드가 fineHash · perceptualHash · merkleRoot · signature 계산
-3. DB에 먼저 저장(unique 제약으로 중복 선점) 후 온체인 `register` 전송
-4. 확정된 온체인 기록을 다시 조회해 대조
-5. Open DID Issuer에 Holder와 클레임 등록 → 발급 Offer 생성
-6. 앱이 Offer로 Wallet 발급 진행 후 `vcId`를 백엔드에 연결
-
-### 검증 (웹·확장 → 백엔드)
-
-1. 파일 또는 URL 수신
-2. Redis 캐시 조회 (TTL 10분)
-3. fineHash 정확 매칭 → 실패 시 perceptualHash 유사도 검색
-4. 매칭된 영상에 대해 온체인 기록 조회 + 서명 재계산 대조
-5. VC가 발급된 영상이면 Issuer로 상태·서명 확인
-6. verdict 산출 후 캐싱
+- 코드 위치와 컴포넌트별 설명: [저장소 구조](/developers/architecture/repositories)
+- DB·블록체인·보증서가 연결되는 순서: [영상 등록](/developers/flows/video-register)
+- 후보 검색과 최종 판정: [영상 검증](/developers/flows/video-verify)
+- 데이터 보관 위치와 필드: [데이터 모델](/developers/data/model)

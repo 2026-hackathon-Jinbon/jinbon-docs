@@ -1,104 +1,58 @@
+---
+description: 영상 업로드부터 블록체인 기록과 보증서 연결까지 등록 과정을 설명합니다.
+---
+
 # 영상 등록
 
-`POST /api/videos` · 권한: `ISSUER` · 요청 형식: `multipart/form-data` (`file`, `title`)
+등록은 **나중에 비교할 영상 지문과 등록 증거를 만드는 과정**입니다. iOS 앱에서 영상을 올리고, Wallet에서 등록 보증서를 발급받아 연결합니다.
 
-## 전체 순서
+## 등록 전에 준비할 것
 
-```mermaid
-sequenceDiagram
-  participant A as 앱
-  participant B as 백엔드
-  participant DB as PostgreSQL
-  participant CH as OmniOne Chain
-  participant IS as Open DID Issuer
+모바일 신분증으로 본인확인을 마치고 Wallet DID를 계정에 연결해야 합니다. 백엔드는 `ISSUER` 권한과 DID를 확인합니다. 준비 과정은 [회원가입·로그인](/developers/flows/signup-login)을 참고하세요.
 
-  A->>B: POST /api/videos (file, title)
-  B->>B: 회원 조회 + ISSUER 권한·DID 확인
-  B->>B: fineHash = SHA-256(파일)
-  B->>DB: fineHash로 기존 영상 조회
-  alt 같은 회원의 동일 파일
-    B-->>A: 기존 결과 (alreadyRegistered=true)
-  else 다른 회원의 동일 파일
-    B-->>A: 409 VIDEO_ALREADY_REGISTERED
-  end
+앱은 영상 파일과 제목을 `POST /api/videos`로 보냅니다. 요청 형식과 크기 제한은 [영상 관리 API](/developers/api/videos)에 있습니다.
 
-  B->>B: pHash · 영상 세그먼트 · 음성 지문 생성
-  Note over B,DB: 유사 지문만으로 중복 등록을 차단하지 않음
+## 1. 비교용 지문을 만듭니다
 
-  B->>B: merkleRoot = SHA-256(pHash + fineHash)
-  B->>B: signature = HMAC-SHA256(issuerDid + merkleRoot)
-  B->>DB: saveAndFlush (unique 제약으로 등록 권한 선점)
-  B->>CH: register(merkleRoot, issuerDid, signature)
-  CH-->>B: txHash
-  B->>CH: 영수증 폴링 (250ms × 최대 20회)
-  CH-->>B: blockNumber
-  B->>DB: recordBlockchain(blockNumber, txHash)
+서버가 파일 전체의 해시를 계산해 동일 파일의 등록 여부를 먼저 확인합니다. 새 파일이면 대표 화면, 시간대별 영상·음성의 지문을 만듭니다. 제목은 비교 지문에 포함되지 않습니다.
 
-  B->>CH: getRecord(merkleRoot) 재조회
-  B->>B: 온체인 값과 DB 값 대조
-  B->>IS: Holder DID + 보증 클레임 등록
-  B->>IS: 발급 Offer 생성
-  IS-->>B: offerId, issuerDid
-  B->>DB: markVcPending → PENDING_WALLET
-  B-->>A: videoId, merkleRoot, txHash, blockNumber, vcPlanId, vcIssuerDid, vcOfferId
-```
+영상·음성 구간 지문 추출에 실패해도 등록은 진행될 수 있습니다. 이때 파일 정확 일치 검증은 가능하지만, 유사도 검증에 필요한 정보가 부족할 수 있습니다. [지문별 역할](/developers/guide/concepts)을 참고하세요.
 
-## 단계별 상세
+## 2. 블록체인에 등록합니다
 
-### 1. 권한 검증
+파일 해시와 대표 화면 지문을 묶은 `merkleRoot`에 등록자 DID와 서버 서명을 연결해 OmniOne Chain에 기록합니다. 트랜잭션 해시와 블록 번호는 DB의 해당 등록 건에 저장합니다.
 
-```
-role != ISSUER            → ISSUER_ROLE_REQUIRED (V001, 403)
-member.userDid == null    → ISSUER_DID_NOT_REGISTERED (V002, 400)
-```
+동시 중복 요청을 줄이기 위해 **DB의 파일 해시 중복 제약을 먼저 확인한 요청만** 블록체인에 전송합니다. DB와 블록체인이 하나의 원자적 트랜잭션이라는 뜻은 아닙니다.
 
-### 2. fineHash 생성과 중복 확인
+## 3. 보증서 발급을 준비합니다
 
-파일 전체를 8KB 버퍼로 스트리밍하며 SHA-256을 계산합니다. `videos.fine_hash`에 unique 제약이 있어 DB 레벨에서도 중복이 막힙니다.
+서버는 블록체인 기록을 다시 조회해 등록 건과 맞는지 확인합니다. 이어 Open DID Issuer에 등록자·영상 대표값·등록 시점·트랜잭션을 담은 VC 발급을 준비하고, 발급 요청 식별자(`offerId`)를 앱에 반환합니다.
 
-**동일 파일의 기존 등록자 확인:**
+발급 준비가 실패해도 이미 성공한 영상 등록은 유지됩니다.
 
-| 상황 | 결과 |
+## 4. Wallet에서 보증서를 받아 연결합니다
+
+사용자가 앱에서 동의·인증을 마치면 Wallet이 VC를 받습니다. 앱은 VC 식별자와 서명된 원문을 백엔드로 보냅니다. 서버는 보증서의 유효성과 해당 등록 건의 보증서인지를 확인한 뒤 연결합니다.
+
+**블록체인 등록만 끝나고 보증서가 연결되지 않았다면 검증 결과는 ‘보증서 없음’입니다.** 연결까지 완료한 뒤에도 제출 영상의 일치 여부와 등록 증거를 확인해야 진본으로 승인됩니다.
+
+Wallet 연동 순서와 발급 상태는 [VC 보증서 발급](/developers/flows/vc-issuance)에 정리되어 있습니다.
+
+## 중복 등록하거나 중간에 멈추면
+
+| 상황 | 처리 |
 |---|---|
-| 같은 회원 | 기존 등록 결과 반환, `alreadyRegistered = true` |
-| 다른 회원 | `VIDEO_ALREADY_REGISTERED` (V004, 409) |
+| 같은 회원이 동일 파일을 다시 등록 | 기존 결과 반환. 보증서 미발급이면 발급 준비 재시도 |
+| 다른 회원이 동일 파일을 등록 | `409 VIDEO_ALREADY_REGISTERED`로 차단 |
+| 비슷해 보이지만 바이트가 다른 파일을 등록 | 화면 유사도만으로 중복 등록을 막지 않음 |
+| 보증서 발급을 미루거나 앱 종료 | `vc/prepare`로 재개. 파일 재업로드 불필요 |
+| 블록체인 등록 실패 | 등록 요청 실패 |
+| 보증서 발급 준비 실패 | 등록은 유지되며 발급을 다시 진행해야 함 |
 
-### 3. 비교 지문 생성
+중복 등록 차단은 제작자·저작권자를 판정하는 기능이 아닙니다.
 
-pHash·영상 세그먼트·음성 지문을 생성합니다. 중복 차단은 파일 SHA-256 기준이며, 지각해시가 같거나 유사하다는 이유로 다른 파일의 등록을 막지 않습니다. 동일 파일에 대한 등록 권한 확인도 제작자·저작권자 판정을 뜻하지 않습니다.
+## 등록을 비활성화하면
 
-### 4. merkleRoot와 서명
+등록자는 자신의 등록을 비활성화할 수 있습니다. 서버는 블록체인 비활성화 → DB 상태 변경 → 관련 캐시 제거 순으로 처리하며, 등록 기록은 남깁니다.
 
-```
-merkleRoot = SHA-256(perceptualHash || fineHash)
-signature  = HMAC-SHA256(issuerDid + merkleRoot)
-```
-
-### 5. DB 선점 후 블록체인 기록
-
-동시성 방어의 핵심입니다.
-
-```java
-Video saved = videoRepository.saveAndFlush(video);   // 먼저 DB
-String txHash = sendBlockchainTx(encodeRegister(...)); // 통과한 요청만 체인
-```
-
-트랜잭션 영수증은 250ms 간격으로 최대 20회(약 5초) 폴링합니다.
-
-### 6. 온체인 증거 재확인
-
-VC에 담을 증거가 실제 온체인 상태와 일치하는지 다시 확인합니다.
-
-### 7. VC 발급 준비
-
-발급 준비가 실패해도 등록 결과는 유지됩니다. (`try/catch`로 감싸져 있음)
-
-## 비활성화
-
-`PATCH /api/videos/{videoId}/deactivate`
-
-블록체인 기록이 먼저이고 DB 변경이 나중입니다. 체인 전송이 실패하면 트랜잭션이 롤백되어 DB도 활성 상태로 남습니다.
-
-::: tip 저장하지 않는 것
-원본 영상 파일은 서버에 남지 않습니다. 지각해시 계산용 임시 파일은 `finally` 블록에서 즉시 삭제합니다.
-:::
+같은 파일은 검증 시 ‘등록 비활성화’로 나옵니다. 유사도 검색은 활성 등록만 찾으므로 재압축된 사본은 후보로 검색되지 않을 수 있습니다. 요청 방법은 [비활성화 API](/developers/api/videos#deactivate)를 참고하세요.

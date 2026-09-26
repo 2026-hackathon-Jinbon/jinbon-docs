@@ -21,9 +21,11 @@ erDiagram
         bigint id PK
         varchar title "영상 제목"
         varchar issuer_did "등록 당시 DID"
-        bigint member_id FK "등록자 회원 ID"
+        bigint member_id "등록자 회원 ID"
         text fine_hash UK "파일 SHA-256"
-        text perceptual_hash "프레임별 pHash"
+        text perceptual_hash "대표 화면 지문"
+        text segment_fingerprint "영상 구간 지문"
+        text audio_fingerprint "음성 구간 지문"
         text merkle_root "대표 해시"
         varchar tx_hash "블록체인 tx"
         varchar block_number
@@ -33,6 +35,8 @@ erDiagram
         varchar vc_issuance_status "NOT_REQUESTED / PENDING_WALLET / ISSUED"
     }
 ```
+
+`member_id`는 회원 ID를 저장하는 필드이며, 현재 JPA 엔티티에는 FK 연관관계가 선언되어 있지 않습니다.
 
 ## members
 
@@ -48,10 +52,6 @@ erDiagram
 | `status` | varchar | not null | `PENDING` · `ACTIVE` · `SUSPENDED` · `WITHDRAWN` |
 | `did_registered_at` | timestamp | | DID 최초 등록 또는 재연결 시각 |
 | `joined_at` | timestamp | | 가입 완료 시각 |
-
-::: info CI 컬럼
-컬럼명이 `ci`지만 **값은 언제나 해시**입니다. 평문 CI는 어떤 경로로도 저장되지 않습니다.
-:::
 
 ### 상태 전이
 
@@ -78,13 +78,18 @@ stateDiagram-v2
 | `title` | varchar | not null | 영상 제목 |
 | `issuer_did` | varchar | not null | 등록 당시 등록자 DID |
 | `member_id` | bigint | | 등록자 회원 ID (레거시는 null) |
-| `perceptual_hash` | text | not null | 프레임별 pHash (쉼표 구분) |
+| `perceptual_hash` | text | not null | 버전·길이·대표 화면 지문 |
+| `segment_fingerprint` | text | | 영상 구간 지문 |
+| `audio_fingerprint` | text | | 음성 구간 지문 |
 | `fine_hash` | text | not null, **unique** | 파일 전체 SHA-256 |
-| `merkle_root` | text | not null | 대표 해시 |
+| `merkle_root` | text | not null | 등록 대표값 |
+| `merkle_path` | text | | 등록 시 생성한 해시 경로 |
 | `tx_hash` | varchar | | 등록 트랜잭션 해시 |
 | `block_number` | varchar | | 등록 트랜잭션 블록 번호 |
 | `signature` | varchar | not null | HMAC-SHA256 서명 |
 | `active` | boolean | not null | 비활성화 시 false |
+| `version` | integer | | 데이터 스키마 버전 |
+| `registered_at` / `deactivated_at` | timestamp | | 등록·비활성화 시각 |
 
 ### VC 관련 컬럼
 
@@ -94,35 +99,21 @@ stateDiagram-v2
 | `vc_plan_id` | 발급 준비 | `vcplan-jinbon-01` |
 | `vc_issuer_did` | 발급 준비 | 실제 Issuer DID |
 | `vc_issuance_status` | 등록 시 초기화 | `NOT_REQUESTED` / `PENDING_WALLET` / `ISSUED` |
+| `vc_claim_snapshot_hash` | 발급 준비 | 등록 클레임의 변경 여부를 확인할 해시 |
+| `vc_schema_version` / `vc_assurance_type` | 발급 준비 | 보증서 스키마 버전·보증 범위 |
 | `vc_id` | 발급 완료 | Wallet이 수령한 VC 식별자 |
+| `vc_credential` | 발급 완료 | 서명 검증을 통과한 VC JSON 원문 (text) |
 
 ::: warning 이름 주의
 `vc_issuer_did`는 **VC 발급기관**이고 `issuer_did`는 **영상 등록자**입니다.
 :::
 
-### VC 상태 전이
+발급 상태의 의미와 전환 시점은 [VC 보증서 발급](/developers/flows/vc-issuance#issuance-status)을 참고하세요.
 
-```mermaid
-stateDiagram-v2
-    [*] --> NOT_REQUESTED: 등록 완료
-    NOT_REQUESTED --> PENDING_WALLET: 발급 준비 성공
-    PENDING_WALLET --> ISSUED: Wallet 수령 확인
-```
+## 중복 등록 방지
 
-## 중복 방지 계층
+등록 전에 `fineHash`를 조회하고, DB의 `fine_hash` unique 제약으로 동시 요청도 제한합니다. 화면이 비슷하다는 이유만으로 등록을 차단하지 않습니다. 상황별 응답은 [영상 등록](/developers/flows/video-register)에 정리되어 있습니다.
 
-| 계층 | 방식 | 잡아내는 경우 |
-|---|---|---|
-| 1 | `fineHash` 조회 | 완전히 같은 파일 |
-| 2 | `perceptualHash` 양방향 거리 0 | 컨테이너만 다른 파일 |
-| 3 | `fine_hash` unique 제약 | 동시 요청 경합 |
+## Redis
 
-## Redis 키
-
-| 키 | 타입 | TTL | 용도 |
-|---|---|---|---|
-| `verify:result:{fineHash}` | string | 10분 | 파일 검증 결과 캐시 |
-| `verify:result:url:{sha256(url)}` | string | 10분 | URL 검증 결과 캐시 |
-| `verify:video:{videoId}` | set | 10분 | 영상별 캐시 키 인덱스 |
-| refresh token | — | 7일 | `RefreshTokenService` |
-| DID 재연결 토큰 | — | 단기 | `DidRebindTokenService` |
+검증 결과 캐시와 인증 토큰을 저장합니다. 검증 키·유효 시간·제외 조건은 [검증 캐시](/developers/flows/video-verify#cache), 토큰 만료·무효화 정책은 [보안 문서](/developers/security/overview#tokens)를 참고하세요.

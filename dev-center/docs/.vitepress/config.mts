@@ -82,10 +82,21 @@ export default defineConfig({
     sidebar: {
       "/developers/": [
         {
-          text: "시작하기",
+          text: "서비스 이해하기",
           items: [
-            { text: "서비스 소개", link: "/developers/guide/introduction" },
+            { text: "전체 동작 한눈에 보기", link: "/developers/guide/introduction" },
+            { text: "URL·파일 검증 차이", link: "/developers/guide/verification-methods" },
+            { text: "검증 결과 읽는 법", link: "/developers/guide/verification-results" },
             { text: "핵심 개념", link: "/developers/guide/concepts" },
+          ],
+        },
+        {
+          text: "등록·검증 과정",
+          items: [
+            { text: "영상 등록", link: "/developers/flows/video-register" },
+            { text: "영상 검증", link: "/developers/flows/video-verify" },
+            { text: "VC 보증서 발급", link: "/developers/flows/vc-issuance" },
+            { text: "회원가입 / 로그인", link: "/developers/flows/signup-login" },
           ],
         },
         {
@@ -110,15 +121,6 @@ export default defineConfig({
             { text: "등록자 프로필 API", link: "/developers/api/members" },
             { text: "검증 API", link: "/developers/api/verify" },
             { text: "에러 코드", link: "/developers/api/errors" },
-          ],
-        },
-        {
-          text: "플로우",
-          items: [
-            { text: "영상 등록", link: "/developers/flows/video-register" },
-            { text: "영상 검증", link: "/developers/flows/video-verify" },
-            { text: "회원가입 / 로그인", link: "/developers/flows/signup-login" },
-            { text: "VC 보증서 발급", link: "/developers/flows/vc-issuance" },
           ],
         },
         {

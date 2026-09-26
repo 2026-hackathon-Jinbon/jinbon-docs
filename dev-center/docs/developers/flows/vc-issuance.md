@@ -1,10 +1,58 @@
 # VC 보증서 발급
 
-## 이 VC가 보증하는 것
+영상 등록 후 **Wallet에서 보증서를 받고 백엔드의 등록 건에 연결하는 과정**입니다. 보증서가 연결되어야 검증 시 해당 등록 증거를 확인할 수 있습니다.
 
-진본이 발급하는 VC는 **영상의 내용이 진실하다는 증명이 아닙니다.**
+## 발급 순서
 
-"진본 서비스가 이 영상의 디지털 지문을 확인했고, 그것이 특정 시각에 특정 블록체인 트랜잭션으로 기록되었음을 확인했다"는 사실을 보증합니다.
+```mermaid
+sequenceDiagram
+  participant A as 앱·Wallet
+  participant B as 진본 백엔드
+  participant I as Open DID Issuer
+  Note over B: 블록체인 등록 완료
+  B->>B: 온체인 기록·등록 정보 확인
+  B->>I: 등록 정보를 담은 발급 Offer 준비
+  I-->>B: Offer 정보
+  B-->>A: 등록 결과 + 발급 정보
+  A->>B: 발급 프로필용 Holder 동기화
+  B->>I: Holder 정보 갱신
+  A->>I: 사용자 동의·인증 후 발급
+  I-->>A: 서명된 VC
+  A->>B: VC 식별자·Offer·VC 원문
+  B->>B: 등록 증거·VC 검증 후 연결
+  B-->>A: 연결 완료
+```
+
+## 앱이 호출하는 API
+
+| 시점 | API | 하는 일 |
+|---|---|---|
+| 발급 준비·재개 | `POST /api/videos/{videoId}/vc/prepare` | 기존 Offer 반환 또는 새 발급 준비. 최초 등록 응답에 발급 정보가 있으면 바로 이용 |
+| 발급 프로필 조회 전 | `PUT /api/videos/{videoId}/vc/holder` | Wallet과 Issuer의 Holder 정보 동기화 |
+| Wallet에 VC 저장 후 | `POST /api/videos/{videoId}/vc/complete` | `vcId`·`offerId`·서명된 `credential` 원문으로 등록 건에 연결 |
+
+파일을 다시 올리지 않고 발급을 이어갈 수 있습니다. Wallet에 저장만 하고 마지막 연결을 완료하지 않으면 백엔드는 미발급으로 처리합니다. 필드 제약·오류 코드는 [영상 관리 API](/developers/api/videos)에 있습니다.
+
+## 백엔드가 연결 전에 확인하는 것
+
+1. Open DID 기능이 활성이고, 요청자가 해당 영상의 등록자인지 확인합니다.
+2. 요청한 Offer, 온체인 기록, 발급 준비 때 저장한 등록 정보가 맞는지 확인합니다.
+3. Issuer 발급 원장의 활성 상태와 VC 원문의 서명을 검증합니다.
+4. VC의 발급자·등록자·등록 클레임이 해당 영상과 일치하면 연결하고 관련 검증 캐시를 제거합니다.
+
+## 발급 상태 {#issuance-status}
+
+| 상태 | 완료한 일 | 남은 일 |
+|---|---|---|
+| `NOT_REQUESTED` | 영상 등록 | 발급 준비 |
+| `PENDING_WALLET` | Offer 준비 | Wallet 수령·백엔드 연결 |
+| `ISSUED` | 보증서 검증·연결 | 이후 검증 요청에서 콘텐츠와 등록 증거 확인 |
+
+발급을 미루거나 준비에 실패해도 영상 등록은 유지됩니다. 이때의 검증 결과는 ‘보증서 없음’입니다.
+
+## 보증서에 담는 정보
+
+이 VC는 **영상의 등록 사실**을 증명합니다. 영상 내용의 사실성을 보증하지 않습니다.
 
 | 항목 | 값 |
 |---|---|
@@ -13,110 +61,19 @@
 | `schemaVersion` | `1` |
 | VC Plan | `vcplan-jinbon-01` |
 
-## 클레임 구성
-
 | 클레임 | 출처 |
 |---|---|
-| `credentialType` | 고정값 `VideoRegistrationCredential` |
-| `assuranceType` | 고정값 `BLOCKCHAIN_REGISTRATION` |
+| `credentialType` / `assuranceType` | 위 고정값 |
 | `videoCommitment` | `video.merkleRoot` |
-| `registrantDid` | `video.issuerDid` (등록자 DID) |
-| `blockchainNetwork` | 설정값 |
-| `chainId` | 설정값 |
-| `contractAddress` | 설정값 |
-| `transactionHash` | `video.txHash` |
-| `blockNumber` | `video.blockNumber` |
-| `registeredAt` | `video.registeredAt` |
-| `videoTitle` | `video.title` |
+| `registrantDid` | `video.issuerDid` — 영상 등록자 |
+| `blockchainNetwork` / `chainId` / `contractAddress` | 블록체인 설정 |
+| `transactionHash` / `blockNumber` | 등록 트랜잭션 |
+| `registeredAt` / `videoTitle` | 등록 시점·제목 |
 
-::: tip
-원본 영상의 해시(`fineHash`, `perceptualHash`)는 VC에 들어가지 않습니다. 대표값인 `merkleRoot`만 `videoCommitment`로 포함됩니다.
-:::
+개별 파일·화면 해시 대신 대표값인 `merkleRoot`를 담습니다.
 
-## 발급 순서
+## Open DID가 꺼져 있다면
 
-```mermaid
-sequenceDiagram
-  participant A as 앱
-  participant B as 백엔드
-  participant IS as Open DID Issuer
-  participant W as Wallet SDK
+`OPENDID_ENABLED=false`여도 영상의 블록체인 등록은 가능하지만 보증서 발급은 진행하지 않습니다. `vc/prepare`, `vc/holder`, `vc/complete` 호출은 `D006`(503)으로 실패합니다.
 
-  Note over B: 영상 등록 트랜잭션 확정 직후
-  B->>B: verifyBlockchainEvidence(video)
-  B->>B: VideoCertificateClaims.create(video)
-  B->>IS: prepareHolder(holderDid, claims)
-  B->>IS: createIssueOffer()
-  IS-->>B: offerId, issuerDid
-  B->>B: markVcPending → PENDING_WALLET
-  B-->>A: vcPlanId, vcIssuerDid, vcOfferId
-
-  A->>A: "등록 보증서를 발급할까요?" 확인
-  A->>W: offerId로 발급 시작
-  W->>A: 사용자 동의 + PIN 인증
-  W->>IS: issue-vc → confirm
-  IS-->>W: VC
-  W->>W: Wallet에 로컬 저장
-  W-->>A: vcId
-
-  A->>B: POST /api/videos/{videoId}/vc/complete (vcId, offerId)
-  B->>B: offerId 일치 확인
-  B->>B: Issuer로 vcId 검증
-  B->>B: completeVcIssuance() → ISSUED
-  B-->>A: 200
-```
-
-## 상태 전이
-
-```
-NOT_REQUESTED → PENDING_WALLET → ISSUED
-```
-
-| 상태 | 의미 |
-|---|---|
-| `NOT_REQUESTED` | 등록 직후 기본값 |
-| `PENDING_WALLET` | Issuer에 Offer 생성 완료, Wallet 수령 대기 |
-| `ISSUED` | Wallet 수령·검증 완료 |
-
-역방향 전이는 없습니다.
-
-## 발급 완료 연결
-
-`POST /api/videos/{videoId}/vc/complete`
-
-서버가 확인하는 순서:
-1. `opendid.enabled` 확인
-2. 영상 소유권 확인
-3. `video.vcOfferId == 요청 offerId`
-4. Issuer로 `vcId` 검증
-5. `completeVcIssuance(vcId, offerId)` → 상태 `ISSUED`
-
-## 발급 재개
-
-`POST /api/videos/{videoId}/vc/prepare` — 앱에서 "나중에"를 선택했거나 발급 도중 앱이 종료된 경우, 영상 파일을 다시 올릴 필요 없이 발급 문맥을 되살릴 수 있습니다.
-
-## 검증 시 VC 확인
-
-**VC 발급과 검증은 진본 인증의 필수 조건입니다.** 콘텐츠가 일치하고 블록체인 기록이 유효해도 VC가 없거나 유효성을 확인할 수 없으면 `authentic: false`입니다.
-
-| 상태 | 최종 판정에 미치는 영향 |
-|---|---|
-| VC 미발급 (`vcId` 없음) | `CERTIFICATE_MISSING`, `authentic: false` |
-| `VERIFIED` | 발급자·등록자·영상 등록 클레임의 일치 여부를 추가 확인. 콘텐츠 일치와 블록체인 검증까지 모두 통과해야 `authentic: true` |
-| `INVALID` 또는 클레임 결속 실패 | `CERTIFICATE_INVALID`, `authentic: false` |
-| VC가 있으나 `UNAVAILABLE` 또는 `DISABLED` | `VERIFICATION_UNAVAILABLE`, `authentic: false` (캐싱하지 않음) |
-
-위 표는 활성 등록의 블록체인 검증이 통과한 경우를 기준으로 합니다. 비활성 등록과 블록체인 검증 실패 등 전체 판정 우선순위는 [영상 검증](./video-verify#최종-판정-규칙)을 참고하세요.
-
-::: warning 등록 완료와 인증 완료는 다릅니다
-영상의 블록체인 등록이 완료되어도 Wallet에서 VC를 수령하고 발급 완료 연결을 마치기 전에는 진본으로 인증하지 않습니다. `authentic: true`는 **콘텐츠 일치 + 블록체인 검증 + VC 유효성 검증 + 등록 클레임 결속**을 모두 통과한 경우에만 가능합니다.
-:::
-
-## Open DID를 끈 경우
-
-`OPENDID_ENABLED=false`이면:
-- 발급 준비 생략 (등록 응답의 VC 관련 필드 모두 `null`)
-- `vc/complete`, `vc/prepare` 호출 시 `VC_FEATURE_DISABLED` (D006, 503)
-- 검증 시 `vcVerified`는 항상 `false`이며, **진본 인증은 불가** (`authentic: false`)
-- 영상 등록과 블록체인 기록은 가능하지만, 콘텐츠 비교만으로 진본 인증을 완료하지 않음
-- VC가 없는 등록 건은 `CERTIFICATE_MISSING`, 기존 VC가 있는 등록 건은 검증 기능이 꺼져 있으므로 `VERIFICATION_UNAVAILABLE` (비활성 등록·블록체인 오류 등 상위 판정이 없는 경우)
+검증 시 VC가 없으면 `CERTIFICATE_MISSING`, 기존 VC가 있으나 검증 기능이 꺼져 있으면 `VERIFICATION_UNAVAILABLE`입니다. 비활성 등록·블록체인 오류가 함께 있으면 [최종 판정 우선순위](/developers/flows/video-verify#final-verdict)를 따릅니다.
