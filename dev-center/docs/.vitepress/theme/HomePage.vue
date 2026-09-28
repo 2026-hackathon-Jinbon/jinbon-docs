@@ -97,6 +97,20 @@ const faqs = [
       <div class="inner">
         <div class="section-heading"><div><span class="eyebrow">확인 결과를 뒷받침하는 근거</span><h2>영상의 일치 여부와<br />등록 기록을 함께 확인합니다.</h2></div><p class="heading-description">파일 정확 일치 또는 영상·음성 비교 기준을 통과하고,<br />등록 기록과 보증서가 유효해야 진본으로 표시합니다.</p></div>
         <div class="proof-grid"><article v-for="item in proofs" :key="item.number"><span class="proof-number">{{ item.number }}</span><h3>{{ item.title }}</h3><p>{{ item.text }}</p></article></div>
+        <div id="audio-verification" class="audio-explanation" aria-labelledby="audio-title">
+          <span class="eyebrow">음성 비교 기준 이해하기</span>
+          <h3 id="audio-title">음성 100% 일치, 어떻게 확인하나요?</h3>
+          <p class="audio-intro">음성 파일이 완전히 같다는 뜻이 아니라, <strong>모든 비교 구간이 허용 오차 안에서 일치한다</strong>는 뜻입니다.</p>
+          <ol class="audio-steps">
+            <li><span class="audio-step-number" aria-hidden="true">01</span><h4>같은 형식으로 변환</h4><p>음성을 모노·16kHz로 변환해 채널과 샘플레이트를 맞춥니다.</p></li>
+            <li><span class="audio-step-number" aria-hidden="true">02</span><h4>1초 단위 지문 생성</h4><p>각 구간의 소리 특징을 담은 음성 지문을 만듭니다.</p></li>
+            <li><span class="audio-step-number" aria-hidden="true">03</span><h4>구간별 허용 오차 적용</h4><p>지문에서 서로 다른 비트 수인 해밍 거리가 10 이하이면 해당 구간을 일치로 봅니다.</p></li>
+            <li><span class="audio-step-number" aria-hidden="true">04</span><h4>모든 비교 구간 통과</h4><p>비교 대상 구간이 모두 일치해야 음성 구간 일치율이 100%가 됩니다.</p></li>
+          </ol>
+          <div class="audio-example"><strong>예를 들어 20구간을 비교했다면</strong><p>20구간 모두 일치하면 100%로 음성 기준을 통과합니다. 19구간만 일치하면 95%이므로 음성 기준을 통과하지 못합니다.</p></div>
+          <p class="note">재압축된 영상도 구간별 허용 오차 안이면 통과할 수 있습니다. 다만 음질 저하 등으로 한 구간이라도 기준을 벗어나면 정상 영상도 미인증될 수 있습니다.</p>
+          <p class="note">영상·음성 비교 경로에서는 영상 구간 일치율 95% 이상과 음성 구간 일치율 100%, 순서 보존과 동일한 원본 대응 시점이 필요합니다. 등록 기록과 보증서도 유효해야 진본으로 표시합니다. 이 수치는 판정 기준이며 조작 탐지 정확도를 뜻하지 않습니다.</p>
+        </div>
         <a class="text-link" href="/verification-status">확인 방식과 결과의 한계 자세히 보기 <span aria-hidden="true">→</span></a>
       </div>
     </section>
@@ -221,6 +235,17 @@ h3 { font-size: 20px; line-height: 1.55; font-weight: 650; letter-spacing: -.025
 .proof-number { font-size: 12px; color: var(--jb-blue); display: block; margin-bottom: 24px; }
 .proof-grid h3 { font-size: 18px; }
 .proof-grid p { font-size: 14px; line-height: 1.9; color: var(--jb-text-secondary); margin: 0; }
+.audio-explanation { margin-top: 36px; padding: 32px; border: 1px solid var(--jb-blue-border); border-radius: 16px; background: var(--jb-bg); scroll-margin-top: 88px; }
+.audio-explanation h3 { font-size: 24px; margin-bottom: 12px; }
+.audio-intro { font-size: 15px; line-height: 1.9; color: var(--jb-text-secondary); margin: 0; }
+.audio-intro strong { color: var(--jb-ink); }
+.audio-steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; list-style: none; padding: 0; margin: 28px 0; }
+.audio-steps li { border-top: 1px solid var(--jb-border); padding-top: 20px; }
+.audio-step-number { display: block; color: var(--jb-blue); font-size: 12px; margin-bottom: 12px; }
+.audio-steps h4 { font-size: 15px; line-height: 1.6; font-weight: 650; margin: 0 0 8px; }
+.audio-steps p, .audio-example p { font-size: 13px; line-height: 1.85; color: var(--jb-text-secondary); margin: 0; }
+.audio-example { padding: 18px 20px; border-radius: 10px; background: var(--jb-blue-light); }
+.audio-example strong { display: block; font-size: 14px; margin-bottom: 6px; }
 .text-link { display: inline-block; color: var(--jb-blue); font-size: 13px; font-weight: 600; margin-top: 28px; padding: 10px 0; }
 .platform-plan { scroll-margin-top: 100px; }
 .platform-card p, .platform-value { color: var(--jb-text-secondary); font-size: 14px; line-height: 1.9; margin: 0 0 16px; }
@@ -244,6 +269,7 @@ h3 { font-size: 20px; line-height: 1.55; font-weight: 650; letter-spacing: -.025
   .case-card { padding: 22px; }
   .case-card h3 { font-size: 19px; }
   .faq-layout, .closing-grid { gap: 36px; }
+  .audio-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 768px) {
   .hero { padding: 44px 20px 0; }
@@ -275,6 +301,9 @@ h3 { font-size: 20px; line-height: 1.55; font-weight: 650; letter-spacing: -.025
   .other-channels > span { width: 100%; text-align: center; }
   .proof-grid { gap: 28px; }
   .proof-number { margin-bottom: 14px; }
+  .audio-explanation { padding: 24px; }
+  .audio-explanation h3 { font-size: 21px; }
+  .audio-steps { grid-template-columns: 1fr; gap: 20px; }
   .faq-layout { gap: 28px; }
   .faq summary { font-size: 14px; }
   .closing { padding: 52px 20px; }

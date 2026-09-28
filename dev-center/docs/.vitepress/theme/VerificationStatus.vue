@@ -89,9 +89,10 @@ const examples = [
           <summary>영상·음성 비교의 상세 기준</summary>
           <div class="detail-body">
             <p>파일이 다르면 후보 검색 후 <strong>1초 간격 대표 프레임과 음성 지문</strong>을 비교합니다. 모든 프레임을 검사하는 방식은 아닙니다.</p>
-            <div class="thresholds"><div><span>영상 샘플 대응 비율</span><strong>95% 이상</strong></div><div><span>음성 샘플 대응 비율</span><strong>90% 이상</strong></div></div>
+            <div class="thresholds"><div><span>영상 샘플 대응 비율</span><strong>95% 이상</strong></div><div><span>음성 샘플 대응 비율</span><strong>100%</strong></div></div>
             <p><strong>이 수치는 승인 기준이며, 정확도나 조작 탐지율이 아닙니다.</strong> 순서가 보존되고 영상·음성의 최적 원본 대응 시간 오프셋이 같아야 합니다. 반복 장면 등으로 대응 시점이 다르면 확인을 보류합니다.</p>
-            <p>음성 비교 정보가 없으면 유사도 경로로 승인하지 않습니다. 일부 불일치를 허용하므로 작은 화면 변화·짧은 편집·일부 음성 교체를 놓칠 수 있습니다.</p>
+            <p>음성 100%는 모든 비교 구간의 지문이 허용 오차(해밍 거리 10 이하) 안에서 일치한다는 뜻입니다. 재압축된 영상도 통과할 수 있지만, 음질 저하 등으로 한 구간이라도 기준을 벗어나면 정상 영상도 미인증될 수 있습니다. <a href="/#audio-verification">음성 비교의 네 단계 보기 →</a></p>
+            <p>음성 비교 정보가 없으면 유사도 경로로 승인하지 않습니다. 구간별 허용 오차와 샘플링의 한계가 있어 작은 화면 변화·짧은 편집·일부 음성 교체를 놓칠 수 있습니다.</p>
             <p>일부 결과는 캐시를 사용하므로 모든 요청에서 등록 증거를 새로 조회하는 것은 아닙니다. <a href="/developers/api/verify">검증 API 상세 보기 →</a></p>
           </div>
         </details>
