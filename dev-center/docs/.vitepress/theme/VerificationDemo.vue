@@ -6,7 +6,7 @@ const examples = [
     id: 'exact', label: '같은 파일', file: '발표 영상.mp4', caption: '등록했던 파일을 그대로 전달한 경우',
     status: '파일 정확 일치', title: '등록 파일과 정확히 같아요.',
     description: '파일 전체의 디지털 지문이 같고, 등록 기록과 보증서도 유효한 경우입니다.',
-    scope: '파일 전체의 동일성', next: '공유하기 전에 등록자와 등록 시각도 살펴보세요. 공식 발표라면 기관의 공식 채널에서도 확인하세요. 파일 일치가 발표 권한이나 내용의 사실성을 보증하지는 않습니다.',
+    scope: '파일 전체의 동일성', next: '등록자와 등록 시각도 살펴보세요. 공식 발표라면 기관의 공식 채널에서도 확인하세요. 파일 일치가 발표 권한이나 내용의 사실성을 보증하지는 않습니다.',
     timeline: '등록 파일과 제출 파일 전체가 같은 예시입니다.',
   },
   {
@@ -62,7 +62,8 @@ const example = computed(() => examples.find(item => item.id === selected.value)
           <template v-if="selected !== 'missing'">
             <div><dt>등록자 · 예시</dt><dd>김진본</dd></div>
             <div><dt>등록 시각 · 예시</dt><dd>2026. 09. 01. 10:30</dd></div>
-            <div><dt>등록 기록 · 보증서</dt><dd>유효함 <span class="evidence-check" aria-hidden="true">✓</span></dd></div>
+            <div><dt>등록 기록</dt><dd>유효함 <span class="evidence-check" aria-hidden="true">✓</span></dd></div>
+            <div class="vc-row"><dt>디지털 보증서(VC)</dt><dd>유효 · 등록 정보 일치 <span class="evidence-check" aria-hidden="true">✓</span></dd></div>
           </template>
           <div v-else><dt>등록자 · 등록 시각</dt><dd>확인할 기록 없음</dd></div>
         </dl>
@@ -112,7 +113,9 @@ figcaption { font-size: 12px; line-height: 1.8; color: var(--jb-text-secondary);
 h3 { font-size: 25px; line-height: 1.5; letter-spacing: -.03em; font-weight: 700; margin: 16px 0 12px; }
 .result-description { font-size: 14px; line-height: 1.85; color: var(--jb-text-secondary); margin: 0; }
 .evidence { margin: 24px 0; border-top: 1px solid var(--jb-border); padding-top: 12px; }
-.evidence > div { display: flex; justify-content: space-between; gap: 18px; padding: 8px 0; font-size: 12px; line-height: 1.7; }
+.evidence > div { display: flex; justify-content: space-between; gap: 18px; padding: 8px 0; font-size: 13px; line-height: 1.7; }
+.evidence .vc-row { flex-wrap: wrap; gap: 4px 12px; margin-top: 10px; padding: 12px 14px; background: var(--jb-blue-light); border: 1px solid var(--jb-blue-border); border-radius: 9px; }
+.vc-row dd { color: var(--jb-blue); }
 dt { color: var(--jb-text-secondary); flex-shrink: 0; }
 dd { margin: 0; text-align: right; font-weight: 600; }
 .evidence-check { color: var(--jb-green); }

@@ -1,4 +1,5 @@
 import { defineConfig } from "vitepress";
+import { fileURLToPath } from "node:url";
 import markdownItMermaid from "./markdown-mermaid";
 
 // 카카오톡·슬랙 공유 카드와 canonical/OG 절대 URL의 기준입니다.
@@ -7,10 +8,18 @@ const OG_IMAGE = `${SITE_URL}/logo-full.png`;
 
 export default defineConfig({
   title: "진본",
-  description: "공유하기 전, 영상의 출처를 확인하세요. 진본에서 등록자와 등록 영상의 일치 여부를 확인합니다.",
+  description: "SNS에서 만난 영상, 출처와 진본 여부를 확인하세요. 사전에 등록된 영상을 기준으로 등록자·영상 일치 여부·디지털 보증서(VC)를 함께 확인합니다.",
   lang: "ko-KR",
   lastUpdated: true,
   cleanUrls: true,
+
+  vite: {
+    resolve: {
+      alias: [
+        { find: /^\.\/VPNavBarTitle\.vue$/, replacement: fileURLToPath(new URL("./theme/BrandTitle.vue", import.meta.url)) },
+      ],
+    },
+  },
 
   sitemap: { hostname: SITE_URL },
 
@@ -40,9 +49,9 @@ export default defineConfig({
       ? fm.titleTemplate === false
         ? pageTitle
         : `${pageTitle} | 진본`
-      : "진본 - 공유하기 전, 영상의 출처를 확인하세요.";
+      : "진본 - SNS 영상의 출처와 진본 여부를 확인하세요.";
     const description =
-      fm.description ?? "공유하기 전, 영상의 출처를 확인하세요. 진본에서 등록자와 등록 영상의 일치 여부를 확인합니다.";
+      fm.description ?? "SNS에서 만난 영상, 출처와 진본 여부를 확인하세요. 사전에 등록된 영상을 기준으로 등록자·영상 일치 여부·디지털 보증서(VC)를 함께 확인합니다.";
 
     // index.md -> "", developers/guide/introduction.md -> "developers/guide/introduction"
     const slug = pageData.relativePath
@@ -75,7 +84,6 @@ export default defineConfig({
       { text: "홈", link: "/" },
       { text: "사용 사례", link: "/use-cases" },
       { text: "검증 상태", link: "/verification-status" },
-      { text: "개발자 센터", link: "/developers/guide/introduction" },
       { text: "시작하기", link: "/downloads" },
     ],
 
@@ -177,7 +185,7 @@ export default defineConfig({
     },
 
     footer: {
-      message: "공유하기 전, 영상의 출처를 확인하세요.",
+      message: "SNS에서 만난 영상, 출처와 진본 여부를 확인하세요.",
       copyright: "진본 (JinBon)",
     },
 
