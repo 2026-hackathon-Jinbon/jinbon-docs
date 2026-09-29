@@ -3,7 +3,7 @@ import { computed, ref } from 'vue'
 
 const states = [
   {
-    id: 'complete', label: '진본 확인 완료', short: '진본 확인 완료', icon: '✓',
+    id: 'complete', label: '진본 확인', short: '진본 확인', icon: '✓',
     title: '영상과 등록 근거를\n함께 확인했어요.',
     description: '파일이 정확히 같거나 영상·음성 비교 기준을 통과했고, 등록 기록과 디지털 보증서(VC)도 유효한 상태입니다.',
     checks: [
@@ -16,60 +16,62 @@ const states = [
     link: '#methods', linkText: '두 가지 확인 방식 알아보기',
   },
   {
-    id: 'similar', label: '콘텐츠 유사 · 확인 보류', short: '콘텐츠 유사', icon: '!',
-    title: '비슷한 영상은 찾았지만,\n확인은 보류됐어요.',
-    description: '등록 후보는 찾았지만 영상·음성 비교 기준을 충족하지 못했거나, 비교할 정보가 부족한 상태입니다.',
+    id: 'mismatch', label: '원본 불일치', short: '원본 불일치', icon: '!',
+    title: '영상 또는 음성에서\n불일치가 확인됐어요.',
+    description: '영상·음성 비교 정보가 모두 있고, 비교 기준을 통과하지 못한 영상에서 화면 또는 음성의 불일치 구간이 확인된 결과입니다.',
     checks: [
-      { label: '영상 비교', value: '기준 미달 또는 비교 정보 부족', text: '일부 장면만 유사하거나, 음성 정보가 부족할 수 있어요.' },
-      { label: '등록 기록', value: '찾은 후보의 등록 정보', text: '표시된 등록자와 등록 시각은 비교 대상으로 찾은 후보의 정보예요.' },
-      { label: '디지털 보증서(VC)', value: '등록 후보의 보증서 확인', text: '후보의 보증서가 유효해도 제출 영상의 비교 기준 통과를 뜻하지는 않아요.' },
+      { label: '영상 비교', value: '영상·음성 중 불일치 구간 확인', text: '상세 메시지에서 화면과 음성 중 어느 쪽이 일치하지 않았는지 확인해 주세요.' },
+      { label: '등록 기록', value: '비교 대상으로 찾은 등록 영상의 정보', text: '표시된 등록자와 등록 시각은 비교 원본의 정보이며, 제출 영상이 진본이라는 뜻은 아니에요.' },
+      { label: '디지털 보증서(VC)', value: '등록 근거와 영상 비교는 별개', text: '비교 원본의 보증서가 유효해도 제출 영상의 비교 기준 통과를 뜻하지는 않아요.' },
     ],
-    nextTitle: '상세 사유와 대응 구간을 살펴보세요.',
-    next: '원 게시자나 공식 채널에서도 영상을 확인해 주세요. 이 결과만으로 영상의 조작이나 AI 생성 여부를 판단할 수는 없어요.',
+    nextTitle: '어떤 부분이 다른지 살펴보세요.',
+    next: '상세 메시지와 불일치 구간을 확인하고, 원 게시자나 공식 채널에서도 영상을 살펴보세요. 이 결과만으로 조작이나 AI 생성 여부를 확정할 수는 없어요.',
     link: '#examples', linkText: '상황별 결과 해석 보기',
   },
   {
-    id: 'unverified', label: '미인증', short: '미인증', icon: '−',
-    title: '등록 근거를\n확인하지 못했어요.',
-    description: '비교할 등록 기록이 없거나 등록이 비활성화됐을 수 있어요. 보증서가 없거나 유효하지 않은 경우에도 미인증으로 표시됩니다.',
+    id: 'missing', label: '등록 기록 없음', short: '등록 기록 없음', icon: '−',
+    title: '비교할 등록 영상을\n찾지 못했어요.',
+    description: '현재 비교에서 등록 영상이나 후보를 찾지 못한 결과입니다. 실제 미등록 외에 파일 변환이나 편집 등으로 후보 검색에 실패한 경우에도 표시될 수 있어요.',
     checks: [
-      { label: '영상 비교', value: '미인증만으로 일치 여부를 판단하지 않아요.', text: '파일이 같아도 등록 근거를 확인하지 못하면 진본 확인은 완료되지 않아요.' },
-      { label: '등록 기록', value: '등록 여부와 활성 상태 살펴보기', text: '기록을 찾지 못한 것인지, 찾은 등록이 비활성화된 것인지 구분해 주세요.' },
-      { label: '디지털 보증서(VC)', value: '발급·유효성·등록 정보 연결 살펴보기', text: '등록 기록이 있다면 보증서 미발급이나 무효가 사유인지 확인해 주세요.' },
+      { label: '영상 비교', value: '일치 여부를 확인할 비교 대상 없음', text: '이 결과만으로 가짜나 조작 영상이라고 판단할 수 없어요.' },
+      { label: '등록 기록', value: '현재 비교에서 등록 후보를 찾지 못함', text: '등록자와 등록 시각도 확인할 수 없어요. 등록 여부와 제출한 영상을 함께 살펴보세요.' },
+      { label: '디지털 보증서(VC)', value: '대조할 등록 보증서를 확인하지 못함', text: '등록 후보를 찾지 못한 결과이며, 보증서가 무효라고 판정한 것은 아니에요.' },
     ],
-    nextTitle: '아래에서 상세 사유를 구분해 보세요.',
-    next: '‘등록 기록 없음’은 가짜 영상이라는 뜻이 아닙니다. 등록자에게 등록 여부나 보증서 발급·연결 상태를 확인해 주세요.',
-    link: '/downloads', linkText: '등록·보증서 발급 과정 보기',
+    nextTitle: '등록 여부와 제출한 영상을 확인해 주세요.',
+    next: '원 게시자나 공식 채널에서 영상의 출처와 등록 여부를 살펴보세요. 등록된 영상이라면 등록에 사용한 파일로 다시 확인할 수 있어요.',
+    link: '/downloads', linkText: '영상 등록·이용 안내 보기',
   },
   {
-    id: 'unavailable', label: '현재 확인할 수 없음', short: '확인 불가', icon: '…',
-    title: '지금은 검증을\n완료할 수 없어요.',
-    description: '외부 서비스 연결 문제나 블록체인 등록 기록의 검증 문제로, 현재 판정을 완료하지 못한 상태입니다.',
+    id: 'unavailable', label: '확인 불가', short: '확인 불가', icon: '…',
+    title: '현재 결과로는\n진본 여부를 확인할 수 없어요.',
+    description: '비교 정보 부족, 비교 기준 미충족, 등록 비활성화, 보증서 문제 또는 외부 서비스 오류 등으로 진본을 확인할 수 없는 결과입니다.',
     checks: [
-      { label: '영상 비교', value: '최종 진본 여부를 판단할 수 없어요.', text: '비교 정보가 표시돼도 등록 근거 검증까지 완료된 것은 아니에요.' },
-      { label: '등록 기록', value: '연결 오류와 기록 불일치를 구분해요.', text: '일시적인 연결 문제인지, 등록 기록의 검증 문제인지 상세 사유를 살펴보세요.' },
-      { label: '디지털 보증서(VC)', value: '확인 실패를 무효로 단정하지 않아요.', text: '보증서 확인 서비스에 연결하지 못한 경우에도 확인 불가가 표시될 수 있어요.' },
+      { label: '영상 비교', value: '비교 정보와 상세 사유 확인', text: '비교 정보가 부족하거나, 불일치 구간이 표시되지 않아도 영상·음성의 대응 시점이나 순서가 맞지 않을 수 있어요.' },
+      { label: '등록 기록', value: '활성 상태·블록체인 확인 결과 살펴보기', text: '등록 비활성화, 일시적인 연결 오류, 블록체인 기록 불일치를 구분해 주세요.' },
+      { label: '디지털 보증서(VC)', value: '발급·유효성·등록 정보 연결 확인', text: '미발급·무효와 보증서 확인 서비스 연결 실패를 상세 사유로 구분해 주세요.' },
     ],
     nextTitle: '표시된 사유에 따라 다음 행동이 달라요.',
-    next: '일시적인 연결 오류는 잠시 후 다시 시도해 주세요. 등록 기록 불일치는 운영자 확인이 필요합니다. 이 상태가 자동 재검증 예약을 뜻하지는 않아요.',
+    next: '비교 정보가 부족하면 원본 파일로 다시 확인하고, 등록·보증서 문제는 등록자에게 확인해 주세요. 연결 오류는 잠시 후 재시도하고, 블록체인 기록 불일치는 운영자에게 확인해 주세요.',
     link: 'https://jinbon-web.vercel.app', linkText: '검증 화면으로 이동',
   },
 ]
 const selected = ref('complete')
 const state = computed(() => states.find(item => item.id === selected.value)!)
 const reasons = [
-  { title: '등록 기록 없음', text: '현재 비교에서 등록 후보를 찾지 못했어요. 등록 여부와 제출한 파일을 확인하고, 원 게시자나 공식 채널에서도 살펴보세요.' },
-  { title: '등록 비활성화', text: '찾은 등록의 사용이 중지된 상태예요. 기록 자체가 남아 있어도 검증 완료로 표시하지 않습니다. 등록자에게 활성 상태를 확인해 주세요.' },
-  { title: '보증서 없음', text: '영상 등록은 됐지만 디지털 보증서(VC)가 연결되지 않았어요. 등록자가 앱에서 발급·연결까지 마쳤는지 확인해야 합니다.' },
-  { title: '보증서 무효', text: '보증서가 유효하지 않거나 해당 영상의 등록 정보와 맞지 않아요. 등록자에게 보증서 상태와 등록 건의 연결을 확인해 주세요.' },
+  { title: '영상·음성 비교 정보 부족', text: '음성 트랙이 없거나 필요한 비교 정보를 만들지 못한 경우예요. 이때는 불일치를 확인했다고 표시하지 않습니다. 원본 파일로 다시 확인해 주세요.' },
+  { title: '대응 시점·순서 등 비교 기준 미충족', text: '불일치 구간이 표시되지 않아도 영상과 음성의 원본 대응 시점이나 순서가 맞지 않으면 진본으로 확인할 수 없어요. 상세 메시지를 확인해 주세요.' },
+  { title: '등록 비활성화', text: '찾은 등록의 사용이 중지된 상태예요. 기록 자체가 남아 있어도 진본으로 확인하지 않습니다. 등록자에게 활성 상태를 확인해 주세요.' },
+  { title: '보증서 미발급·무효', text: '보증서가 연결되지 않았거나 유효하지 않거나 해당 영상의 등록 정보와 맞지 않는 경우예요. 등록자에게 발급·연결 상태를 확인해 주세요.' },
+  { title: '외부 검증 서비스 연결 오류', text: '블록체인이나 보증서 확인 서비스에 연결하지 못한 경우예요. 잠시 후 다시 시도해 주세요. 자동 재검증이 예약된 상태는 아닙니다.' },
+  { title: '블록체인 기록 불일치', text: '등록 기록은 찾았지만 블록체인 무결성 검증을 통과하지 못한 경우예요. 운영자 확인이 필요합니다.' },
 ]
 const examples = [
-  { title: 'SNS에 올라가면서 해상도나 파일이 바뀌었어요.', text: '파일 지문이 달라지면 유사한 등록 후보를 찾고 장면·음성을 비교합니다. 비교 기준과 등록 기록·VC 검증을 모두 통과해야 진본 확인 완료로 표시됩니다.' },
+  { title: 'SNS에 올라가면서 해상도나 파일이 바뀌었어요.', text: '파일 지문이 달라지면 유사한 등록 후보를 찾고 장면·음성을 비교합니다. 비교 기준과 등록 기록·VC 검증을 모두 통과해야 진본 확인으로 표시됩니다.' },
   { title: '긴 영상에서 일부를 잘라 쇼츠로 만들었어요.', text: '후보 검색에 성공하고, 잘라낸 구간의 영상·음성이 등록 영상의 같은 시간대에 대응하며 비교 기준과 등록 근거 검증을 통과하면 확인될 수 있어요. 모든 짧은 영상을 찾는 것은 아니며, 생략된 앞뒤 맥락은 따로 살펴봐야 합니다.' },
   { title: '등록 파일을 그대로 확인했어요.', text: '파일 전체의 디지털 지문(SHA-256)이 같고 등록 기록과 보증서가 유효하면 파일 정확 일치로 확인돼요. 이 방식은 오디오가 없는 파일도 확인할 수 있습니다.' },
   { title: '음성을 바꾸거나 오디오를 제거했어요.', text: '파일이 다른 경우, 음성 비교 기준에 미달하거나 비교할 음성이 없으면 영상·음성 비교 경로로 승인하지 않습니다. 일부 음성 변경은 샘플 비교에서 놓칠 수 있으므로 모든 변경을 탐지한다는 뜻은 아니에요.' },
-  { title: '얼굴·입모양, 자막·로고, 장면을 바꿨어요.', text: '변경 내용이 비교 샘플에 반영되어 기준에 미달하면 확인을 보류합니다. 작은 변화나 짧은 편집은 놓칠 수 있으며, 불일치만으로 딥페이크나 편집 여부를 확정하지 않습니다.' },
-  { title: '영상이 일치하는데도 확인 완료가 아니에요.', text: '등록이 비활성화됐거나 디지털 보증서(VC)가 미발급·무효이면 완료로 표시하지 않습니다. 블록체인 기록이 남아 있어도 등록 상태와 보증서를 함께 확인해야 해요.' },
+  { title: '얼굴·입모양, 자막·로고, 장면을 바꿨어요.', text: '변경 내용이 비교 샘플에 반영되어 기준에 미달하면 진본으로 인증하지 않습니다. 작은 변화나 짧은 편집은 놓칠 수 있으며, 불일치만으로 딥페이크나 편집 여부를 확정하지 않습니다.' },
+  { title: '영상이 일치하는데도 진본 확인이 아니에요.', text: '등록이 비활성화됐거나 디지털 보증서(VC)가 미발급·무효이면 확인 불가로 표시됩니다. 블록체인 기록이 남아 있어도 등록 상태와 보증서를 함께 확인해야 해요.' },
   { title: 'SNS 링크의 영상을 가져오지 못했어요.', text: '로그인 요구나 접근 제한 등으로 영상을 가져오지 못하면 비교를 진행할 수 없어요. ‘등록 기록 없음’과는 다른 요청 오류입니다. 본인이 보유하고 검증에 사용할 권한이 있는 파일을 직접 올려 확인해 주세요.' },
 ]
 </script>
@@ -87,7 +89,7 @@ const examples = [
 
     <section id="states" class="section states-section" aria-labelledby="states-title">
       <div class="inner">
-        <div class="section-heading"><p class="eyebrow">결과 읽기</p><h2 id="states-title">받은 결과를 선택해 보세요.</h2><p class="intro">각 상태에서 확인된 범위와 다음에 할 일을 안내합니다.</p></div>
+        <div class="section-heading"><p class="eyebrow">결과 읽기</p><h2 id="states-title">받은 결과를 선택해 보세요.</h2><p class="intro">웹·카카오톡의 결과 제목을 기준으로, 확인된 범위와 다음에 할 일을 안내합니다.</p></div>
         <div class="state-selector" role="group" aria-label="의미를 살펴볼 검증 상태">
           <button v-for="item in states" :key="item.id" type="button" :class="item.id" :aria-pressed="selected === item.id" aria-controls="status-detail" @click="selected = item.id"><span class="selector-icon" aria-hidden="true">{{ item.icon }}</span><span>{{ item.short }}</span></button>
         </div>
@@ -98,11 +100,11 @@ const examples = [
           </div>
           <div class="state-checks"><p class="panel-label">결과에서 함께 읽을 근거</p><dl><div v-for="(check, index) in state.checks" :key="check.label"><dt><span aria-hidden="true">0{{ index + 1 }}</span>{{ check.label }}</dt><dd><strong>{{ check.value }}</strong><p>{{ check.text }}</p></dd></div></dl></div>
         </div>
-        <div v-if="selected === 'unverified'" class="reason-panel">
-          <h3>같은 ‘미인증’도 이유는 달라요.</h3>
+        <div v-if="selected === 'unavailable'" class="reason-panel">
+          <h3>같은 ‘확인 불가’도 이유는 달라요.</h3>
           <div class="reason-grid"><details v-for="reason in reasons" :key="reason.title"><summary>{{ reason.title }}<span aria-hidden="true">+</span></summary><p>{{ reason.text }}</p></details></div>
         </div>
-        <p class="section-note">이용 채널에 따라 ‘진본 확인 보류’, ‘등록 기록 없음’, ‘확인 중’처럼 문구가 다를 수 있어요. 상태와 함께 표시된 상세 사유를 확인해 주세요.</p>
+        <p class="section-note">같은 결과명이라도 상세 사유는 다를 수 있어요. 결과와 함께 표시된 영상·음성 비교 정보와 등록 근거를 확인해 주세요.</p>
       </div>
     </section>
 
@@ -146,8 +148,8 @@ const examples = [
         <details class="criteria-detail"><summary>영상·음성 비교의 상세 기준 보기<span aria-hidden="true">+</span></summary><div class="detail-body">
           <p>파일 전체의 지문(SHA-256)이 같으면 등록 근거 확인으로 넘어갑니다. 파일이 다르면 후보 검색 후 <strong>1초 간격 대표 프레임과 음성 지문</strong>을 비교해요. 모든 프레임을 검사하는 방식은 아닙니다.</p>
           <div class="thresholds"><div><span>영상 구간 일치율</span><strong>95% 이상</strong></div><div><span>음성 구간 일치율</span><strong>100%</strong></div></div>
-          <p><strong>이 수치는 판정 기준이며 정확도나 조작 탐지율이 아닙니다.</strong> 순서가 보존되고 영상·음성의 원본 대응 시점이 같아야 해요. 반복 장면 등으로 대응 시점이 다르면 확인을 보류합니다.</p>
-          <p>음성 100%는 모든 비교 구간의 지문이 허용 오차(해밍 거리 10 이하) 안에서 일치한다는 뜻이에요. 재압축된 영상도 통과할 수 있지만, 음질 저하 등으로 한 구간이라도 기준을 벗어나면 정상 영상도 미인증될 수 있습니다.</p>
+          <p><strong>이 수치는 판정 기준이며 정확도나 조작 탐지율이 아닙니다.</strong> 순서가 보존되고 영상·음성의 원본 대응 시점이 같아야 해요. 반복 장면 등으로 대응 시점이 다르면 진본으로 인증하지 않습니다.</p>
+          <p>음성 100%는 모든 비교 구간의 지문이 허용 오차(해밍 거리 10 이하) 안에서 일치한다는 뜻이에요. 재압축된 영상도 통과할 수 있지만, 음질 저하 등으로 한 구간이라도 기준을 벗어나면 정상 영상도 진본으로 확인되지 않을 수 있습니다.</p>
           <p>음성 비교 정보가 없으면 영상·음성 비교 경로로 승인하지 않습니다. 구간별 허용 오차와 샘플링의 한계로 작은 화면 변화·짧은 편집·일부 음성 교체를 놓칠 수 있어요.</p>
           <p>일부 결과는 캐시를 사용하므로 모든 요청에서 등록 근거를 새로 조회하는 것은 아닙니다.</p>
           <div class="detail-links"><a href="/verification-details#audio-verification">음성 비교의 네 단계 보기 <span aria-hidden="true">→</span></a><a href="/developers/api/verify">검증 API 상세 보기 <span aria-hidden="true">→</span></a></div>
@@ -193,8 +195,8 @@ h1 > span { color: var(--jb-blue); }
 .state-selector button:hover { background: var(--jb-bg-alt); }
 .state-selector button[aria-pressed="true"] { border-color: var(--jb-blue); color: var(--jb-ink); background: var(--jb-blue-light); box-shadow: inset 0 0 0 1px var(--jb-blue); }
 .complete { --status-ink: var(--jb-green); --status-bg: var(--jb-green-bg); }
-.similar { --status-ink: var(--jb-yellow); --status-bg: var(--jb-yellow-bg); }
-.unverified { --status-ink: var(--jb-neutral-fg); --status-bg: var(--jb-gray-bg); }
+.mismatch { --status-ink: var(--jb-yellow); --status-bg: var(--jb-yellow-bg); }
+.missing { --status-ink: var(--jb-neutral-fg); --status-bg: var(--jb-gray-bg); }
 .unavailable { --status-ink: var(--jb-blue); --status-bg: var(--jb-blue-light); }
 .selector-icon { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--status-bg); color: var(--status-ink); font-size: 13px; font-weight: 650; }
 .status-detail { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--jb-border); border-radius: 18px; overflow: hidden; }

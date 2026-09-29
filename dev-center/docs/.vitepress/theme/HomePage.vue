@@ -54,7 +54,7 @@ const faqs = [
               </div>
             </div>
             <div class="result-card">
-              <div class="result-top"><span class="result-icon" aria-hidden="true">✓</span><span>진본 확인 완료</span><span class="result-brand">진본</span></div>
+              <div class="result-top"><span class="result-icon" aria-hidden="true">✓</span><span>진본 확인</span><span class="result-brand">진본</span></div>
               <h2>등록 영상과 대응해요.</h2>
               <p class="comparison-label">영상·음성 비교 기준 통과</p>
               <div class="certificate-result"><span>디지털 보증서(VC)</span><strong><span aria-hidden="true">✓</span> 유효 · 등록 정보 일치</strong></div>
