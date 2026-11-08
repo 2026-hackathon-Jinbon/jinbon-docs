@@ -67,6 +67,22 @@ const faqs = [
       <div class="container hero-foot"><span>SNS 속 영상, 확인할 수 있는 근거부터.</span><a href="#what-to-check">진본 알아보기 <span aria-hidden="true">↓</span></a></div>
     </section>
 
+    <section id="videos" class="section videos-section" aria-labelledby="videos-title">
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow">영상으로 보는 진본</p><h2 id="videos-title">시연 영상과<br />팀 소개 영상</h2></div>
+        <div class="videos-grid">
+          <figure class="video-card">
+            <video controls playsinline preload="metadata" width="1920" height="1080"><source src="/videos/jinbon-demo.mp4#t=0.5" type="video/mp4" /><a href="/videos/jinbon-demo.mp4">시연 영상 보기</a></video>
+            <figcaption><strong>시연 영상</strong><span>01:54</span></figcaption>
+          </figure>
+          <figure class="video-card">
+            <video controls playsinline preload="metadata" width="1280" height="720"><source src="/videos/jinbon-team.mp4#t=0.5" type="video/mp4" /><a href="/videos/jinbon-team.mp4">팀 소개 영상 보기</a></video>
+            <figcaption><strong>팀 소개 영상</strong><span>00:20</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
     <section id="what-to-check" class="section" aria-labelledby="facts-title">
       <div class="container">
         <div class="section-heading"><p class="eyebrow">진본으로 확인하는 것</p><h2 id="facts-title">확인할 근거는<br />이 네 가지예요.</h2><p class="section-description">영상 비교 결과에 디지털 보증서(VC) 검증을 더해,<br class="desktop-break" /> 해당 영상의 등록 근거까지 확인합니다.</p></div>
@@ -200,6 +216,12 @@ const faqs = [
 .hero-foot { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-top: 62px; padding-block: 25px; border-top: 1px solid var(--jb-border); font-size: 12px; color: var(--jb-text-secondary); }
 .hero-foot a { display: inline-flex; align-items: center; gap: 16px; min-height: 32px; color: var(--jb-text); }
 .section { padding-block: 104px; scroll-margin-top: 84px; }
+.videos-section { padding-bottom: 24px; }
+.videos-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 20px; align-items: start; }
+.video-card video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; border-radius: 14px; background: #172942; border: 1px solid var(--jb-border); }
+.video-card figcaption { display: flex; justify-content: space-between; margin-top: 12px; font-size: 14px; color: var(--jb-text-secondary); }
+.video-card figcaption strong { color: var(--jb-text); font-weight: 650; }
+@media (max-width: 760px) { .videos-grid { grid-template-columns: 1fr; } }
 .section-heading { margin-bottom: 44px; }
 .section-heading .eyebrow, .understanding-copy .eyebrow { margin-bottom: 15px; }
 .facts-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
